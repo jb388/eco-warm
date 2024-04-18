@@ -1,0 +1,18 @@
+exp_name,heat_levels,heat_duration,heat_mtd_aboveGround,heat_mtd_belowGround,treatment_add_name,treatment_add_levels,treatment_add_date_i,treatment_add_date_f,sensors,heat_BG_date_i,heat_BG_date_f,heat_AG_date_i,heat_AG_date_f,heat_BG_cable_depth,heat_BG_rod_depth,heat_BG_pwr,heat_BG_sensor_depths,heat_AG_pwr,heat_AG_height,heat_AG_sensor_height,heat_notes,heat_BG_temp_sensor,heat_AG_temp_sensor,soil_moisture_depths,soil_moisture_sensor,flux_mtd,fluxes
+SWAMP,0; 2,growing season (may to september),IR,resistance rods,,,,,air temperature,4/27/21,,4/27/21,,,60,,2.5; 10; 20; 40; 60; 80; 100; 120,,150,10,AG heater sensors placed at 2.5 cm in soil,T-type thermocouples TX-FFRP Shanghai Kaixin Sensor Technology,WZP-231 Xincheng Electric Appliance,10; 20; 40; 60,5TM-EM50 Decagon,,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

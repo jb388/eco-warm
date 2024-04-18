@@ -1,0 +1,60 @@
+SWEDDIE Compilation Log 
+ 
+ 2024-04-03 12:54:05 
+ - - - - - - - - - - - - - - - 
+
+
+Compiling data files in siteData 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Compiling and checking site data...
+ACBB 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+Achenkirch 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+B4WarmED 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+Blodgett 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+CiPEHR 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+ForHot 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+HarvardForest 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+KAEFS 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+PtReyes 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+Sanming 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+SMARTX 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+SPRUCE 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+SWAMP 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+SWELTR 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+TEAM 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+TeRaCON 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 
+TRACE 
+	 site table names do not match template
+		Column names missing: country permafrost soil_depth 

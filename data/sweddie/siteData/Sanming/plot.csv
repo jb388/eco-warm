@@ -1,0 +1,43 @@
+exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_date_i,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
+TEAM,Chenda,CT_1,1,,,,,0,,,,
+TEAM,Chenda,W_1,1,,,,,5,,,,
+TEAM,Chenda,LN_1,1,,,,,0,N add,40,kg N ha-1 y-1,
+TEAM,Chenda,WLN_1,1,,,,,5,N add,40,kg N ha-1 y-1,
+TEAM,Chenda,HN_1,1,,,,,0,N add,80,kg N ha-1 y-1,
+TEAM,Chenda,WHN_1,1,,,,,5,N add,80,kg N ha-1 y-1,
+TEAM,Chenda,CT_2,2,,,,,0,,,,
+TEAM,Chenda,W_2,2,,,,,5,,,,
+TEAM,Chenda,LN_2,2,,,,,0,N add,40,kg N ha-1 y-1,
+TEAM,Chenda,WLN_2,2,,,,,5,N add,40,kg N ha-1 y-1,
+TEAM,Chenda,HN_2,2,,,,,0,N add,80,kg N ha-1 y-1,
+TEAM,Chenda,WHN_2,2,,,,,5,N add,80,kg N ha-1 y-1,
+TEAM,Chenda,CT_3,3,,,,,0,,,,
+TEAM,Chenda,W_3,3,,,,,5,,,,
+TEAM,Chenda,LN_3,3,,,,,0,N add,40,kg N ha-1 y-1,
+TEAM,Chenda,WLN_3,3,,,,,5,N add,40,kg N ha-1 y-1,
+TEAM,Chenda,HN_3,3,,,,,0,N add,80,kg N ha-1 y-1,
+TEAM,Chenda,WHN_3,3,,,,,5,N add,80,kg N ha-1 y-1,
+TEAM,Chenda,CT_4,4,,,,,0,,,,
+TEAM,Chenda,W_4,4,,,,,5,,,,
+TEAM,Chenda,LN_4,4,,,,,0,N add,40,kg N ha-1 y-1,
+TEAM,Chenda,WLN_4,4,,,,,5,N add,40,kg N ha-1 y-1,
+TEAM,Chenda,HN_4,4,,,,,0,N add,80,kg N ha-1 y-1,
+TEAM,Chenda,WHN_4,4,,,,,5,N add,80,kg N ha-1 y-1,
+TEAM,Chenda,CT_5,5,,,,,0,,,,
+TEAM,Chenda,W_5,5,,,,,5,,,,
+TEAM,Chenda,LN_5,5,,,,,0,N add,40,kg N ha-1 y-1,
+TEAM,Chenda,WLN_5,5,,,,,5,N add,40,kg N ha-1 y-1,
+TEAM,Chenda,HN_5,5,,,,,0,N add,80,kg N ha-1 y-1,
+TEAM,Chenda,WHN_5,5,,,,,5,N add,80,kg N ha-1 y-1,
+
+
+
+
+
+
+
+
+
+
+
+

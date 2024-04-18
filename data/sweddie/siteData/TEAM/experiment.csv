@@ -1,0 +1,18 @@
+exp_name,heat_levels,heat_duration,heat_mtd_aboveGround,heat_mtd_belowGround,treatment_add_name,treatment_add_levels,treatment_add_date_i,treatment_add_date_f,sensors,heat_BG_date_i,heat_BG_date_f,heat_AG_date_i,heat_AG_date_f,heat_BG_cable_depth,heat_BG_rod_depth,heat_BG_pwr,heat_BG_sensor_depths,heat_AG_pwr,heat_AG_height,heat_AG_sensor_height,heat_notes,heat_BG_temp_sensor,heat_AG_temp_sensor,soil_moisture_depths,soil_moisture_sensor,flux_mtd,fluxes
+TEAM,0; 4,year round,,resistance rods; resistance cable,,,,,,Jun-18,,,,5,120,,5; 10; 20; 30; 40; 60; 100,,,,,Delta-T,,10; 20; 30; 40; 60; 100,Delta-T,,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

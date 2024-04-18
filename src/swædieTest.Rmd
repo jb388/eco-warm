@@ -1,0 +1,448 @@
+---
+title: "swaedie_test"
+author: "J. Beem-Miller"
+date: "2024-03-08"
+output: html_document
+---
+
+```{r global_options, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
+                      fig.align = 'center', dev = c('cairo_pdf', 'png'))
+options(scipen = 5)
+# load read ess_dive fx
+source("./utilities/read_ess-dive.fx.R")
+```
+
+```{r setup, include = FALSE}
+library(ggplot2)
+library(tidyr)
+library(SoilR)
+library(openxlsx)
+library(ISRaD)
+library(lme4)
+library(lmerTest)
+library(emmeans)
+library(gt)
+library(scales)
+library(mpspline2)
+library(dplyr)
+library(lubridate)
+library(terra)
+library(tidyterra)
+```
+
+```{r utils}
+# add carriage return to .csv files (recursive by default)
+crAdd <- function(dataDir, ..) {
+  ls <- list.files(path = dataDir, pattern = ".csv$", recursive = TRUE, full.names = TRUE)
+  sapply(ls, function(file) write.table(
+    "", file = file, sep = ",", append = TRUE, quote = FALSE, col.names = FALSE, row.names = FALSE))
+}
+
+# print and append message to "outfile" if verbose == TRUE
+vcat <- function(..., append = TRUE) if (verbose) cat(..., file = outfile, append = append)
+
+# read meta data [currently just core data]
+readMeta <- function(metaDir, data = "core", return = "template") {
+  # get dir name as needed
+  if (missing(metaDir)) {
+    metaDir <- "../data/sweddie/metadata"
+  }
+  # create template list
+  ls <- list.files(metaDir, full.names = TRUE)
+  if (data == "core") {
+    ls <- ls[grep(paste(c("exp", "sit", "plt"), collapse = "|"), ls)]
+  }
+  meta <- lapply(
+    setNames(ls, nm = sub(pattern = "(.*)\\..*$", replacement = "\\1", basename(ls))),
+    read.csv)
+  if (return == "template" & data == "core") {
+    lapply(
+      setNames(meta, nm = c("experiment", "plot", "site")), function(x) {
+        setNames(data.frame(matrix(ncol = nrow(x), nrow = 0)), x[ , 1])
+      })
+  } else {
+    return(meta)
+  }
+}
+
+# checks column names
+checkColNms <- function(metadata, tableName, datIn, err, ...) {
+  
+  # check for template
+  if (missing(metadata)) metadata <- readMeta()
+  
+  # check tableNames
+  if (!names(datIn)[which(names(datIn) == tableName)] %in% names(metadata)[which(names(metadata) == tableName)])  {
+    err <- err + 1
+    vcat(warning(
+      paste("\t", names(datIn)[tableName], "is missing in data file\n")))
+  }
+  
+  # check for missing cols in data
+  miss <- setdiff(colnames(metadata[[tableName]]), colnames(datIn[[tableName]]))
+  
+  # check for extra cols in data
+  xtra <- setdiff(colnames(datIn[[tableName]]), colnames(metadata[[tableName]]))
+
+  if (length(miss) > 0 | length(xtra) > 0) {
+    err <- err + 1
+    vcat(warning(
+      paste("\t", names(datIn[tableName]), "table names do not match template\n")))
+    if (length(miss) > 0) vcat("\t\tColumn names missing:", miss, "\n")
+    if (length(xtra > 0)) vcat("\t\tColumn names extra:", xtra, "\n")
+  }
+  return(err)
+}
+
+siteMap <- function(database) {
+  # stopifnot(is_israd_database(database))
+
+  latlon <- database$site[, 3:4]
+  world <- map_data("world")
+  ggplot() +
+    geom_polygon(data = world, aes(x = .data$long, y = .data$lat, group = .data$group), fill = NA, color = "Black") +
+    geom_point(data = latlon, aes(x = .data$sit_long, y = .data$sit_lat), color = "red", size = 2, alpha = 0.5) +
+    theme_bw(base_size = 16) +
+    labs(title = "SWEDDIE: Site_Map", x = "Longitude", y = "Latitude")
+}
+```
+
+```{r sweddie-assemble}
+# function for assembling database
+DIR = "../data/sweddie"
+write_report = TRUE
+write_out = TRUE
+output_ext = c(".csv", ".rda")
+verbose = TRUE
+
+# Constants
+DB_DIR <- "database"
+S_DIR <- "siteData"
+LIST_FILE <- "coreData.rda"
+TIMESTAMP <- format(Sys.time(), "%y%m%d-%H%M") 
+  
+# Set output file
+outfile <- ""
+if (write_report) {
+  outfile <- file.path(DIR, DB_DIR, paste0("logs/coreLog", "_", TIMESTAMP, ".txt"))
+  file.create(outfile)
+}
+
+# Start writing in the output file
+vcat("SWEDDIE Compilation Log \n",
+     "\n", as.character(Sys.time()),
+     "\n", rep("-", 15), "\n")
+
+
+# Get the tables stored in the template sheets
+metadata <- readMeta()
+
+vcat("\n\nCompiling data files in", S_DIR, "\n", rep("-", 30), "\n")
+
+data_dirs <- list.dirs(file.path(DIR, S_DIR), full.names = TRUE, recursive = FALSE)
+if (!length(data_dirs)) {
+  vcat(warning("No data directories found!\n"))
+  return(NULL)
+}
+
+# ensure EOL carriage return present
+crAdd(file.path(DIR, S_DIR))
+
+vcat("Compiling and checking site data...\n")
+  #   pb <- txtProgressBar(min = 0, max = length(data_dirs), style = 3)
+  # }
+  # 
+  # check if previous database object exists in database directory, and only update file if new data exisit
+if (file.exists(file.path(DIR, DB_DIR, LIST_FILE))) {
+  
+  # load existing database
+  load(file.path(dataset_directory, DB_DIR, LIST_FILE)) # obj "coreDat"
+  
+  # convert to character and coerce to list of data frames
+  coreDat_chr <- lapplydf(lapply(coreData, function(x) lapply(x, as.character)))
+
+  # remove old version of ISRaD
+  rm(coreDat)
+
+  # Split each table by entry_name
+  coreDat_old <- lapply(coreDat_chr, function(x) split(x, x$exp_name))
+} else {
+  database <- metadata
+}
+
+# compile new templates and check against existing data
+for (d in seq_along(data_dirs)) {
+  
+  # get site name
+  site_nm <- basename(data_dirs[d])
+  
+  vcat(paste(site_nm, "\n"))
+  
+  # get tables
+  tbls <- list.files(data_dirs[d], full.names = TRUE)
+  
+  # check that required files are present
+  ix <- which(!names(metadata) %in% sub("\\..*", "", basename(tbls)))
+  if (length(ix) > 0) {
+    vcat(warning(
+      paste0(paste(names(metadata)[ix], collapse = ", "), 
+             " files not found for site ", site_nm, "!\n")))
+  } 
+  
+  # read files
+  datIn <- lapply(setNames(tbls, nm = sub("\\..*", "", basename(tbls))), read.csv)
+  
+  # check data fidelity against template
+  err <- 0
+  for (i in seq_along(datIn)) {
+    
+    # check column names
+    err <- checkColNms(metadata, names(datIn)[i], datIn, err)
+    
+    # check data types
+    
+    # check data values
+    
+    # bind to database
+    if (err == 0) database[[i]] <- rbind(database[[i]], datIn[[i]]) 
+  }
+}
+```
+
+```{r plots}
+# get KG data
+tifRaster <- terra::rast("/Users/jeff/Seafile/ISRaD_geospatial_data/Beck_KG_V1/Beck_KG_V1_present_0p5.tif")
+terra::crs(tifRaster) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
+ext <- terra::extract(tifRaster, cbind(database$site$sit_long, database$site$sit_lat))
+key.df <- data.frame(
+  utils::read.csv("/Users/jeff/Seafile/ISRaD_geospatial_data/ISRaD_extra_keys/KG_x_x_x_x_present.csv",
+                  stringsAsFactors = FALSE))
+database$site <- cbind(database$site, key.df[ext[ , 1], c(2,3)])
+
+newcols <- coltab(tifRaster)
+newcols[[1]][["alpha"]] <- 100
+lg <- newcols[[1]][2:31, ]
+lg <- cbind(lg, key.df[, 2:3])
+
+kg <- tifRaster
+coltab(kg) <- newcols
+lvls <- rbind(key.df[ , c(1, 2)], data.frame("ID" = seq(31, 255, 1), "pro_KG_present_short" = 0))
+lg.ch <- rgb(lg[,2:4], maxColorValue = 255)
+names(lg.ch) <- lg$pro_KG_present_short
+levels(kg) <- lvls
+
+# heat levels
+exp_hlvls <- separate_longer_delim(database$experiment, "heat_levels", ";")
+exp_hlvls$heat_levels <- as.numeric(exp_hlvls$heat_levels)
+plot_hlvl.df <- exp_hlvls[exp_hlvls$heat_levels != 0, ]
+hist(plot_hlvl.df$heat_levels, breaks = length(unique(exp_hlvls$heat_levels)))
+
+# heat mtd BG
+exp_hmtdB <- separate_longer_delim(database$experiment, "heat_mtd_belowGround", ";")
+
+# MAT & MAP
+exp.site <- database$experiment %>%
+  left_join(database$site, by = c("exp_name")) %>%
+  mutate(MAP.scaled = MAP / 10)
+
+ggplot(exp.site, aes(MAT, MAP, color = pro_KG_present_short)) +
+  geom_point(size = 4) +
+  scale_color_manual(name = "Köppen-Geiger Zone", 
+                     breaks = names(lg.ch), 
+                     values = lg.ch) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        legend.position = "none")
+
+# get stand along legend for KG
+lg.ch.long <- lg.ch
+names(lg.ch.long) <- lg$pro_KG_present_long
+kg.legend <- cowplot::get_legend(
+  exp.site %>%
+    mutate(pro_KG_present_long = factor(pro_KG_present_long, levels = names(lg.ch.long))) %>%
+    ggplot(., aes(MAT, MAP, color = pro_KG_present_long)) +
+    geom_point(size = 4) +
+    scale_color_manual(name = "Köppen-Geiger Zone", 
+                       breaks = names(lg.ch.long), 
+                       values = lg.ch.long, 
+                       drop = FALSE) +
+    theme_bw() +
+    theme(panel.grid = element_blank())
+)
+grid::grid.newpage()
+grid::grid.draw(kg.legend)
+
+ggplot(exp.site, aes(MAT, MAP, color = parent_material)) +
+  geom_point(size = 4) +
+  theme_bw() +
+  theme(panel.grid = element_blank()) 
+
+left_join(database$experiment, database$site, by = "exp_name", multiple = "first") %>%
+  mutate(biome = ifelse(grepl("tundra", biome), "tundra", 
+                        ifelse(grepl("peat", biome), "peatland",
+                               ifelse(grepl("grassland", biome), "grassland", biome))),
+         biome = reorder(biome, biome, function(x) -length(x))) %>%
+  ggplot(., aes(biome, fill = biome)) +
+  geom_bar() +
+  scale_fill_manual(
+    values = c("temperate forest" = "#97B669",
+               "grassland" = "#FCD57A",
+               "tundra" = "#C1E1DD",
+               "tropical forest" = "#317A22",
+               "boreal forest" = "#A5C790",
+               "peatland" = "#D16E3F",
+               "salt marsh" = "#db8d68",
+               "subtropical forest" = "#75A95E")) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+# Map
+latlon <- database$site[, 3:4]
+world <- map_data("world")
+ggplot() +
+  geom_polygon(data = world, aes(x = .data$long, y = .data$lat, group = .data$group), fill = NA, color = "Black") +
+  geom_point(data = latlon, aes(x = .data$sit_long, y = .data$sit_lat), color = "red", size = 3, alpha = 0.5) +
+  theme_bw(base_size = 16) +
+  labs(title = "SWEDDIE: Site_Map", x = "Longitude", y = "Latitude")
+
+# parse dates
+BG_i <- parse_date_time(exp.site$heat_BG_date_i, orders = c("%Y", "%m/%d/%y", "%m/%d/%Y", "%b-%y", "%d-%b"))
+AG_i <-  parse_date_time(exp.site$heat_AG_date_i, orders = c("%Y", "%m/%d/%y", "%m/%d/%Y", "%b-%y", "%d-%b"))
+dur.BG <- time_length(interval(BG_i, today()), "year")
+dur.AG <- time_length(interval(AG_i, today()), "year")
+
+exp.site$belowground <- dur.BG
+exp.site$aboveground <- dur.AG
+
+exp.site %>%
+  pivot_longer(cols = c(belowground, aboveground), 
+               names_to = "heating", 
+               values_to = "duration") %>%
+  arrange(desc(duration)) %>%
+  mutate(exp_name = ordered(exp_name, levels = unique(exp_name))) %>%
+  ggplot(., aes(duration, exp_name)) +
+  geom_point(aes(shape = heating), size = 4) +
+  scale_shape_manual(values = c("belowground" = 6, "aboveground" = 2)) +
+  theme_bw() +
+  theme(panel.grid = element_blank()) 
+```
+
+```{r tables}
+
+```
+
+```{r Blodgett-dat}
+# read file
+b_test <- read_ess.dive.fx("Blodgett")
+
+```
+
+# Test case: TeRaCON
+- three data streams
+  1) "sentek": VWC, salinity, and temperature at 15 min intervals for roughly 5 years
+  2) "temp": temp 
+  3) "tdr": soil moisture from TDR sensors
+
+```{r TeRaCON-dat}
+# # read data files, save as uncompressed RDS for fast loading
+# sentek <- read.csv("../data/raw/TeRaCON/sentek2019_2023 data for distribution.csv")
+# saveRDS(sentek, "../data/raw/TeRaCON/rds/sentek.rds", compress = FALSE)
+# temp <- read.csv("../data/raw/TeRaCON/Temperature 2019-2023 data for distribution.csv", na.strings = "NAN")
+# saveRDS(temp, "../data/raw/TeRaCON/rds/temp.rds", compress = FALSE)
+# tdr <- read.csv("../data/raw/TeRaCON/TDR 2019-2023 data for distribution.csv")
+# saveRDS(tdr, "../data/raw/TeRaCON/rds/tdr.rds", compress = FALSE)
+readRDS("../data/raw/TeRaCON/rds/sentek.rds")
+readRDS("../data/raw/TeRaCON/rds/temp.rds")
+readRDS("../data/raw/TeRaCON/rds/tdr.rds")
+
+plt.info <- read.xlsx("../data/raw/TeRaCON/Plot table.xlsx", sheet = 1)
+sns.info <- read.xlsx("../data/raw/TeRaCON/Plot table.xlsx", sheet = 4, cols = 1:5)
+metadata <- read.csv("../data/raw/TeRaCON/metadata/metadata.csv")
+```
+
+```{r Blodgett-dat}
+# read data files, save as uncompressed RDS for fast loading
+tempBlg <- read.csv("../data/raw/Blodgett/rds/tempMoist/20240125_processed Blodgett soil temperature.csv", na.strings = "NAN")
+saveRDS(tempBlg, "../data/raw/Blodgett/tempMoist/rds/20240125_processed Blodgett soil temperature.rds", compress = FALSE)
+moistBlg <- read.csv("../data/raw/Blodgett/rds/tempMoist/20240125_processed Blodgett soil moisture.csv", na.strings = "NAN")
+saveRDS(moistBlg, "../data/raw/Blodgett/tempMoist/rds/20240125_processed Blodgett soil moisture.rds", compress = FALSE)
+```
+
+```{r convert-to-ts}
+# explore ts
+temp2 <- temp
+temp2$TIMESTAMP <- mdy_hm(temp2$TIMESTAMP, tz = "America/Chicago")
+sns.info$Sensor.name <- gsub("[)]", ".", gsub("[(]", ".", sns.info$Sensor.name))
+metadata$sensor_ID <- gsub("[)]", ".", gsub("[(]", ".", metadata$sensor_ID))
+
+# note that day light savings time causes conversion issue! e.g., 3/10/2019 2:00 through 3/10/2019 2:45 should not exist
+ix <- which(is.na(temp2$TIMESTAMP))
+
+# plot
+dmean.temp.long <- pivot_longer(temp2, cols = 7:26, names_to = "sensor_ID", values_to = "temp")
+dmean.temp.long <- left_join(
+  dmean.temp.long,
+  metadata[ , c("sensor_ID", "sensor_type", "sensor_depth")], 
+  by = c("sensor_ID"))
+dmean.temp.long %>%
+  filter()
+  ggplot(., aes())
+
+temp2 <- temp2[-ix, ]
+temp.ts <- xts(temp2, temp2$TIMESTAMP)
+
+# calculate daily mean for different sensors
+dmean.temp <- apply.daily(temp.ts[ , 7:26], mean, na.rm = TRUE)
+
+
+# duplicates?
+ix <- which(!duplicated(temp2$TIMESTAMP))
+plot(temp2$TIMESTAMP[ix], temp2$Temp_T_Avg.1.[ix])
+
+iix <- which(duplicated(temp2$TIMESTAMP)) # all NA...
+t1 <- which(duplicated(temp2$Temp_T_Avg.1.[iix]))
+```
+
+# General Workflow
+
+How to assemble data files in an efficient manner? 
+Do we need metadata from the files for efficient querying, which can then be used to retrieve the data?
+How to do this?
+
+For example, time intervals, depth intervals, data types. 
+
+How do we organize/categorize sensor data?
+
+Needs:
+- standardized date/time format
+- time series frequency detection tool? gap ID tool, etc.
+- report time series
+
+Need *annotation* tables
+- these tables that are used for keyed translation
+- header row consists of:
+  1) "table_id"
+  - describes contents of input data, e.g., "TeRaCON_temp_ts" (do we want naming conventions here?)
+  2) "column_id"
+  - names of columns in input data, e.g., `r names(temp)`
+  3) "of_variable"
+  - names of target variables in database, e.g., "temperature"
+  4) "is_type"
+  - decription of the type of data contained in column named by "column_id", e.g., `r names(temp)[1]` = "timestamp", `r names(temp)[2]` = "sensorID", `r names(temp)[7]` = "value"
+  5) "with_entry"
+  - flag for whether "column_id" values correspond to names in database, i.e., 
+  - if("column_id" == "of_variable") do nothing else replace "column_id" with "of_variable" and "is_type"
+  
+Need to convert raw data into *shoestring* tuples
+- these are an intermediate format for the data that is in "long" format to facilitate joins with the annotation table
+- table names include: "table_id", "row_number", "column_id", "with_entry"
+- workflow is as follows:
+1) use `plyr::ldply` function to transform original data tables, giving each row a unique index
+3) pivot the data longer, preserving row indices to allow grouping the data on the original rows
+4) set the "table_id" column to the appropriate table name
+5) join long data with annotation table by variables "table_id" and "column_id"
+
+
+

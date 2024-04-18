@@ -1,0 +1,21 @@
+exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_date_i,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
+CiPEHR,Eight Mile Lake,winterWarm_1,,1,,,2009,3,,,,
+CiPEHR,Eight Mile Lake,winterWarm_summerWarm_1,,1,,,2009,3,,,,
+CiPEHR,Eight Mile Lake,winterWarm_2,,2,,,2009,3,,,,
+CiPEHR,Eight Mile Lake,winterWarm_summerWarm_2,,2,,,2009,3,,,,
+CiPEHR,Eight Mile Lake,control_1,,1,,,2009,0,,,,
+CiPEHR,Eight Mile Lake,control_summerWarm_1,,1,,,2009,0,,,,
+CiPEHR,Eight Mile Lake,control_2,,2,,,2009,0,,,,
+CiPEHR,Eight Mile Lake,control_summerWarm_1,,2,,,2009,0,,,,
+
+
+
+
+
+
+
+
+
+
+
+

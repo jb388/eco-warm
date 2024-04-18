@@ -1,0 +1,26 @@
+SWEDDIE Compilation Log 
+ 
+ 2024-04-03 13:23:49 
+ - - - - - - - - - - - - - - - 
+
+
+Compiling data files in siteData 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Compiling and checking site data...
+ACBB 
+Achenkirch 
+B4WarmED 
+Blodgett 
+CiPEHR 
+ForHot 
+HarvardForest 
+KAEFS 
+PtReyes 
+Sanming 
+SMARTX 
+SPRUCE 
+SWAMP 
+SWELTR 
+TEAM 
+TeRaCON 
+TRACE 

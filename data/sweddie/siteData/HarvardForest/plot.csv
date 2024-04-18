@@ -1,0 +1,31 @@
+exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_date_i,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
+Harvard Forest,Harvard warming,control_1,1,,,,,0,,,,
+Harvard Forest,Harvard warming,disturbance control_1,1,,,,,0,,,,
+Harvard Forest,Harvard warming,heated_1,1,,,,,5,,,,
+Harvard Forest,Harvard warming,control_2,2,,,,,0,,,,
+Harvard Forest,Harvard warming,disturbance control_2,2,,,,,0,,,,
+Harvard Forest,Harvard warming,heated_2,2,,,,,5,,,,
+Harvard Forest,Harvard warming,control_3,3,,,,,0,,,,
+Harvard Forest,Harvard warming,disturbance control_3,3,,,,,0,,,,
+Harvard Forest,Harvard warming,heated_3,3,,,,,5,,,,
+Harvard Forest,Harvard warming,control_4,4,,,,,0,,,,
+Harvard Forest,Harvard warming,disturbance control_4,4,,,,,0,,,,
+Harvard Forest,Harvard warming,heated_4,4,,,,,5,,,,
+Harvard Forest,Harvard warming,control_5,5,,,,,0,,,,
+Harvard Forest,Harvard warming,disturbance control_5,5,,,,,0,,,,
+Harvard Forest,Harvard warming,heated_5,5,,,,,5,,,,
+Harvard Forest,Harvard warming,control_6,6,,,,,0,,,,
+Harvard Forest,Harvard warming,disturbance control_6,6,,,,,0,,,,
+Harvard Forest,Harvard warming,heated_6,6,,,,,5,,,,
+
+
+
+
+
+
+
+
+
+
+
+

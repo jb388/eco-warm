@@ -1,0 +1,2 @@
+exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAP,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
+Hawaii,LyonArb,21.333,-157.8015,WGS84,150,25.6,4200,tropical forest,,,,18,,USDA,Typic Hapludands,igneous pyroclastic,,,,United States of America,,
