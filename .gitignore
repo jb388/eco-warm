@@ -6,5 +6,7 @@
 .RData
 .Ruserdata
 .Rapp.history
+##ignore excel temp files
+~$*
 # Folders
 /data/raw
