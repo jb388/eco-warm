@@ -51,7 +51,7 @@ readMeta <- function(metaDir, data = "core", return = "template") {
   # create template list
   ls <- list.files(metaDir, full.names = TRUE)
   if (data == "core") {
-    ls <- ls[grep(paste(c("exp", "sit", "plt"), collapse = "|"), ls)]
+    ls <- ls[grep(paste(c("expMeta", "sitMeta", "pltMeta"), collapse = "|"), ls)]
   }
   meta <- lapply(
     setNames(ls, nm = sub(pattern = "(.*)\\..*$", replacement = "\\1", basename(ls))),
@@ -368,6 +368,13 @@ tempBlg <- read.csv("../data/raw/Blodgett/rds/tempMoist/20240125_processed Blodg
 saveRDS(tempBlg, "../data/raw/Blodgett/tempMoist/rds/20240125_processed Blodgett soil temperature.rds", compress = FALSE)
 moistBlg <- read.csv("../data/raw/Blodgett/rds/tempMoist/20240125_processed Blodgett soil moisture.csv", na.strings = "NAN")
 saveRDS(moistBlg, "../data/raw/Blodgett/tempMoist/rds/20240125_processed Blodgett soil moisture.rds", compress = FALSE)
+```
+
+```{r CiPEHR-dat}
+# read data files, save as uncompressed RDS for fast loading
+tmp_mstCpr <- read.csv("../data/raw/CiPEHR/flux_hh.csv")
+
+saveRDS(tmp_mstCpr, "../data/raw/Blodgett/tempMoist/rds/20240125_processed Blodgett soil temperature.rds", compress = FALSE)
 ```
 
 ```{r convert-to-ts}

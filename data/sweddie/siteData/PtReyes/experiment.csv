@@ -2,3 +2,5 @@ exp_name,heat_levels,heat_duration,heat_mtd_aboveGround,heat_mtd_belowGround,tre
 PtReyes,0; 4,year-round,,resistance rods; resistance cables,,,,,surface respiration; temperature; moisture; gas well,,,,,5,240,,5; 15; 30; 50; 75; 100,,,,,Omega 44005 thermistor,,10; 30; 50; 90,enviroSCAN capacitance,autochamber; CRDS,CO2
 
 
+
+

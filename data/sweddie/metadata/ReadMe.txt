@@ -7,6 +7,7 @@ We have also provided template tables ('datHeatTS_template', 'datHeatTS_ann_temp
 Notes:
 1) measurement data (active heating timeseries, temperature, moisture, CO2 fluxes, etc.) are linked to core tables via the 'exp_name', 'sit_name', and 'plt_name' variables
 2) for multiple entries within a single cell, please separate with ";" (semicolon) and no spaces
+3) Missing data values preferably "NA". Please specify missing data values, not a number values (e.g., "NAN"), etc., in the "dat" metadata files/annotation files
 
 More information about the database is available here.
 

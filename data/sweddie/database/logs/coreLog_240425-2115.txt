@@ -1,0 +1,209 @@
+SWEDDIE Compilation Log 
+ 
+ 2024-04-25 21:15:41 
+ - - - - - - - - - - - - - - - 
+
+
+Compiling data files in siteData 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Compiling and checking site data...
+ACBB 
+NA, NA files not found for site ACBB!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope aspect soil_drainage soil_texture_class soil_taxon_sys soil_taxon parent_material site_notes country permafrost soil_depth 
+Achenkirch 
+NA, NA files not found for site Achenkirch!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 
+B4WarmED 
+NA, NA files not found for site B4WarmED!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 
+Blodgett 
+NA, NA files not found for site Blodgett!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 
+CiPEHR 
+NA, NA files not found for site CiPEHR!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope aspect soil_drainage soil_taxon_sys soil_taxon parent_material soil_texture_class site_notes country permafrost soil_depth 
+ForHot 
+NA, NA files not found for site ForHot!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation site_notes MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon soil_texture_class parent_material aspect country permafrost soil_depth 
+HarvardForest 
+NA, NA files not found for site HarvardForest!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material site_notes aspect soil_texture_class country permafrost soil_depth 
+KAEFS 
+NA, NA files not found for site KAEFS!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 
+LyonHI 
+NA, NA files not found for site LyonHI!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 
+MERIT 
+NA, NA files not found for site MERIT!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 
+PtReyes 
+NA, NA files not found for site PtReyes!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 
+Sanming 
+NA, NA files not found for site Sanming!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 
+SMARTX 
+NA, NA files not found for site SMARTX!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 
+SPRUCE 
+NA, NA files not found for site SPRUCE!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 
+Stillberg 
+NA, NA files not found for site Stillberg!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 
+SWAMP 
+NA, NA files not found for site SWAMP!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 
+SWELTR 
+NA, NA files not found for site SWELTR!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation site_notes MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class country permafrost soil_depth 
+TEAM 
+NA, NA files not found for site TEAM!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 
+TeRaCON 
+NA, NA files not found for site TeRaCON!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 
+TRACE 
+NA, NA files not found for site TRACE!
+	 experiment table names do not match template
+		Column names extra: exp_name heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+	 plot table names do not match template
+		Column names missing: heat_levels heat_duration heat_mtd_aboveGround heat_mtd_belowGround treatment_add_name treatment_add_levels treatment_add_date_i treatment_add_date_f sensors heat_BG_date_i heat_BG_date_f heat_AG_date_i heat_AG_date_f heat_BG_cable_depth heat_BG_rod_depth heat_BG_pwr heat_BG_sensor_depths heat_AG_pwr heat_AG_height heat_AG_sensor_height heat_notes heat_BG_temp_sensor heat_AG_temp_sensor soil_moisture_depths soil_moisture_sensor flux_mtd fluxes 
+		Column names extra: sit_name plt_name plt_block plt_rep plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units plt_notes 
+	 site table names do not match template
+		Column names missing: plt_name plt_block plt_rep plt_notes plt_lat plt_long plt_date_i plt_heat_level plt_treat_add_name plt_treat_add_level plt_treat_add_units 
+		Column names extra: sit_lat sit_long datum elevation MAT MAP biome leafPheno species landscape_position slope soil_drainage soil_taxon_sys soil_taxon parent_material aspect soil_texture_class site_notes country permafrost soil_depth 

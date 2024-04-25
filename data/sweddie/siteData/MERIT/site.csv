@@ -1,2 +1,4 @@
 exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAP,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
 MERIT,HamburgerHallit,54.60186111,8.815944444,WGS84,0,10.2,1047.6,salt marsh,,Spartina anglica;Salicornia europaea;Puccinellia maritima;Atriplex portulacoides;Limonium vulgare;Elymus athericus,,0,very poorly drained,WRB,gleysols,sedimentary-clastics,,,Three successive ecosystem zones w/ dif species assemblages and inundation levels: pioneer; low marsh; and high marsh,Germany,,
+
+

@@ -2,3 +2,5 @@ exp_name,heat_levels,heat_duration,heat_mtd_aboveGround,heat_mtd_belowGround,tre
 SPRUCE,0; 2.25; 4.5; 6.75; 9,year round,hot air,resistance cables; resistance rods,elevated CO2,900 ppm CO2 (+500 ppm),,,air temperature; relative humidity; soil temperature; PAR; short wave solar rad; long wave solar rad; soil moisture,`8/1/2015,,,,,300,,-20; -10; 0; 5; 10; 20; 30; 40; 50; 100; 200,,,,,,,-20; 0,capacitance/frequency domain sensor 10HS Decagon Devices,,
 
 
+
+
