@@ -353,13 +353,18 @@ b_test <- read_ess.dive.fx("Blodgett")
 # saveRDS(temp, "../data/raw/TeRaCON/rds/temp.rds", compress = FALSE)
 # tdr <- read.csv("../data/raw/TeRaCON/TDR 2019-2023 data for distribution.csv")
 # saveRDS(tdr, "../data/raw/TeRaCON/rds/tdr.rds", compress = FALSE)
-readRDS("../data/raw/TeRaCON/rds/sentek.rds")
-readRDS("../data/raw/TeRaCON/rds/temp.rds")
-readRDS("../data/raw/TeRaCON/rds/tdr.rds")
+sentek <- readRDS("../data/raw/TeRaCON/rds/sentek.rds")
+temp <- readRDS("../data/raw/TeRaCON/rds/temp.rds")
+tdr <- readRDS("../data/raw/TeRaCON/rds/tdr.rds")
 
 plt.info <- read.xlsx("../data/raw/TeRaCON/Plot table.xlsx", sheet = 1)
 sns.info <- read.xlsx("../data/raw/TeRaCON/Plot table.xlsx", sheet = 4, cols = 1:5)
 metadata <- read.csv("../data/raw/TeRaCON/metadata/metadata.csv")
+```
+
+```{r TeRaCON-dd-FLMD}
+sentek_flmd <- data.frame()
+sentek_dd <- data.frame()
 ```
 
 ```{r Blodgett-dat}

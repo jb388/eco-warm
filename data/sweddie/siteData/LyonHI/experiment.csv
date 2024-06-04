@@ -2,3 +2,4 @@ exp_name,heat_levels,heat_duration,heat_mtd_aboveGround,heat_mtd_belowGround,tre
 Hawaii,0;4,year round,,resistance rods,,,,,aboveground temperature;belowground temperature;water table;precipitation;wind speed;wind direction;relative air humidity;net solar radiation;PAR;,2018,2020,,,,100,,20;40;60;80;100,,,,heating designed as gradient across plots with maximum of +4C,,,20;40;60;80;100,,,
 
 
+
