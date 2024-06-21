@@ -40,8 +40,11 @@ Useful components to adapt:
       - Missing_Value_Codes
       - Data_Orientation
       - Notes
+<<<<<<< HEAD
 
 
   Adapted to SWEDDIE:
   - each data file will be accompanied by a data dictionary file (dat_dd.csv)
   - the data dictionary file only exists to
+=======
+>>>>>>> 2d4f4df05fd6676cf51e9df2a9921246f8c27f58
