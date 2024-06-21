@@ -1,1 +1,1 @@
-colName,colNameExt,description,unit,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTop,depthBottom
+colName,description,unit,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
