@@ -3,14 +3,17 @@ Data Dictionary File Guide
 
 Data dictionary files (*_dd.csv) provide information about the data types, methodologies, and sensors used for each variable in a data file. Each submitted data file, e.g., "dat.csv", must be accompanied by a data dictionary file using the naming convention of the file name followed by "_dd", e.g., "dat_dd.csv". Horizontal data orientation is preferred, but vertical orientation is acceptable.  Data dictionary files contain the following columns (* indicates a column is REQUIRED):
 
+*"fileName"
+- provide the name of the submitted data file (e.g, "datTemplate.csv"). Suggested naming convention is to replace "Template" with a short descriptor of the data, e.g., "datCO2flx.csv", etc.
+
 *"colName"
-- provide the names of each column in the accompanying "dat.csv" file
+- provide the names of each column in the submitted data file, e.g., "ecoFlx" for ecosystem CO2 flux measurements, etc.
 
 *"description"
-- provide an extended description of the data in the column. For example, for CO2 flux data entered with colName equal to "ecoFlx", colNameExt could be, "CO2 concentration of ecosystem respiration flux from static chambers".
+- provide an extended description of the data in the named column. For example, for CO2 flux data entered with colName equal to "ecoFlx", the description could be, "CO2 concentration of ecosystem respiration flux from static chambers".
 
 *"unit"
-- give units for data. SI units preferred. Use negative exponents to represent denominator values, e.g., "g cm^-3" rather than "g/cm3".
+- give units for data. SI units preferred. Use negative exponents to represent denominator values, e.g., "g CO2 m^-2 d-1" rather than "g/cm3".
 
 *"dataType"
 - what kind of data is in the column? Possible values include: numeric, string (text), date, etc.
