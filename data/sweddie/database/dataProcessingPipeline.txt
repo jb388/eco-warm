@@ -1,0 +1,40 @@
+This document provides an overview of the SWEDDIE data processing pipeline. This is an evolving document.
+
+Steps:
+1. Data sent from provider
+  - data file guidelines:
+    - measurement data (active heating time series, temperature, moisture, CO2 fluxes, etc.) are linked to core tables via the 'exp_name', 'sit_name', and 'plt_name' variables
+    - all data must be able to be associated with one of the plot IDs (column 'plt_name') given in the "plot" table
+    - depth data must be provided in the data file itself or in the data dictionary file (see below)
+    - horizontal data orientation is preferred
+  2) for multiple entries within a single cell, please separate with ";" (semicolon) and no spaces
+  3) Missing data values preferably "NA". Please specify missing data values, not a number values (e.g., "NAN"), etc., in the file level metadata questionnaire
+
+2. Check that each data file is accompanied by:
+  a) metadata file
+    - can be generated via the "SWEDDIE Data Submission" google form
+    - can be provided by filling out a template
+    - follow the ESS-DIVE "file level metadata" standard
+
+  b) data dictionary file
+    - formerly known as an "annotation file"
+    - data dictionary (dd) files are based on the "CSV_dd" guidelines from ESS-DIVE, which contain the following columns:
+      - Column_or_Row_Name
+      - Unit
+      - Definition
+      - Column_or_Row_Long_Name
+      - Data_Type
+    - SWEDDIE dd files follow slightly different naming conventions and contain additional columns to capture sensor and method information:
+      - colName
+      - colNameExt
+      - description
+      - unit
+      - dataType
+      - sensorMakeModel
+      - methodName
+      - methodNotes
+      - methodDOI
+      - depthTop
+      - depthBottom
+
+  3. 

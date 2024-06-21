@@ -1,0 +1,47 @@
+Notes on ESS-DIVE formats/workflow
+
+Useful components to adapt:
+1. CSV standards
+  - gives guidance for file structure, naming structure, and field structure of data files
+    - in SWEDDIE, all .csv files must be paired with a '_dd.csv' file (see below)
+    - ESS-DIVE allows alternative formating of .csv files in which, e.g., the second row contains units or descriptions, but with SWEDDIE we will store this information in a separate file
+  - akin to my plan, .csv files are accompanied by a data dictionary file (CSV_dd.csv), which provides metadata for parsing (this is essentially the same as the annotation file)
+    - the '_dd' files would replace the 'xxxMeta' files
+  - CSV_dd column names (see 'csv_detailed_guide.md' for more info):
+    - Column_or_Row_Name
+    - Unit
+    - Definition
+    - Column_or_Row_Long_Name
+    - Data_Type
+
+2. File level metadata
+  - FLMD provides the necessary metadata to ingest a dataset into ESS-dive
+    - these files pertain to the 'dat' files, i.e., all 'dat' files will be paired with an accompanying 'flmd' file
+  - the FLMD format covers most (all?) of the metadata characteristics needed for SWEDDIE as well
+    - note that this information is not currently captured in SWEDDIE
+  - FLMD files can be parsed with off-the-shelf code that converts the data into JSON-LD format, which in turn is converted into preferred ESS-DIVE file types (e.g., EML)
+  - the conversion process uses the ESS-DIVE dataset REST API
+    - in R, required packages are httr, jsonlite, readr
+  - column names (see 'flmd_quick_guide.md' for more info):
+      - File_Name
+      - File_Description
+      - Standard
+      - UTC_Offset
+      - File_Version
+      - Contact
+      - Date_Start
+      - Date_End
+      - Northwest_Latitude_Coordinate
+      - Northwest_Longitude_Coordinate
+      - Southeast_Latitude_Coordinate
+      - Southeast_Longitude_Coordinate
+      - Latitude
+      - Longitude
+      - Missing_Value_Codes
+      - Data_Orientation
+      - Notes
+
+
+  Adapted to SWEDDIE:
+  - each data file will be accompanied by a data dictionary file (dat_dd.csv)
+  - the data dictionary file only exists to

@@ -3,7 +3,7 @@
 ##ignore R files
 .Rproj.user
 .Rhistory
-.RData
+.RData*
 .Ruserdata
 .Rapp.history
 ##ignore excel temp files
