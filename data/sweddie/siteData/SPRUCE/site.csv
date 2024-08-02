@@ -1,9 +1,5 @@
-exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAP,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
-SPRUCE,S1,47.50793333,-93.4527,,418,3.3,768,ombrotrophic peatland,evergreen,Picea mariana; Larix laricina; Sphagnum spp.,,,very poorly drained,USDA,Typic Haplohemist,lacustrine sediment,,,,,,
-
-
-
-
+exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAT_refPeriod,MAP,MAP_refPeriod,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
+SPRUCE,S1,47.50793333,-93.4527,,418,3.3,,768,,ombrotrophic peatland,evergreen,Picea mariana; Larix laricina; Sphagnum spp.,,,very poorly drained,USDA,Typic Haplohemist,lacustrine sediment,,,,,,
 
 
 

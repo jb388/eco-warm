@@ -1,9 +1,5 @@
-exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAP,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
-Sanming,Chenda,26.33194444,117.6147222,,300,19.1,1750,subtropical forest,,Cunninghamia spp.,,,well drained,USDA,Oxisol,igneous intrusive (granite),,,,,,
-
-
-
-
+exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAT_refPeriod,MAP,MAP_refPeriod,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
+Sanming,Chenda,26.33194444,117.6147222,,300,19.1,,1750,,subtropical forest,,Cunninghamia spp.,,,well drained,USDA,Oxisol,igneous intrusive (granite),,,,,,
 
 
 

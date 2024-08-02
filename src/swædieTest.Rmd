@@ -42,27 +42,27 @@ crAdd <- function(dataDir, ..) {
 # print and append message to "outfile" if verbose == TRUE
 vcat <- function(..., append = TRUE) if (verbose) cat(..., file = outfile, append = append)
 
-# read meta data [currently just core data]
-readMeta <- function(metaDir, data = "core", return = "template") {
+# read core data
+readCore <- function(coreDir, return = "template") {
   # get dir name as needed
-  if (missing(metaDir)) {
-    metaDir <- "../data/sweddie/metadata"
+  if (missing(coreDir)) {
+    coreDir <- "../data/sweddie/metadata/core"
   }
   # create template list
-  ls <- list.files(metaDir, full.names = TRUE)
-  if (data == "core") {
-    ls <- ls[grep(paste(c("expMeta", "sitMeta", "pltMeta"), collapse = "|"), ls)]
-  }
-  meta <- lapply(
-    setNames(ls, nm = sub(pattern = "(.*)\\..*$", replacement = "\\1", basename(ls))),
+  ls <- list.files(coreDir, full.names = TRUE)
+  ix.dd <- grep("_dd", ls)
+  ls.dd <- ls[ix.dd]
+  ls.tm <- ls[-ix.dd]
+  dd <- lapply(
+    setNames(ls.dd, nm = sub(pattern = "(.*)\\..*$", replacement = "\\1", basename(ls.dd))),
     read.csv)
-  if (return == "template" & data == "core") {
+  if (return == "template") {
     lapply(
-      setNames(meta, nm = c("experiment", "plot", "site")), function(x) {
+      setNames(dd, nm = c("experiment", "plot", "site")), function(x) {
         setNames(data.frame(matrix(ncol = nrow(x), nrow = 0)), x[ , 1])
       })
   } else {
-    return(meta)
+    return(dd)
   }
 }
 
@@ -108,6 +108,8 @@ siteMap <- function(database) {
 }
 ```
 
+# Build core database
+
 ```{r sweddie-assemble}
 # function for assembling database
 DIR = "../data/sweddie"
@@ -136,7 +138,7 @@ vcat("SWEDDIE Compilation Log \n",
 
 
 # Get the tables stored in the template sheets
-metadata <- readMeta()
+metadata <- readCore()
 
 vcat("\n\nCompiling data files in", S_DIR, "\n", rep("-", 30), "\n")
 
@@ -209,6 +211,8 @@ for (d in seq_along(data_dirs)) {
   }
 }
 ```
+
+# Visualize core data
 
 ```{r plots}
 # get KG data
@@ -329,17 +333,8 @@ exp.site %>%
   theme(panel.grid = element_blank()) 
 ```
 
-```{r tables}
-
-```
-
-```{r Blodgett-dat}
-# read file
-b_test <- read_ess.dive.fx("Blodgett")
-
-```
-
-# Test case: TeRaCON
+# Test cases 
+## TeRaCON
 - three data streams
   1) "sentek": VWC, salinity, and temperature at 15 min intervals for roughly 5 years
   2) "temp": temp 
@@ -362,18 +357,237 @@ sns.info <- read.xlsx("../data/raw/TeRaCON/Plot table.xlsx", sheet = 4, cols = 1
 metadata <- read.csv("../data/raw/TeRaCON/metadata/metadata.csv")
 ```
 
-```{r TeRaCON-dd-FLMD}
-sentek_flmd <- data.frame()
-sentek_dd <- data.frame()
+```{r T-M-blg-ter}
+# rename raw data
+moistTempTer <- sentek
+
+# Remove trailing period from col names
+names(moistTempTer) <- sub('\\.$', '', names(moistTempTer))
+
+# change names sep to be "_" instead of "."
+names(moistTempTer) <- gsub(x = names(moistTempTer), pattern = "\\.", replacement = "_")
+
+# drop salinity data and pivot longer
+moistTempTer.long <- moistTempTer %>%
+  select(c(TIMESTAMP, STATNAME, contains("VWC"), contains("TEMP"))) %>%
+  mutate(across(-c(TIMESTAMP, STATNAME), as.numeric)) %>%
+  pivot_longer(
+    cols = !c(TIMESTAMP, STATNAME),
+    names_to = c("var", "sensor", "depth"),
+    names_sep = "_",
+    values_to = "value") %>%
+  mutate(date = date(parse_date_time(TIMESTAMP, orders = "%m/%d/%Y %H/%M"))) %>%
+  select(-TIMESTAMP)
+
+# add plot ID for the heat/control plots, and filter drought & eCO2 plots
+moistTempTer.long$ring <- sub("Soil_", "", moistTempTer.long$STATNAME)
+moistTempTer.long$plot <- ifelse(
+ moistTempTer.long$ring == "2" & moistTempTer.long$sensor == "H", 106,
+ ifelse(moistTempTer.long$ring == "2" & moistTempTer.long$sensor == "D", 119,
+        ifelse(moistTempTer.long$ring == "4" & moistTempTer.long$sensor == "D", 226,
+               ifelse(moistTempTer.long$ring == "4" & moistTempTer.long$sensor == "H", 233,
+                      ifelse(moistTempTer.long$ring == "6" & moistTempTer.long$sensor == "C", 320, ifelse(moistTempTer.long$ring == "6" & moistTempTer.long$sensor == "H", 361, NA))))))
+
+# remove NaN & NA
+moistTempTer.ch <- na.omit(moistTempTer.long)
+
+moistTer <- moistTempTer.ch %>%
+  filter(var == "VWC") %>%
+  select(var, date, plot, depth, value) %>%
+  group_by(date, plot, depth) %>% 
+  summarize(mean.moisture = mean(value, na.rm = T), .groups = "drop") %>% 
+  data.frame()
+tempTer <- moistTempTer.ch %>%
+  filter(var == "TEMP") %>%
+  select(var, date, plot, depth, value) %>%
+  group_by(date, plot, depth) %>% 
+  summarize(mean.temp = mean(value, na.rm = T), .groups = "drop") %>% 
+  data.frame()
+moistTempTer.clean <- merge(
+  moistTer,
+  tempTer,
+  by = c("plot", "depth", "date"))
+moistTempTer.clean$trt <- ifelse(
+  moistTempTer.clean$plot == 106 | moistTempTer.clean$plot == 233 | moistTempTer.clean$plot == 361, "C", "H")
+    
+# add seasonal info
+moistTempTer.clean$season <- ifelse(
+  month(moistTempTer.clean$date) < 4, "Q1", 
+  ifelse(month(moistTempTer.clean$date) > 3 & month(moistTempTer.clean$date) < 7, "Q2",
+         ifelse(month(moistTempTer.clean$date) > 6 & month(moistTempTer.clean$date) < 10, "Q3", "Q4")))
+moistTempTer.clean$DEPTH <- as.numeric(moistTempTer.clean$depth) * 10
+
+# models
+ter.lm <- lm(mean.moisture ~ DEPTH * trt, moistTempTer.clean)
+
+# plots
+moistTempTer.clean %>%
+  mutate(datePlot = paste0(date, plot)) %>%
+  ggplot(., aes(mean.moisture, DEPTH, color = trt)) +
+  geom_path(aes(group = datePlot)) +
+  scale_color_manual(values = c("H" = "#F8766D", "C" = "#00A9FF")) +
+  scale_y_reverse() +
+  facet_grid(cols = vars(season)) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+
+moistTempTer.clean %>% 
+  group_by(trt, depth, season) %>% 
+  summarize(moist = mean(mean.moisture, na.rm = T), sd = sd(mean.moisture, na.rm = T), n = n()) %>%
+  mutate(sem2 = 2 * (sd / sqrt(n))) %>%
+  ggplot(., aes(depth, moist, fill = trt)) + 
+  geom_col(position = "dodge") + 
+  geom_errorbar(aes(ymin = moist - sem2, ymax = moist + sem2, color = trt), position = "dodge") +
+  scale_fill_manual(values = c("H" = "#F8766D", "C" = "#00A9FF")) +
+  scale_color_manual(values = c("H" = "#F8766D", "C" = "#00A9FF")) +
+  facet_grid(cols = vars(season)) + 
+  theme_bw() + 
+  theme(panel.grid = element_blank())
+
+moistTempTer.clean %>% 
+  mutate(PP = ifelse(plot < 200, 2, ifelse(plot > 200 & plot < 300, 4, 6))) %>%
+  pivot_wider(id_cols = c(PP, DEPTH, date, season), names_from = trt, values_from = mean.moisture) %>%
+  mutate(mDif = C - H) %>%
+  group_by(DEPTH, season) %>% 
+  summarize(mean.mDif = mean(mDif, na.rm = T), sd = sd(mDif, na.rm = T), n = n()) %>%
+  mutate(sem2 = 2 * (sd / sqrt(n))) %>%
+  ggplot(., aes(DEPTH, mean.mDif, fill = season)) + 
+  geom_col(position = "dodge") + 
+  geom_errorbar(
+    aes(ymin = mean.mDif - sem2, ymax = mean.mDif + sem2, color = season), position = "dodge") + 
+  theme_bw() + 
+  theme(panel.grid = element_blank())
 ```
+
+## Blodgett
+# ESS-DIVE data
+```{r Blodgett-dat}
+# read file
+b_test <- read_ess.dive.fx("Blodgett")
+```
+
+# temp & moist data
 
 ```{r Blodgett-dat}
 # read data files, save as uncompressed RDS for fast loading
-tempBlg <- read.csv("../data/raw/Blodgett/rds/tempMoist/20240125_processed Blodgett soil temperature.csv", na.strings = "NAN")
-saveRDS(tempBlg, "../data/raw/Blodgett/tempMoist/rds/20240125_processed Blodgett soil temperature.rds", compress = FALSE)
-moistBlg <- read.csv("../data/raw/Blodgett/rds/tempMoist/20240125_processed Blodgett soil moisture.csv", na.strings = "NAN")
+moistBlg <- read.csv("/Users/jeff/eco-warm/data/raw/Blodgett/tempMoist/20240125_processed Blodgett soil moisture.csv", na.strings = "NAN")
 saveRDS(moistBlg, "../data/raw/Blodgett/tempMoist/rds/20240125_processed Blodgett soil moisture.rds", compress = FALSE)
+tempBlg <- read.csv("/Users/jeff/eco-warm/data/raw/Blodgett/tempMoist/20240125_processed Blodgett soil temperature.csv", na.strings = "NAN")
+saveRDS(tempBlg, "../data/raw/Blodgett/tempMoist/rds/20240125_processed Blodgett soil temperature.rds", compress = FALSE)
+
+# read in RDS
+tempBlg <- readRDS("../data/raw/Blodgett/tempMoist/rds/20240125_processed Blodgett soil temperature.rds")
+moistBlg <- readRDS("../data/raw/Blodgett/tempMoist/rds/20240125_processed Blodgett soil moisture.rds")
 ```
+
+Notes on temp & moisture data
+- soil temp & moisture measured at different depths
+  - temp: 5, 15, 20, 30, 50, 70, 75, 100, 120, 140
+  - moist: 10, 30, 50 90
+- only 30, 50 in common
+- aggregate to moisture depths for consistency
+
+```{r T-M-blg-ter}
+# aggregate data by date
+tempBlg2 <- tempBlg
+moistBlg2 <- moistBlg
+tempBlg2$timestamp <- parse_date_time(tempBlg$TIMESTAMP, orders = "%Y-%m-%d %H-%M-%S")
+moistBlg2$timestamp <- parse_date_time(moistBlg$TIMESTAMP, orders = "%Y-%m-%d %H-%M-%S")
+
+# average by day
+tempBlg2.d <- tempBlg2 %>% 
+  mutate(date = date(timestamp),
+         temp = as.numeric(temp)) %>%
+  group_by(date, PP, depth, trt) %>% 
+  summarize(mean.temp = mean(temp, na.rm = T), .groups = "drop") %>% 
+  data.frame()
+
+# spline to moisture depths
+tempBlg2.d.sp <- bind_rows(lapply(split(tempBlg2.d, tempBlg2.d$date), function(x) {
+  bind_rows(lapply(split(x, x$PP), function(y) {
+    bind_rows(lapply(split(y, y$trt), function(z) {
+      z <- z[order(z$depth), ]
+      if (nrow(z) - length(which(is.na(z$mean.temp))) > 4) {
+        sp <- spline(z$depth, z$mean.temp, method = "natural")
+        ss <- smooth.spline(sp, lambda = .1, tol = 1e-4)
+        sp.std <- predict(ss, c(10, 30, 50, 90))
+        data.frame(depth = sp.std$x, mean.temp = sp.std$y)
+      } else {
+        NULL
+      }
+    }), .id = "trt")
+  }), .id = "PP")
+}), .id = "date")
+tempBlg2.d.sp$date <- parse_date_time(tempBlg2.d.sp$date, orders = "%Y/%m/%d")
+
+# average by day
+moistBlg2.d <- moistBlg2 %>% 
+  mutate(date = date(timestamp),
+         moisture = as.numeric(moisture)) %>%
+  group_by(date, PP, depth, trt) %>% 
+  summarize(mean.moisture = mean(moisture, na.rm = T), .groups = "drop") %>% 
+  data.frame()
+
+# compare temp and moisture w/ depth
+blg.t.m.d <- merge(
+  tempBlg2.d.sp, 
+  moistBlg2.d, 
+  by = c("PP", "depth", "trt", "date"))
+blg.t.m.d$dryWet <- ifelse(month(blg.t.m.d$date) > 10 | month(blg.t.m.d$date) < 4, "wet", "dry")
+tm.blg.lm <- lm(mean.temp ~ mean.moisture, blg.t.m.d)
+tmd.blg.lm <- lm(mean.temp ~ mean.moisture + depth, blg.t.m.d)
+tmd2.blg.lm <- lm(mean.temp ~ mean.moisture * depth, blg.t.m.d)
+tmdT.blg.lm <- lm(mean.temp ~ mean.moisture + depth + trt, blg.t.m.d)
+tmdT2.blg.lm <- lm(mean.temp ~ mean.moisture * depth * trt, blg.t.m.d)
+tmdT3.blg.lm <- lm(mean.temp ~ depth * trt * dryWet, blg.t.m.d)
+
+# mixed model
+m.m1 <- lmer(mean.moisture ~ depth * trt + (1 | PP), blg.t.m.d)
+
+ggplot(blg.t.m.d, aes(mean.moisture, mean.temp, color = depth)) +
+  geom_point() +
+  facet_grid(cols = vars(trt)) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+
+ggplot(blg.t.m.d, aes(mean.moisture, depth, color = trt)) +
+  geom_jitter() +
+  scale_color_manual(name = "", values = c("C" = "blue", "H" = "red")) +
+  scale_y_reverse() +
+  facet_grid(cols = vars(dryWet)) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+
+blg.t.m.d %>% 
+  group_by(trt, depth, dryWet) %>% 
+  summarize(moist = mean(mean.moisture, na.rm = T), sd = sd(mean.moisture, na.rm = T), n = n()) %>%
+  mutate(sem2 = 2 * (sd / sqrt(n))) %>%
+  ggplot(., aes(depth, moist, fill = trt)) + 
+  geom_col(position = "dodge") + 
+  geom_errorbar(aes(ymin = moist - sem2, ymax = moist + sem2, color = trt), position = "dodge") +
+  scale_fill_manual(values = c("H" = "#F8766D", "C" = "#00A9FF")) +
+  scale_color_manual(values = c("H" = "#F8766D", "C" = "#00A9FF")) +
+  facet_grid(cols = vars(dryWet)) + 
+  theme_bw() + 
+  theme(panel.grid = element_blank())
+
+blg.t.m.d %>% 
+  pivot_wider(id_cols = c(PP, depth, date, dryWet), names_from = trt, values_from = mean.moisture) %>%
+  mutate(mDif = C - H) %>%
+  group_by(depth, dryWet) %>% 
+  summarize(mean.mDif = mean(mDif, na.rm = T), sd = sd(mDif, na.rm = T), n = n()) %>%
+  mutate(sem2 = 2 * (sd / sqrt(n))) %>%
+  ggplot(., aes(depth, mean.mDif, fill = dryWet)) + 
+  geom_col(position = "dodge") + 
+  geom_errorbar(
+    aes(ymin = mean.mDif - sem2, ymax = mean.mDif + sem2, color = dryWet), position = "dodge") + 
+  scale_fill_manual(values = c("dry" = "#CD9600", "wet" = "#00BE67")) +
+  scale_color_manual(values = c("dry" = "#CD9600", "wet" = "#00BE67")) +
+  theme_bw() + 
+  theme(panel.grid = element_blank())
+```
+
+# CiPEHR
 
 ```{r CiPEHR-dat}
 # read data files, save as uncompressed RDS for fast loading
@@ -458,5 +672,13 @@ Need to convert raw data into *shoestring* tuples
 4) set the "table_id" column to the appropriate table name
 5) join long data with annotation table by variables "table_id" and "column_id"
 
+Update 2 Aug 2024
+- adopted a variation on the ESS-DIVE approach to data dictionary and file level metadata to provide annotation/metadata info
+- need to figure out directory structure
+  - will quickly run out of space to work with large arrays...
+- should store flmd & dd files in SWEDDIE directory; but also should keep these files with the data
+- perhaps the data directory is stored in an external drive, and a copy of the metadata is written into the SWEDDIE directory each time data are compiled?
+- I envision this compilation function creating a "meta" version of the database by compiling flmd & dd files
+- the "meta" database is then queried to generate reports by reading in the actual data from the external source
 
 

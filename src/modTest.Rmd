@@ -1,0 +1,488 @@
+---
+title: "Conceptual models for quantifying potential warming effects on ∆14C respired"
+author: "J. Beem-Miller"
+date: "2024-06-27"
+output: html_document
+---
+
+```{r global_options, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
+                      fig.align = 'center', dev = c('cairo_pdf', 'png'))
+options(scipen = 5)
+# load read ess_dive fx
+source("./utilities/read_ess-dive.fx.R")
+```
+
+```{r setup, include = FALSE}
+library(ggplot2)
+library(tidyr)
+library(SoilR)
+library(readxl)
+library(ISRaD)
+library(gt)
+library(mpspline2)
+library(dplyr)
+library(forecast)
+library(cowplot)
+```
+
+# Exp t0
+- start dates of other candidate experiments listed here:
+* B4W: 2006
+* Blgt: 2013
+* SPRUCE: 2015
+* SWELTR: 2016
+
+# Load atmospheric 14C record
+- use Hua 2021 (data from SoilR)
+```{r atm14c}
+# use Hua2021 (SoilR package)
+NHZone2 <- read_excel(
+  "/Users/jeff/sra-frc/data/external/Hua_2021/S0033822221000953sup002.xls", sheet = 2, skip = 5,
+  col_names = c("Year.AD", "mean.Delta14C", "sd.Delta14C", "mean.F14C", "sd.F14C")) %>%
+  data.frame
+
+# forecast data through 2025
+yrs <- seq(2000, 2019.25, by = 1/4) # final sequence of years by quarters
+nz2 <- spline(NHZone2[ , c(1, 4)], xout = yrs) # quarterly spline interpolation of fm data
+nhz2 <- ts(nz2$y, start = 2000, freq = 4) # Transformation into a time-series object
+m <- ets(nhz2) # Fits an exponential smoothing state space model to the time series
+f2 <- forecast(m, h = 5.5 * 4) # Uses the fitted model to forecast  years into the future
+
+# bind pre and post-bomb curves; add forecasted data
+atm14c <- rbind(
+  bind.C14curves(IntCal20, NHZone2, "AD"),
+  data.frame(Year.AD = seq(tsp(f2$mean)[1], tsp(f2$mean)[2],
+                           by = 1 / tsp(f2$mean)[3]),
+             Delta14C = suppressWarnings(
+               convert_fm_d14c(
+                 fm = as.numeric(f2$mean), 
+                 obs_date_y = seq(2019.75, 2022, by = .25), 
+                 verbose = FALSE)),
+             Sigma = NA)
+)
+
+# filter to 1900-2022 and calc annual averages
+Datm <- data.frame(Date = seq(1900.5, 2024.5), d14c = NA)
+for (i in seq_along(Datm$Date)) {
+  ix <- which(atm14c$Year.AD >= Datm[i, "Date"] & atm14c$Year.AD < Datm[i, "Date"] + 1)
+  Datm[i, "d14c"] <- mean(atm14c[ix, "Delta14C"], na.rm = TRUE)
+}
+```
+
+# Utility fxs
+```{r utilities}
+# steady-state stock calc fx
+calc.soc <- function(A, in_vector) {
+  (-1 * solve(A) %*% in_vector)
+}
+
+# lambda (true half-life of 14C)
+lambda <- 1 / 8267
+
+# get initial fm value from k (pre-bomb)
+fm <- function (k) {
+  k / (k + lambda)
+}
+
+# mod fun 2pp
+mod.fun.2pp <- function(
+    t0 = 1900.5, 
+    In = 1, 
+    pars,
+    scenario = "control",
+    ctl.ls = NULL, ...) {
+  
+  # subset atm14c
+  ATM14c <- Datm[Datm$Date > t0 - 1, ]
+  
+  # get input vector
+  IN_VECTOR <- c(In * pars[3], In * (1 - pars[3]))
+  
+  # init. cond. 
+  if (scenario == "control") {
+    A <- -diag(pars[1:2])
+    SOC <- calc.soc(A, IN_VECTOR)[,1]
+    F0_Delta14C <- Delta14C_from_AbsoluteFractionModern(fm(pars[1:2]))
+  } else {
+    SOC <- ctl.ls[[2]][t0 - 1900.5, ]
+    F0_Delta14C <- ctl.ls[[1]] %>%
+      filter(years == t0) %>%
+      filter(pool == "fast" | pool == "slow") %>%
+      select(d14C) %>%
+      unlist
+  }
+  
+  mod <- TwopParallelModel14(
+    t = ATM14c[,1],
+    ks = pars[1:2],
+    C0 = SOC,
+    F0_Delta14C = F0_Delta14C,
+    In = In,
+    gam = pars[3],
+    inputFc = ATM14c,
+    lambda = lambda,
+    lag = 0,
+    pass = FALSE) 
+
+  # get data
+  C14m <- getF14C(mod)
+  C14p <- getF14(mod) 
+  C14r <- getF14R(mod)
+  Ctot <- getC(mod)
+  
+  c14 <- data.frame(
+    years = rep(ATM14c$Date, (ncol(C14p) + 3)),
+    d14C = c(c(C14p),
+             C14m,
+             C14r,
+             ATM14c$d14c),
+    pool = rep(c("fast", "slow", "bulkC", "respiration", "atm"), 
+               each = nrow(C14p)),
+    scenario = scenario) %>% 
+    distinct
+  list(c14, Ctot)
+}
+```
+
+# Control scenario
+- two pool parallel model (2pp) selected for tractability
+- first order kinetics
+- no transfers between pools; "gamma" controls proportion of inputs entering fast pool
+- "fast" pool tau = 5 y; "slow" pool tau = 100 y; gam = 0.9
+- steady-state SOC stocks calculated using parameter set with input = 1 (unitless)
+- time zero set to 1900
+- time zero ∆14C calculated from k values
+
+## ctl
+
+```{r control}
+## pars
+In <- 1
+k1.2pp <- .2
+k2.2pp <- .01
+gam <- .9
+pars <- c(k1.2pp, k2.2pp, gam)
+
+## run mod w/ default input = 1
+ctl.ls <- mod.fun.2pp(pars = pars)
+
+# calc TT & SA
+u <- c(In * pars[3], In * (1 - pars[3]))
+A <- -diag(pars[1:2])
+ctl.TT <- transitTime(A, u)
+ctl.SA <- systemAge(A, u, a = seq(0, 500))
+```
+
+## 2xIn
+
+```{r control-2xI}
+## pars
+In <- 2
+k1.2pp <- .2
+k2.2pp <- .01
+gam <- .9
+pars <- c(k1.2pp, k2.2pp, gam)
+
+## run mod w/ default input = 1
+ctl.2x1.ls <- mod.fun.2pp(t0 = 1991.5, In = In, pars = pars, scenario = "ctl, 2xI", ctl.ls = ctl.ls)
+
+# NB: TT & SA unchanged by inputs
+```
+
+
+# Warming scenarios
+- all scenarios will consider a warming treatment of 4 °C
+- Q10s will be calculated on the basis of this temperature difference, and decomposition rates will be adjusted by possible Q10 values
+- initial values for ∆14C and SOC will be obtained from control model for desired experiment t0
+
+## f=2; '91
+
+```{r warm-q10-f2-s1}
+## pars
+In <- 1
+k1.2pp <- .2 * 2^(4/10)
+k2.2pp <- .01
+gam <- .9
+pars <- c(k1.2pp, k2.2pp, gam)
+
+## run mod
+wrm.s10.f20.91.ls <- mod.fun.2pp(t0 = 1991.5, pars = pars, scenario = "wrm, s = 1.0, f = 2.0", ctl.ls = ctl.ls)
+
+# calc ∆14C dif
+ctl.ls[[1]][ctl.ls[[1]][["years"]] == 2024.5, "d14C"] - wrm.s10.f20.91.ls[[1]][wrm.s10.f20.91.ls[[1]][["years"]] == 2024.5, "d14C"]
+
+# calc TT & SA
+u <- c(In * pars[3], In * (1 - pars[3]))
+A <- -diag(pars[1:2])
+wrm.s10.f20.91.TT <- transitTime(A, u)
+wrm.s10.f20.91.SA <- systemAge(A, u, a = seq(0, 500))
+```
+
+## f=2, s=2; '91
+
+```{r warm-q10-f2-s2}
+## pars
+In <- 1
+k1.2pp <- .2 * 2^(4/10)
+k2.2pp <- .01 * 2^(4/10)
+gam <- .9
+pars <- c(k1.2pp, k2.2pp, gam)
+
+## run mod
+wrm.s20.f20.91.ls <- mod.fun.2pp(t0 = 1991.5, pars = pars, scenario = "wrm, s = 2.0, f = 2.0", ctl.ls = ctl.ls)
+
+# calc ∆14C dif
+ctl.ls[[1]][ctl.ls[[1]][["years"]] == 2024.5, "d14C"] - wrm.s20.f20.91.ls[[1]][wrm.s20.f20.91.ls[[1]][["years"]] == 2024.5, "d14C"]
+
+# calc TT & SA
+u <- c(In * pars[3], In * (1 - pars[3]))
+A <- -diag(pars[1:2])
+wrm.s20.f20.91.TT <- transitTime(A, u)
+wrm.s20.f20.91.SA <- systemAge(A, u, a = seq(0, 500))
+```
+
+## f=2, s=2;' 91; 2xI
+
+```{r warm-q10-f2-s2-2xI}
+## pars
+In <- 2
+k1.2pp <- .2 * 2^(4/10)
+k2.2pp <- .01 * 2^(4/10)
+gam <- .9
+pars <- c(k1.2pp, k2.2pp, gam)
+
+## run mod
+wrm.s20.f20.2xI.ls <- mod.fun.2pp(t0 = 1991.5, In = In, pars = pars, scenario = "wrm, s = 2.0, f = 2.0, 2xI", ctl.ls = ctl.ls)
+
+# calc ∆14C dif
+ctl.ls[[1]][ctl.ls[[1]][["years"]] == 2024.5, "d14C"] - wrm.s20.f20.2xI.ls[[1]][wrm.s20.f20.2xI.ls[[1]][["years"]] == 2024.5, "d14C"]
+``` 
+
+It appears that while transit time and age do not change with increased inputs, the ∆14C becomes more depleted. Odd.
+
+## f=2, s=2; '16
+
+```{r warm-q10-f2-s2-16}
+## pars
+In <- 1
+k1.2pp <- .2 * 2^(4/10)
+k2.2pp <- .01 * 2^(4/10)
+gam <- .9
+pars <- c(k1.2pp, k2.2pp, gam)
+
+## run mod
+wrm.s20.f20.16.ls <- mod.fun.2pp(t0 = 2016.5, pars = pars, scenario = "wrm, s = 2.0, f = 2.0", ctl.ls = ctl.ls)
+```
+
+# TS Plots
+
+```{r plot-fx}
+p.fx <- function(df.ls, xlim = NULL, ylim = NULL, scenarios, lg.pos = "right", tSz = 14) {
+  
+  if (is.data.frame(df.ls)) {
+    DF <- df.ls
+  } else {
+    DF <- bind_rows(df.ls) 
+  }
+  
+  DF <- DF %>%
+    mutate(scenario = factor(scenario, levels = scenarios)) 
+  
+  p <- ggplot(DF, aes(years, d14C, color = pool, linetype = scenario)) +
+    geom_line() +
+    scale_color_manual(
+      name = "", 
+      values = c("atm" = "gray", 
+                 "bulkC" = "black",
+                 "respiration" = "#8549c3", #6c36a2, #8549c3
+                 "fast" = "#d8006c",
+                 "slow" = "#006cd8")) +
+    scale_linetype(name = "", drop = FALSE) +
+    guides(
+      color = guide_legend(ncol = 1),
+      linetype = guide_legend(ncol = 1)) +
+    theme_bw() +
+    theme(panel.grid = element_blank(),
+          text = element_text(size = tSz),
+          legend.position = lg.pos)
+  
+  if (!is.null(xlim)) {
+    p <- p +
+      scale_x_continuous(limits = xlim)
+  }
+  
+  if (!is.null(ylim)) {
+    p <- p +
+      scale_y_continuous(limits = ylim)
+  }
+  p
+}
+```
+
+## Control
+
+```{r plot-ctl}
+ctl.p <- p.fx(
+  ctl.ls[[1]], 
+  xlim = c(1991, 2025), ylim = c(-20, 200), 
+  scenarios = c("control",
+                "wrm, s = 1.0, f = 2.0",
+                "wrm, s = 2.0, f = 2.0"),
+  lg.pos = "none")
+ggsave("/Users/jeff/eco-warm/src/plots/1991/ctl.2pp.png", plot = ctl.p,
+       width = 5.56, height = 4.18, units = "in")
+lg.ctl <- p.fx(
+  ctl.ls[[1]],
+  xlim = c(1991, 2025), ylim = c(-20, 200),
+  scenarios = c("control",
+                "wrm, s = 1.0, f = 2.0",
+                "wrm, s = 2.0, f = 2.0"),
+  lg.pos = "right")
+ggsave("/Users/jeff/eco-warm/src/plots/1991/lg.ctl.png", plot = lg.ctl,
+       width = 5.56, height = 4.18, units = "in")
+```
+
+## ctl; 2xI
+
+```{r plot-ctl}
+ctl.2xI.p <- p.fx(
+  list(ctl.ls[[1]], ctl.2x1.ls[[1]], wrm.s20.f20.2xI.ls[[1]]), 
+  xlim = c(1991, 2025), ylim = c(-20, 200), 
+  scenarios = c("control",
+                "ctl, 2xI",
+                "wrm, s = 2.0, f = 2.0, 2xI"),
+  lg.pos = "none")
+ggsave("/Users/jeff/eco-warm/src/plots/1991/ctl.2xI.2pp.png", plot = ctl.2xI.p,
+       width = 5.56, height = 4.18, units = "in")
+
+lg.2xI.p <- p.fx(
+  list(ctl.ls[[1]], ctl.2x1.ls[[1]], wrm.s20.f20.2xI.ls[[1]]), 
+  xlim = c(1991, 2025), ylim = c(-20, 200), 
+  scenarios = c("control",
+                "ctl, 2xI",
+                "wrm, s = 2.0, f = 2.0, 2xI"),
+  lg.pos = "right")
+ggsave("/Users/jeff/eco-warm/src/plots/1991/lg.2xI.2pp.png", plot = lg.2xI.p,
+       width = 5.56, height = 4.18, units = "in")
+```
+
+
+## f=2; '91
+
+```{r plot-f2-91}
+wrm.s1.f2.p <- p.fx(
+  list(ctl.ls[[1]], wrm.s10.f20.91.ls[[1]]),
+  xlim = c(1991, 2025), ylim = c(-20, 200), 
+  scenarios = c("control",
+                "wrm, s = 1.0, f = 2.0",
+                "wrm, s = 2.0, f = 2.0"),
+  lg.pos = "none")
+ggsave("/Users/jeff/eco-warm/src/plots/1991/wrm.s1.f2.2pp.png", plot = wrm.s1.f2.p, width = 5.56, height = 4.18, units = "in")
+```
+
+## f=2, s=2; '91
+
+```{r plot-f2-s2-91}
+wrm.s2.f2.p <- p.fx(
+  list(ctl.ls[[1]], wrm.s10.f20.91.ls[[1]], wrm.s20.f20.91.ls[[1]]),
+  xlim = c(1991, 2025), ylim = c(-20, 200), 
+  scenarios = c("control",
+                "wrm, s = 1.0, f = 2.0",
+                "wrm, s = 2.0, f = 2.0"),
+  lg.pos = "none")
+ggsave("/Users/jeff/eco-warm/src/plots/1991/wrm.s2.f2.2pp.png", plot = wrm.s2.f2.p, width = 5.56, height = 4.18, units = "in")
+```
+
+## f=2, s=2; '16
+
+```{r plot-f2-s2-16}
+wrm.s2.f2.16.p <- p.fx(
+  list(ctl.ls[[1]], wrm.s20.f20.16.ls[[1]]),
+  xlim = c(1991, 2025), ylim = c(-20, 200), 
+  scenarios = c("control",
+                "wrm, s = 2.0, f = 2.0"),
+  lg.pos = "none")
+ggsave("/Users/jeff/eco-warm/src/plots/2016/wrm.s2.f2.16.2pp.png", plot = wrm.s2.f2.16.p, width = 5.56, height = 4.18, units = "in")
+
+lg.16.p <- p.fx(
+  list(ctl.ls[[1]], wrm.s20.f20.16.ls[[1]]),
+  xlim = c(1991, 2025), ylim = c(-20, 200), 
+  scenarios = c("control",
+                "wrm, s = 2.0, f = 2.0"),
+  lg.pos = "right")
+ggsave("/Users/jeff/eco-warm/src/plots/2016/lg.16.png", plot = lg.16.p, width = 5.56, height = 4.18, units = "in")
+```
+
+# SOC stocks
+## Q10 = 2; 2xI; 1991
+
+```{r plot-soc}
+SOC.ls <- list(ctl.2x1.ls, wrm.s20.f20.91.ls, wrm.s20.f20.2xI.ls)
+soc.dif.df <- bind_rows(lapply(seq_along(SOC.ls), function(i) {
+  df <- data.frame(SOC.ls[[i]][[2]] - ctl.ls[[2]][1:nrow(SOC.ls[[i]][[2]]), ])
+  df <- cbind(seq(0, nrow(df) - 1, 1), df)
+  names(df) <- c("years", "f_dif", "s_dif")
+  df$scenario <- SOC.ls[[i]][[1]][1:nrow(df), "scenario"]
+  df %>%
+    pivot_longer(cols = c("f_dif", "s_dif"), names_to = "pool", values_to = "SOC_dif")
+}))
+
+# plot
+soc.p <- ggplot(soc.dif.df, aes(years, SOC_dif, color = pool, linetype = scenario)) +
+  geom_line() +
+  scale_color_manual(
+    values = c("f_dif" = "#d8006c",
+               "s_dif" = "#006cd8")) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+ggsave("/Users/jeff/eco-warm/src/plots/1991/soc.png", plot = soc.p, height = 4.18, width = 7, unit = "in")
+```
+
+# Age & transit time
+
+```{r TT-plots}
+tt.ls <- list(ctl = ctl.TT, s10.f20 = wrm.s10.f20.91.TT, s20.f20 = wrm.s20.f20.91.TT)
+tt.df <- bind_rows(lapply(seq_along(tt.ls), function(i) {
+  data.frame(density = tt.ls[[i]][["transitTimeDensity"]], mod = names(tt.ls)[[i]]) %>%
+    mutate(years = seq(0, 100, 1))
+}))
+tt.q <- bind_rows(lapply(tt.ls, function(x) {
+  data.frame(years = x[["quantiles"]], quantile = c("5", "50", "95"))
+  }), .id = "mod")
+
+tt.p <- ggplot(tt.df, aes(years, density, linetype = mod)) +
+  geom_line() +
+  geom_vline(
+    data = tt.q, 
+    aes(xintercept = years, linetype = mod, color = quantile)) +
+  scale_x_continuous(limits = c(0, 75)) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        text = element_text(size = 14))
+ggsave("/Users/jeff/eco-warm/src/plots/tt.png", plot = tt.p, height = 4.18, width = 7, unit = "in")
+```
+
+```{r SA-plots}
+sa.ls <- list(ctl = ctl.SA, s10.f20 = wrm.s10.f20.91.SA, s20.f20 = wrm.s20.f20.91.SA)
+sa.df <- bind_rows(lapply(seq_along(sa.ls), function(i) {
+  data.frame(density = sa.ls[[i]][["systemAgeDensity"]], mod = names(sa.ls)[[i]]) %>%
+    mutate(years = seq(0, 500, 1))
+}))
+sa.q <- bind_rows(lapply(sa.ls, function(x) {
+  data.frame(years = x[["quantilesSystemAge"]], quantile = c("5", "50", "95"))
+  }), .id = "mod")
+
+sa.p <- ggplot(sa.df, aes(years, density, linetype = mod)) +
+  geom_line() +
+  geom_vline(
+    data = sa.q, 
+    aes(xintercept = years, linetype = mod, color = quantile)) +
+  scale_x_continuous(limits = c(0, 275)) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        text = element_text(size = 14))
+ggsave("/Users/jeff/eco-warm/src/plots/sa.png", plot = sa.p, height = 4.18, width = 7, unit = "in")
+
+# lapply(sa.ls, "[[", "meanSystemAge")
+```

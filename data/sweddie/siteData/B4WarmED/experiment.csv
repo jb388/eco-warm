@@ -1,14 +1,5 @@
-exp_name,heat_levels,heat_duration,heat_mtd_aboveGround,heat_mtd_belowGround,treatment_add_name,treatment_add_levels,treatment_add_date_i,treatment_add_date_f,sensors,heat_BG_date_i,heat_BG_date_f,heat_AG_date_i,heat_AG_date_f,heat_BG_cable_depth,heat_BG_rod_depth,heat_BG_pwr,heat_BG_sensor_depths,heat_AG_pwr,heat_AG_height,heat_AG_sensor_height,heat_notes,heat_BG_temp_sensor,heat_AG_temp_sensor,soil_moisture_depths,soil_moisture_sensor,flux_mtd,fluxes
-B4WarmED,0; 1.7; 3.4,partial (growing season),infrared heaters,resistance cables,canopy cover,,2006,,precipitation; soil temperature; air temperature; vegetation temperature; soil moisture; net solar radiation; wind speed and direction; humidity,2006,,2006,,10,,153,10; 20; 30; 50; 75; 100,499 (1.7 degC); 333 (3.4 degC),160,180,infrared output is ca. 30% of electrical data; AG temp sensors infrared based; AG sensor height initially 1600 but changed to 1850 in 2011,thermocouple T,infrared radiometer,0-20,Campbell Scientific CS-616 probe,,
-
-
-
-
-
-
-
-
-
+exp_name,heat_levels,heat_duration,heat_mtd_aboveGround,heat_mtd_belowGround,treatment_add_name,treatment_add_levels,treatment_add_units,treatment_add_date_i,treatment_add_date_f,sensors,heat_BG_date_i,heat_BG_date_f,heat_AG_date_i,heat_AG_date_f,heat_BG_cable_depth,heat_BG_rod_depth,heat_BG_pwr,heat_BG_sensor_depths,heat_AG_pwr,heat_AG_height,heat_AG_sensor_height,heat_notes,heat_BG_temp_sensor,heat_AG_temp_sensor,soil_moisture_depths,soil_moisture_sensor,flux_mtd,fluxes
+B4WarmED,0; 1.7; 3.4,partial (growing season),infrared heaters,resistance cables,canopy cover,,,2006,,precipitation; soil temperature; air temperature; vegetation temperature; soil moisture; net solar radiation; wind speed and direction; humidity,2006,,2006,,10,,153,10; 20; 30; 50; 75; 100,499 (1.7 degC); 333 (3.4 degC),160,180,infrared output is ca. 30% of electrical data; AG temp sensors infrared based; AG sensor height initially 1600 but changed to 1850 in 2011,thermocouple T,infrared radiometer,0-20,Campbell Scientific CS-616 probe,,
 
 
 

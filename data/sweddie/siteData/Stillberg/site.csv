@@ -1,5 +1,7 @@
-exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAP,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
-Stillburg,Stillburg,46.76666667,9.866666667,WGS84,2180,2.1,1155,subalpine forest,needleleaf,Larix decidua;Pinus uncinata,,,,WRB,Lithic Cryumbrepts;Typic Cryorthods,metamorphic,,,MAT & MAP ref period: 1975 to 2012,Austria,,
+exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAT_refPeriod,MAP,MAP_refPeriod,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
+Stillburg,Stillburg,46.76666667,9.866666667,WGS84,2180,2.1,,1155,,subalpine forest,needleleaf,Larix decidua;Pinus uncinata,,,,WRB,Lithic Cryumbrepts;Typic Cryorthods,metamorphic,,,MAT & MAP ref period: 1975 to 2012,Austria,,
+
+
 
 
 

@@ -1,9 +1,5 @@
-exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAP,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
-TEAM,Haibei,37.61666667,101.2,,3200,-0.6,460,alpine tundra,,Stipa aliena; Helictotrichon tibeticum; Elymus nutans; Festuca rubra; Poa annua; Aster tataricus,,,,WRB,Mat-Gryic Cambisol,,,,,,,
-
-
-
-
+exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAT_refPeriod,MAP,MAP_refPeriod,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
+TEAM,Haibei,37.61666667,101.2,,3200,-0.6,,460,,alpine tundra,,Stipa aliena; Helictotrichon tibeticum; Elymus nutans; Festuca rubra; Poa annua; Aster tataricus,,,,WRB,Mat-Gryic Cambisol,,,,,,,
 
 
 

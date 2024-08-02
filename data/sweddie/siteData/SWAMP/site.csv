@@ -1,9 +1,5 @@
-exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAP,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
-SWAMP,Altun-Qilian,37.5,100.24,,3670,-0.1,364.6,alpine tundra,,Carex tibetikobresia; Carex kokanica; Carex atrofusca,,,poorly drained,WRB,Cambisols,,,,,,,
-
-
-
-
+exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAT_refPeriod,MAP,MAP_refPeriod,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
+SWAMP,Altun-Qilian,37.5,100.24,,3670,-0.1,,364.6,,alpine tundra,,Carex tibetikobresia; Carex kokanica; Carex atrofusca,,,poorly drained,WRB,Cambisols,,,,,,,
 
 
 

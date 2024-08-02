@@ -1,11 +1,7 @@
-exp_name,sit_name,sit_lat,sit_long,datum,elevation,site_notes,MAT,MAP,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,soil_texture_class,parent_material,aspect,country,permafrost,soil_depth
-ForHot,FN,64.008,-21.178,,125.5,coords are for nearby town; elevation is mean of all three sites,5.2,1457,boreal forest,,Picea sitchensis,,,,WRB,Silandic andisols,silty loam,,,,,
-ForHot,GN,64.008,-21.178,,125.5,coords are for nearby town; elevation is mean of all three sites,5.2,1457,grassland,,Agrostis capillaris,,,,WRB,Silandic andisols,silty loam,,,,,
-ForHot,GO,64.008,-21.178,,125.5,coords are for nearby town; elevation is mean of all three sites,5.2,1457,grassland,,Agrostis capillaris,,,,WRB,Silandic andisols,silty loam,,,,,
-
-
-
-
+exp_name,sit_name,sit_lat,sit_long,datum,elevation,site_notes,MAT,MAT_refPeriod,MAP,MAP_refPeriod,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,soil_texture_class,parent_material,aspect,country,permafrost,soil_depth
+ForHot,FN,64.008,-21.178,,125.5,coords are for nearby town; elevation is mean of all three sites,5.2,,1457,,boreal forest,,Picea sitchensis,,,,WRB,Silandic andisols,silty loam,,,,,
+ForHot,GN,64.008,-21.178,,125.5,coords are for nearby town; elevation is mean of all three sites,5.2,,1457,,grassland,,Agrostis capillaris,,,,WRB,Silandic andisols,silty loam,,,,,
+ForHot,GO,64.008,-21.178,,125.5,coords are for nearby town; elevation is mean of all three sites,5.2,,1457,,grassland,,Agrostis capillaris,,,,WRB,Silandic andisols,silty loam,,,,,
 
 
 

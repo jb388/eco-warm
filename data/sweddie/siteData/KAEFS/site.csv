@@ -1,9 +1,5 @@
-exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAP,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
-KAEFS,Kessler,34.98333333,-97.51666667,,,16.3,914,grassland,,Ambrosia trifida (C3 forb); Tridens flavus (C4 grass),,,well-drained,USDA,Udic Haplustolls,sandstone,,,,,,
-
-
-
-
+exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAT_refPeriod,MAP,MAP_refPeriod,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
+KAEFS,Kessler,34.98333333,-97.51666667,,,16.3,,914,,grassland,,Ambrosia trifida (C3 forb); Tridens flavus (C4 grass),,,well-drained,USDA,Udic Haplustolls,sandstone,,,,,,
 
 
 
