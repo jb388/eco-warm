@@ -4,7 +4,7 @@ Name,string,your name
 Data contact name,string,data contact name (if different from you)
 Data contact email,email,data contact email (if different from yours)
 fileName,string,"name of submitted file including file extension; names should be unique and be as descriptive as possible about the file contents. Use only letters (e.g. camelCase), numbers, and underscores. Do not include spaces. "
-siteName,string,name of experimental warming site (where samples were collected/observations made)
+expName,string,name of warming experiment (where samples were collected/observations made)
 dataType,string,"what kind of data set is this? Possible options include: ecosystem respiration, soil temperature, air temperature, soil moisture, etc."
 description,string,"file description; i.e., a brief description (minimum 30 characters) distinguishing the submitted data from other data at the site, for example, further details about the data type and collection information: e.g., ""soil temperature sensor data from 2012-2014"", ""soil moisture TDR data from growing season over the period 2018-2022"", ""air temperature at 1 m for period 2022-2024"", ""chamber-based ecosystem CO2 fluxes for warming plots"", etc."
 UTC_offset,numeric,"local offset from Coordinated Universal Time, in hours. Give offset for standard time, not day light savings time, and specify if offset is negative, e.g., ""-6"". "
