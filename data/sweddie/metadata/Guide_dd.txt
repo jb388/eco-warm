@@ -15,6 +15,9 @@ Data dictionary files (*_dd.csv) provide information about the data types, metho
 *"unit"
 - give units for data. SI units preferred. Use negative exponents to represent denominator values, e.g., "g CO2 m^-2 d-1" rather than "g/cm3".
 
+*"siteName"
+- ID for site
+
 *"dataType"
 - what kind of data is in the column? Possible values include: numeric, string (text), date, etc.
 
