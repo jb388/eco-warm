@@ -16,7 +16,10 @@ Data dictionary files (*_dd.csv) provide information about the data types, metho
 - give units for data. SI units preferred. Use negative exponents to represent denominator values, e.g., "g CO2 m^-2 d-1" rather than "g/cm3".
 
 *"siteName"
-- ID for site
+- ID for site (only needed if data organized vertically, i.e., if site name is NOT provided as a column in the data file)
+
+*"plotName"
+- ID for plot (only needed if data organized vertically, i.e., if plot name is NOT provided as a column in the data file)
 
 *"dataType"
 - what kind of data is in the column? Possible values include: numeric, string (text), date, etc.
