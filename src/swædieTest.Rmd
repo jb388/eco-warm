@@ -212,6 +212,212 @@ for (d in seq_along(data_dirs)) {
 }
 ```
 
+# read_meta function
+Reads data dictionary and file level metadata files
+
+```{r read-dat}
+read_meta <- function (expName) {
+  
+  # get site dir paths and variable directory names
+  exp.ls <- list.dirs("../data/experiments", recursive = FALSE)
+  exp.dir <- exp.ls[match(expName, basename(exp.ls))]
+  dat.dir <- list.files(file.path(exp.dir, "data"), full.names = TRUE)
+  
+  # check files
+  
+  flmd.ls <- dat.dir[which(grepl("_flmd.csv", dat.dir))]
+  dd.ls <- dat.dir[which(grepl("_dd.csv", dat.dir))]
+  dat.ls <- gsub("_dd", "", dd.ls)
+  
+  if (sum(length(flmd.ls), length(dd.ls), length(dat.ls)) != length(dat.dir)) {
+    warning (paste("Non-standard files present in ", expName, " data directory. Only data files and accompanying flmd and dd files allowed.", "\n"))
+  }
+  
+  if (any(is.na(match(dat.ls, dat.dir)))) {
+    warning (paste(expName, " data and data dictionary file names do not match", "\n"))
+  }
+
+  # read flmd files
+  flmd <- lapply(flmd.ls, read.csv)
+  names(flmd) <- gsub("\\.csv", "", basename(flmd.ls))
+  
+  # check flmd file names against data files
+  if (any(is.na(unlist(lapply(flmd, function(x) {
+    unlist(
+      sapply(
+        glob2rx(x$fileName), grep, basename(dat.ls), USE.NAMES = F))
+  }))))) {
+    warning (paste(expName, " data file names do not match flmd names", "\n"))
+    }
+  
+  # read dd files
+  dd <- lapply(dd.ls, read.csv)
+  names(dd) <- gsub("\\.csv", "", basename(dd.ls))
+  
+  return(
+    list(flmd = flmd, dd = dd)
+  )
+}
+
+# old code
+  # # extract file level metadata (flmd) & data dictionary (dd) files
+  # unlist(Filter(Negate(is.null), lapply(seq_along(dat.dir), function(i) {
+  #     
+  #     # check for flmd files
+  #   if (any(grepl("_flmd.csv", list.files(dat.dir[i])))) {
+  #     flmd.ls <- lapply(as.list(list.files(dat.dir[i], pattern = "_flmd.csv", full.names = TRUE)), read.csv)
+  #           
+  #     # get dat names and ensure data files are present
+  #     dat.nms <- unlist(lapply(flmd.ls, "[[", "fileName"))
+  #     if (length(match(dat.nms, list.files(dat.dir[i]))) != length(dat.nms)) {
+  #       warning("files named in file level metadata not found")
+  #     }
+  #     
+  #     # define names for flmd & dd lists
+  #     flmd.nms <- paste0(
+  #       sapply(strsplit(dat.nms, "\\."), "[[", 1), "_flmd")
+  #     dd.nms <- paste0(
+  #       sapply(strsplit(dat.nms, "\\."), "[[", 1), "_dd")
+  #     
+  #     # extract dd files
+  #     dd.ls <- lapply(seq_along(dd.nms), function(j)
+  #       read.csv(file.path(var.dirs[i], paste0(dd.nms[j], ".csv"))))
+  #     
+  #     # assign names for flmd & dd lists
+  #     names(flmd.ls) <- flmd.nms
+  #     names(dd.ls) <- dd.nms
+  #     
+  #     list(flmd = flmd.ls, dd = dd.ls)
+  #   }
+  #   })
+  #   ), recursive = FALSE)
+```
+
+```{r helper-fxs}
+# template for creating data dictionary files
+dd_helper <- function(expName, dataName, DATA_DIR = NULL, write_out = TRUE) {
+  if (is.null(DATA_DIR)) {
+    DATA_DIR <- file.path("~/eco-warm/data/experiments", expName, "data") 
+  }
+  template <- read.csv("~/eco-warm/data/sweddie/metadata/datTemplate_dd.csv")
+  data <- read.csv(file.path(DATA_DIR, paste0(dataName, ".csv")))
+  template[1:ncol(data), 1] <- names(data)
+  if (write_out) {
+    write.csv(x = template, 
+              file = file.path(DATA_DIR, paste0(dataName, "_dd.csv")),
+              row.names = FALSE)
+  } else {
+    template
+  }
+}
+
+# template for flmd
+flmd_helper <- function(expName, dataFileName, dateColName, rename = FALSE, append = TRUE, write_out = TRUE, ...) {
+
+  # set data directory path
+  DATA_DIR <- file.path("~/eco-warm/data/experiments", expName, "data") 
+  
+  # get flmd template
+  if (append) {
+    files <- list.files(
+        DATA_DIR,
+        full.names = TRUE)
+    flmd.s <- as.list(files[grepl("flmd", files)])
+    if (length(flmd.s) == 0) {
+      stop ("cannot append record: no flmd files found")
+    }
+    if (length(flmd.s) > 1) {
+     i <- menu(
+      basename(flmd.s), 
+      title = "To which FLMD should new record be appended?") 
+    } else {
+      i <- 1
+    }
+    flmdName <- flmd.s[[i]]
+    flmd <- read.csv(flmdName)
+  } else {
+    flmd <- read.csv("~/eco-warm/data/sweddie/metadata/flmd_SWEDDIE.csv")
+  }
+  
+  # get data
+  data <- read.csv(file.path(DATA_DIR, paste0(dataFileName, ".csv")))
+  
+  # fill out flmd
+  nm <- vector(length = ncol(flmd), mode = "list")
+  names(nm) <- names(flmd)
+  if (Jeff) {
+    nm[["Name"]] <- "Jeffrey Beem-Miller"
+    nm[["email"]] <- "jbeemmiller@lbl.gov"
+  }
+  nm[["expName"]] <- expName
+  nm[["fileName"]] <- paste0(dataFileName, ".csv")
+  if (!is.null(orders)) {
+    data[[dateColName]] <- parse_date_time(data[[dateColName]], orders = orders)
+  }
+  nm[["startDate"]] <- as.character(min(data[[dateColName]], na.rm = TRUE))
+  nm[["endDate"]] <- as.character(max(data[[dateColName]], na.rm = TRUE))
+  
+  # helper function for menus
+  menu.fx <- function(opt = unique(flmd[[i]])) {
+    if (is.null(nm[[i]])) {
+      j <- menu(c("yes", "no"), title = paste0("Do you want to use a previously entered ", names(nm)[i], "?")) 
+      if (j == 1) {
+        sel <- menu(opt, "Please use one of the following options for your data (enter '0' if none are appropriate)")
+        if (sel != 0) {
+          opt[sel]
+        } else {
+          nm[[i]] <- readline(prompt = paste0(names(flmd)[i], "? ")) 
+        } 
+      } else {
+        nm[[i]] <- readline(prompt = paste0(names(flmd)[i], "? ")) 
+      } 
+    }
+  }
+  
+  for (i in seq_along(nm)) {
+    if (is.null(nm[[i]])) {
+      if (names(nm)[i] == "Name") {
+        nm[[i]] <- menu.fx()
+      } else if (names(nm)[i] == "email") {
+        nm[[i]] <- menu.fx()
+      } else if (names(nm)[i] == "dataContactName") {
+        nm[[i]] <- menu.fx()
+      } else if (names(nm)[i] == "dataContactEmail") {
+        nm[[i]] <- menu.fx()
+      } else if (names(nm)[i] == "UTC_offset") {
+        nm[[i]] <- menu.fx()
+      } else if (names(nm)[i] == "dataType") {
+        if (!is.null(flmd_dd.ls)) {
+          dataType_opts <- unique(unlist(lapply(lapply(flmd_dd.ls, "[[", "flmd"), function(x) lapply(x, "[[", "dataType"))))
+          nm[[i]] <- menu.fx(opt = dataType_opts)
+        }
+      } else {
+        nm[[i]] <- readline(prompt = paste0(names(flmd)[i], "? ")) 
+      }
+    }
+  }
+  
+  nr <- nrow(flmd)
+  if (nr == 0) {
+    flmd[1, ] <- unlist(nm)
+  } else {
+    flmd[nr + 1, ] <- unlist(nm)
+  }
+  if (write_out) {
+    if (rename) {
+      write.csv(x = flmd, file = file.path(DATA_DIR, paste0(expName, "_flmd.csv")), row.names = FALSE) 
+    } else {
+      if (is.null(flmdName)) {
+        flmdName <- file.path(DATA_DIR, paste0(expName, "_flmd.csv"))
+      }
+      write.csv(x = flmd, file = flmdName, row.names = FALSE) 
+    }
+  } else {
+    flmd
+  }
+}
+```
+
 # Visualize core data
 
 ```{r plots}
@@ -277,11 +483,24 @@ kg.legend <- cowplot::get_legend(
 grid::grid.newpage()
 grid::grid.draw(kg.legend)
 
+# MAT v. MAP w/ PM
 ggplot(exp.site, aes(MAT, MAP, color = parent_material)) +
   geom_point(size = 4) +
   theme_bw() +
-  theme(panel.grid = element_blank()) 
+  theme(panel.grid = element_blank(),
+        legend.position = "none") 
 
+# stand along legend for PM
+pm.legend <- cowplot::get_legend(
+ ggplot(exp.site, aes(MAT, MAP, color = parent_material)) +
+  geom_point(size = 4) +
+  theme_bw() +
+  theme(panel.grid = element_blank()) 
+)
+grid::grid.newpage()
+grid::grid.draw(pm.legend)
+
+# plot land use
 left_join(database$experiment, database$site, by = "exp_name", multiple = "first") %>%
   mutate(biome = ifelse(grepl("tundra", biome), "tundra", 
                         ifelse(grepl("peat", biome), "peatland",
@@ -333,140 +552,56 @@ exp.site %>%
   theme(panel.grid = element_blank()) 
 ```
 
-# Test cases 
-## TeRaCON
-- three data streams
-  1) "sentek": VWC, salinity, and temperature at 15 min intervals for roughly 5 years
-  2) "temp": temp 
-  3) "tdr": soil moisture from TDR sensors
+# Metadata
 
-```{r TeRaCON-dat}
-# # read data files, save as uncompressed RDS for fast loading
-# sentek <- read.csv("../data/raw/TeRaCON/sentek2019_2023 data for distribution.csv")
-# saveRDS(sentek, "../data/raw/TeRaCON/rds/sentek.rds", compress = FALSE)
-# temp <- read.csv("../data/raw/TeRaCON/Temperature 2019-2023 data for distribution.csv", na.strings = "NAN")
-# saveRDS(temp, "../data/raw/TeRaCON/rds/temp.rds", compress = FALSE)
-# tdr <- read.csv("../data/raw/TeRaCON/TDR 2019-2023 data for distribution.csv")
-# saveRDS(tdr, "../data/raw/TeRaCON/rds/tdr.rds", compress = FALSE)
-sentek <- readRDS("../data/raw/TeRaCON/rds/sentek.rds")
-temp <- readRDS("../data/raw/TeRaCON/rds/temp.rds")
-tdr <- readRDS("../data/raw/TeRaCON/rds/tdr.rds")
-
-plt.info <- read.xlsx("../data/raw/TeRaCON/Plot table.xlsx", sheet = 1)
-sns.info <- read.xlsx("../data/raw/TeRaCON/Plot table.xlsx", sheet = 4, cols = 1:5)
-metadata <- read.csv("../data/raw/TeRaCON/metadata/metadata.csv")
+```{r read-meta-files}
+exp_names <- list.files("../data/experiments")
+flmd_dd.ls <- lapply(lapply(exp_names, read_meta), function(x) {
+  if (length(x$flmd) == 0) {
+    NULL
+  } else {
+    x
+  }
+})
+names(flmd_dd.ls) <- exp_names
+flmd_dd.ls <- Filter(Negate(is.null), flmd_dd.ls)
 ```
 
-```{r T-M-blg-ter}
-# rename raw data
-moistTempTer <- sentek
+# Sites
 
-# Remove trailing period from col names
-names(moistTempTer) <- sub('\\.$', '', names(moistTempTer))
+Do we want to include MERIT & SMARTX? I guess they would serve as good end members for the analysis, i.e., demonstrating something about heating efficacy/variability as a function of soil moisture.
 
-# change names sep to be "_" instead of "."
-names(moistTempTer) <- gsub(x = names(moistTempTer), pattern = "\\.", replacement = "_")
+## [185ExperimentalStation]
+- new candidate site in China
+- wheat cropping experiment, north China Plain
+- started in 2008
+- AG infrared heating
+- soil temp & moisture measurements to 40 cm
+- PI Wenxu Dong
 
-# drop salinity data and pivot longer
-moistTempTer.long <- moistTempTer %>%
-  select(c(TIMESTAMP, STATNAME, contains("VWC"), contains("TEMP"))) %>%
-  mutate(across(-c(TIMESTAMP, STATNAME), as.numeric)) %>%
-  pivot_longer(
-    cols = !c(TIMESTAMP, STATNAME),
-    names_to = c("var", "sensor", "depth"),
-    names_sep = "_",
-    values_to = "value") %>%
-  mutate(date = date(parse_date_time(TIMESTAMP, orders = "%m/%d/%Y %H/%M"))) %>%
-  select(-TIMESTAMP)
-
-# add plot ID for the heat/control plots, and filter drought & eCO2 plots
-moistTempTer.long$ring <- sub("Soil_", "", moistTempTer.long$STATNAME)
-moistTempTer.long$plot <- ifelse(
- moistTempTer.long$ring == "2" & moistTempTer.long$sensor == "H", 106,
- ifelse(moistTempTer.long$ring == "2" & moistTempTer.long$sensor == "D", 119,
-        ifelse(moistTempTer.long$ring == "4" & moistTempTer.long$sensor == "D", 226,
-               ifelse(moistTempTer.long$ring == "4" & moistTempTer.long$sensor == "H", 233,
-                      ifelse(moistTempTer.long$ring == "6" & moistTempTer.long$sensor == "C", 320, ifelse(moistTempTer.long$ring == "6" & moistTempTer.long$sensor == "H", 361, NA))))))
-
-# remove NaN & NA
-moistTempTer.ch <- na.omit(moistTempTer.long)
-
-moistTer <- moistTempTer.ch %>%
-  filter(var == "VWC") %>%
-  select(var, date, plot, depth, value) %>%
-  group_by(date, plot, depth) %>% 
-  summarize(mean.moisture = mean(value, na.rm = T), .groups = "drop") %>% 
-  data.frame()
-tempTer <- moistTempTer.ch %>%
-  filter(var == "TEMP") %>%
-  select(var, date, plot, depth, value) %>%
-  group_by(date, plot, depth) %>% 
-  summarize(mean.temp = mean(value, na.rm = T), .groups = "drop") %>% 
-  data.frame()
-moistTempTer.clean <- merge(
-  moistTer,
-  tempTer,
-  by = c("plot", "depth", "date"))
-moistTempTer.clean$trt <- ifelse(
-  moistTempTer.clean$plot == 106 | moistTempTer.clean$plot == 233 | moistTempTer.clean$plot == 361, "C", "H")
-    
-# add seasonal info
-moistTempTer.clean$season <- ifelse(
-  month(moistTempTer.clean$date) < 4, "Q1", 
-  ifelse(month(moistTempTer.clean$date) > 3 & month(moistTempTer.clean$date) < 7, "Q2",
-         ifelse(month(moistTempTer.clean$date) > 6 & month(moistTempTer.clean$date) < 10, "Q3", "Q4")))
-moistTempTer.clean$DEPTH <- as.numeric(moistTempTer.clean$depth) * 10
-
-# models
-ter.lm <- lm(mean.moisture ~ DEPTH * trt, moistTempTer.clean)
-
-# plots
-moistTempTer.clean %>%
-  mutate(datePlot = paste0(date, plot)) %>%
-  ggplot(., aes(mean.moisture, DEPTH, color = trt)) +
-  geom_path(aes(group = datePlot)) +
-  scale_color_manual(values = c("H" = "#F8766D", "C" = "#00A9FF")) +
-  scale_y_reverse() +
-  facet_grid(cols = vars(season)) +
-  theme_bw() +
-  theme(panel.grid = element_blank())
-
-moistTempTer.clean %>% 
-  group_by(trt, depth, season) %>% 
-  summarize(moist = mean(mean.moisture, na.rm = T), sd = sd(mean.moisture, na.rm = T), n = n()) %>%
-  mutate(sem2 = 2 * (sd / sqrt(n))) %>%
-  ggplot(., aes(depth, moist, fill = trt)) + 
-  geom_col(position = "dodge") + 
-  geom_errorbar(aes(ymin = moist - sem2, ymax = moist + sem2, color = trt), position = "dodge") +
-  scale_fill_manual(values = c("H" = "#F8766D", "C" = "#00A9FF")) +
-  scale_color_manual(values = c("H" = "#F8766D", "C" = "#00A9FF")) +
-  facet_grid(cols = vars(season)) + 
-  theme_bw() + 
-  theme(panel.grid = element_blank())
-
-moistTempTer.clean %>% 
-  mutate(PP = ifelse(plot < 200, 2, ifelse(plot > 200 & plot < 300, 4, 6))) %>%
-  pivot_wider(id_cols = c(PP, DEPTH, date, season), names_from = trt, values_from = mean.moisture) %>%
-  mutate(mDif = C - H) %>%
-  group_by(DEPTH, season) %>% 
-  summarize(mean.mDif = mean(mDif, na.rm = T), sd = sd(mDif, na.rm = T), n = n()) %>%
-  mutate(sem2 = 2 * (sd / sqrt(n))) %>%
-  ggplot(., aes(DEPTH, mean.mDif, fill = season)) + 
-  geom_col(position = "dodge") + 
-  geom_errorbar(
-    aes(ymin = mean.mDif - sem2, ymax = mean.mDif + sem2, color = season), position = "dodge") + 
-  theme_bw() + 
-  theme(panel.grid = element_blank())
+```{r 185ExpSt-data}
+tempMoist185 <- read.csv("../data/experiments/185ExperimentStation/data/datafile.csv") %>%
+  mutate(date = parse_date_time(date, orders = "%Y-%m-%d %H-%M"),
+         soil.moisture = as.numeric(soil.moisture),
+         soil.temperature = as.numeric(soil.temperature))
+tempMoist185$plot.rep <- paste0(tempMoist185$PlotID.treatment., "_", tempMoist185$replicate)
 ```
+
+## ACBB
+
+## Achenkirch
+
+## B4WarmED
 
 ## Blodgett
-# ESS-DIVE data
+### ESS-DIVE data
+
 ```{r Blodgett-dat}
 # read file
 b_test <- read_ess.dive.fx("Blodgett")
 ```
 
-# temp & moist data
+### temp & moist data
 
 ```{r Blodgett-dat}
 # read data files, save as uncompressed RDS for fast loading
@@ -587,23 +722,17 @@ blg.t.m.d %>%
   theme(panel.grid = element_blank())
 ```
 
-# CiPEHR
-
+## CiPEHR
+### temp & moist
 ```{r CiPEHR-dat}
 # read data files, save as uncompressed RDS for fast loading
-tmp_mstCpr <- read.csv("../data/raw/CiPEHR/flux_hh.csv")
-
-saveRDS(tmp_mstCpr, "../data/raw/Blodgett/tempMoist/rds/20240125_processed Blodgett soil temperature.rds", compress = FALSE)
-
-tmp_mstCpr <- readRDS("../data/raw/Blodgett/tempMoist/rds/20240125_processed Blodgett soil temperature.rds")
+tmp_mstCpr <- read.csv("../data/experiments/CiPEHR/raw/flux_hh_v2.csv")
 ```
 
 ```{r convert-to-ts}
 # explore ts
-temp2 <- temp
-temp2$TIMESTAMP <- mdy_hm(temp2$TIMESTAMP)
-sns.info$Sensor.name <- gsub("[)]", ".", gsub("[(]", ".", sns.info$Sensor.name))
-metadata$sensor_ID <- gsub("[)]", ".", gsub("[(]", ".", metadata$sensor_ID))
+temp2 <- tmp_mstCpr
+temp2$ts <- parse_date_time(temp2$ts, orders = "%Y-%m-%d %H-%M-%S")
 
 # note that day light savings time causes conversion issue! e.g., 3/10/2019 2:00 through 3/10/2019 2:45 should not exist
 ix <- which(is.na(temp2$TIMESTAMP))
@@ -632,6 +761,255 @@ plot(temp2$TIMESTAMP[ix], temp2$Temp_T_Avg.1.[ix])
 iix <- which(duplicated(temp2$TIMESTAMP)) # all NA...
 t1 <- which(duplicated(temp2$Temp_T_Avg.1.[iix]))
 ```
+
+
+## FORHOT
+
+## Harvard Forest
+- NB: no deep soil data!!
+
+
+## KAEFS
+```{r KAEFS-reshape}
+kaefs.t <- read.csv("../data/experiments/KAEFS/derived/temperature_200908_201802_daily_v.csv")
+kaefs.t.l <- pivot_longer(
+  kaefs.t, 
+  cols = 5:ncol(kaefs.t), 
+  names_to = c("plotID", "blockID", "warmingTreatment", "precipTreatment", "clippingTreatment", "depth_cm"),
+  names_sep = "_", 
+  values_to = "T")
+write.csv(kaefs.t.l, file = "../data/experiments/KAEFS/data/temperature_200908_201802_daily_reshaped.csv")
+
+# ANPP
+kaefs.anpp <- read.csv("../data/experiments/KAEFS/derived/ANPP_2009_2023_reshaped.csv")
+kaefs.anpp.l <- pivot_longer(
+  kaefs.anpp,
+  cols = 5:ncol(kaefs.anpp),
+  names_to = c("vegType", "year"),
+  names_sep = "_",
+  values_to = "g_m2_y"
+)
+write.csv(kaefs.anpp.l, file = "../data/experiments/KAEFS/data/ANPP_2009_2023_reshapedLong.csv", row.names = FALSE)
+dd_helper("KAEFS", "ANPP_2009_2023_reshapedLong")
+
+# soil moisture
+kaefs.moist <- read.csv("../data/experiments/KAEFS/derived/SoilMoisture2018-2023_reshape.csv")
+kaefs.moist.l <- pivot_longer(
+  kaefs.moist,
+  cols = 2:ncol(kaefs.moist),
+  names_to = c("plotID", "depth"),
+  names_sep = "_",
+  values_to = "vwc_pct"
+)
+write.csv(kaefs.moist.l, file = "../data/experiments/KAEFS/data/SoilMoisture2018-2023_reshapeLong.csv", row.names = FALSE)
+dd_helper("KAEFS", "SoilMoisture2018-2023_reshapeLong")
+
+dd_helper("KAEFS", "local_climate_data")
+flmd_helper(
+  expName = "KAEFS", 
+  dataFileName = "local_climate_data", 
+  dateColName = "TIME",
+  rename = TRUE, append = TRUE, write_out = TRUE,
+  Jeff = TRUE,
+  orders = "%Y-%m-%d %H:%M")
+
+
+# check plot IDs
+kaefs.t <- read.csv("../data/experiments/KAEFS/data/temperature_200908_201802_daily_reshaped.csv")
+```
+
+## Lyon, HI
+
+
+## MERIT
+
+
+## Sanming
+
+
+## SMARTX
+
+
+## SPRUCE
+
+
+## SWAMP
+
+
+## SWELTR
+
+
+## TEAM
+
+TEAM data provided as a sheet for each depth within an excel workbook. Code below reads data from there and outputs properly formatted .csv files. Note that original temperature excel workbook has summary data in rows below row number 1900; these are excluded during read in.
+
+```{r TEAM-data-process}
+dat.dir <- "../data/experiments/TEAM/data"
+TEAM.temp.path <- "../data/experiments/TEAM/raw/soil temperature-TEAM 2018-2023.xlsx"
+ix <- excel_sheets(TEAM.temp.path)[1:8]
+TEAM.temp.ls <- lapply(seq_along(ix), function(i) {
+  read_excel(TEAM.temp.path, sheet = i, n_max = 1900)
+})
+names(TEAM.temp.ls) <- ix
+TEAM.temp.df <- bind_rows(TEAM.temp.ls, .id = "depth")
+TEAM.temp.df.long <- pivot_longer(TEAM.temp.df, cols = starts_with("plot"), names_to = "plot", values_to = "temp") %>%
+  mutate(plot = sub("plot", "", plot),
+         depth = as.numeric(sub("cm", "", depth)))
+write.csv(
+  TEAM.temp.df.long, 
+  file = file.path(dat.dir, "temp.csv"),
+  row.names = FALSE)
+
+TEAM.moist.path <- "../data/experiments/TEAM/raw/soil mositure-TEAM 2018-2023.xlsx"
+ix <- excel_sheets(TEAM.moist.path)[1:6]
+TEAM.moist.ls <- lapply(seq_along(ix), function(i) {
+  read_excel(TEAM.moist.path, sheet = i)
+})
+names(TEAM.moist.ls) <- ix
+TEAM.moist.df <- bind_rows(TEAM.moist.ls, .id = "depth")
+TEAM.moist.df.long <- pivot_longer(TEAM.moist.df, cols = starts_with("plot"), names_to = "plot", values_to = "moist") %>%
+  mutate(plot = sub("plot", "", plot),
+         depth = as.numeric(sub("cm", "", depth)))
+write.csv(
+  TEAM.moist.df.long, 
+  file = file.path(dat.dir, "moist.csv"),
+  row.names = FALSE)
+```
+
+## TeRaCON
+- four data streams
+  1) "sentek": VWC, salinity, and temperature at 15 min intervals for roughly 5 years
+  2) "temp": temp 
+  3) "tdr": soil moisture from TDR sensors
+  4) "Biocon_hourly_2012-2018vprimary1.csv" & ""
+
+```{r TeRaCON-dat}
+# # read data files, save as uncompressed RDS for fast loading
+# sentek <- read.csv("../data/raw/TeRaCON/sentek2019_2023 data for distribution.csv")
+# saveRDS(sentek, "../data/raw/TeRaCON/rds/sentek.rds", compress = FALSE)
+# temp <- read.csv("../data/raw/TeRaCON/Temperature 2019-2023 data for distribution.csv", na.strings = "NAN")
+# saveRDS(temp, "../data/raw/TeRaCON/rds/temp.rds", compress = FALSE)
+# tdr <- read.csv("../data/raw/TeRaCON/TDR 2019-2023 data for distribution.csv")
+# saveRDS(tdr, "../data/raw/TeRaCON/rds/tdr.rds", compress = FALSE)
+sentek <- readRDS("../data/experiments/TeRaCON/rds/sentek.rds")
+temp <- readRDS("../data/raw/TeRaCON/rds/temp.rds")
+tdr <- readRDS("../data/raw/TeRaCON/rds/tdr.rds")
+
+plt.info <- read.xlsx("../data/raw/TeRaCON/Plot table.xlsx", sheet = 1)
+sns.info <- read.xlsx("../data/raw/TeRaCON/Plot table.xlsx", sheet = 4, cols = 1:5)
+metadata <- read.csv("../data/raw/TeRaCON/metadata/metadata.csv")
+```
+
+```{r ter-temp-dat}
+biocon.temp <- read.csv("../data/experiments/TeRaCON/Biocon_hourly_2012-2018vprimary1.csv")
+biocon.temp.wmsn <- read.csv("../data/experiments/TeRaCON/Biocon_hourly_warmingseason_2012-2018vprimary1.csv")
+```
+
+```{r T-M-blg-ter}
+# rename raw data
+moistTempTer <- sentek
+
+# Remove trailing period from col names
+names(moistTempTer) <- sub('\\.$', '', names(moistTempTer))
+
+# change names sep to be "_" instead of "."
+names(moistTempTer) <- gsub(x = names(moistTempTer), pattern = "\\.", replacement = "_")
+
+# drop salinity data and pivot longer
+moistTempTer.long <- moistTempTer %>%
+  select(c(TIMESTAMP, STATNAME, contains("VWC"), contains("TEMP"))) %>%
+  mutate(across(-c(TIMESTAMP, STATNAME), as.numeric)) %>%
+  pivot_longer(
+    cols = !c(TIMESTAMP, STATNAME),
+    names_to = c("var", "sensor", "depth"),
+    names_sep = "_",
+    values_to = "value") %>%
+  mutate(date = date(parse_date_time(TIMESTAMP, orders = "%m/%d/%Y %H/%M"))) %>%
+  select(-TIMESTAMP)
+
+# add plot ID for the heat/control plots, and filter drought & eCO2 plots
+moistTempTer.long$ring <- sub("Soil_", "", moistTempTer.long$STATNAME)
+moistTempTer.long$plot <- ifelse(
+ moistTempTer.long$ring == "2" & moistTempTer.long$sensor == "H", 106,
+ ifelse(moistTempTer.long$ring == "2" & moistTempTer.long$sensor == "D", 119,
+        ifelse(moistTempTer.long$ring == "4" & moistTempTer.long$sensor == "D", 226,
+               ifelse(moistTempTer.long$ring == "4" & moistTempTer.long$sensor == "H", 233,
+                      ifelse(moistTempTer.long$ring == "6" & moistTempTer.long$sensor == "C", 320, ifelse(moistTempTer.long$ring == "6" & moistTempTer.long$sensor == "H", 361, NA))))))
+
+# remove NaN & NA
+moistTempTer.ch <- na.omit(moistTempTer.long)
+
+moistTer <- moistTempTer.ch %>%
+  filter(var == "VWC") %>%
+  select(var, date, plot, depth, value) %>%
+  group_by(date, plot, depth) %>% 
+  summarize(mean.moisture = mean(value, na.rm = T), .groups = "drop") %>%
+  data.frame()
+tempTer <- moistTempTer.ch %>%
+  filter(var == "TEMP") %>%
+  select(var, date, plot, depth, value) %>%
+  group_by(date, plot, depth) %>% 
+  summarize(mean.temp = mean(value, na.rm = T), .groups = "drop") %>% 
+  data.frame()
+moistTempTer.clean <- merge(
+  moistTer,
+  tempTer,
+  by = c("plot", "depth", "date"))
+moistTempTer.clean$trt <- ifelse(
+  moistTempTer.clean$plot == 106 | moistTempTer.clean$plot == 233 | moistTempTer.clean$plot == 361, "C", "H")
+    
+# add seasonal info
+moistTempTer.clean$season <- ifelse(
+  month(moistTempTer.clean$date) < 4, "Q1", 
+  ifelse(month(moistTempTer.clean$date) > 3 & month(moistTempTer.clean$date) < 7, "Q2",
+         ifelse(month(moistTempTer.clean$date) > 6 & month(moistTempTer.clean$date) < 10, "Q3", "Q4")))
+moistTempTer.clean$DEPTH <- as.numeric(moistTempTer.clean$depth) * 10
+
+# models
+ter.lm <- lm(mean.moisture ~ DEPTH * trt, moistTempTer.clean)
+
+# plots
+moistTempTer.clean %>%
+  mutate(datePlot = paste0(date, plot)) %>%
+  ggplot(., aes(mean.moisture, DEPTH, color = trt)) +
+  geom_path(aes(group = datePlot)) +
+  scale_color_manual(values = c("H" = "#F8766D", "C" = "#00A9FF")) +
+  scale_y_reverse() +
+  facet_grid(cols = vars(season)) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+
+moistTempTer.clean %>% 
+  group_by(trt, depth, season) %>% 
+  summarize(moist = mean(mean.moisture, na.rm = T), sd = sd(mean.moisture, na.rm = T), n = n()) %>%
+  mutate(sem2 = 2 * (sd / sqrt(n))) %>%
+  ggplot(., aes(depth, moist, fill = trt)) + 
+  geom_col(position = "dodge") + 
+  geom_errorbar(aes(ymin = moist - sem2, ymax = moist + sem2, color = trt), position = "dodge") +
+  scale_fill_manual(values = c("H" = "#F8766D", "C" = "#00A9FF")) +
+  scale_color_manual(values = c("H" = "#F8766D", "C" = "#00A9FF")) +
+  facet_grid(cols = vars(season)) + 
+  theme_bw() + 
+  theme(panel.grid = element_blank())
+
+moistTempTer.clean %>% 
+  mutate(PP = ifelse(plot < 200, 2, ifelse(plot > 200 & plot < 300, 4, 6))) %>%
+  pivot_wider(id_cols = c(PP, DEPTH, date, season), names_from = trt, values_from = mean.moisture) %>%
+  mutate(mDif = C - H) %>%
+  group_by(DEPTH, season) %>% 
+  summarize(mean.mDif = mean(mDif, na.rm = T), sd = sd(mDif, na.rm = T), n = n()) %>%
+  mutate(sem2 = 2 * (sd / sqrt(n))) %>%
+  ggplot(., aes(DEPTH, mean.mDif, fill = season)) + 
+  geom_col(position = "dodge") + 
+  geom_errorbar(
+    aes(ymin = mean.mDif - sem2, ymax = mean.mDif + sem2, color = season), position = "dodge") + 
+  theme_bw() + 
+  theme(panel.grid = element_blank())
+```
+
+
+## TRACE
+
 
 # General Workflow
 
@@ -680,5 +1058,51 @@ Update 2 Aug 2024
 - perhaps the data directory is stored in an external drive, and a copy of the metadata is written into the SWEDDIE directory each time data are compiled?
 - I envision this compilation function creating a "meta" version of the database by compiling flmd & dd files
 - the "meta" database is then queried to generate reports by reading in the actual data from the external source
+
+# Analysis
+
+Start with overall trends, i.e., simplify data to assess data on daily time step. Calculate mean, min, max, and sd for soil moisture and temperature. Treat plots as reps.
+
+## Research Questions
+
+1. Does heating influence soil moisture?
+- use ANOVA type approach to compare heated/control plots
+- could also look at regression of soil moisture and temperature, e.g., mixed modeling approach looking at treatment, site, etc., as potential variables affecting relationship
+- OR, perhaps more simply, look at the difference between treatment and control soil moisture, and assess how different factors affect that difference
+
+2. Does heating influence the depth profile of soil moisture?
+- could use regression approach on control-heated soil moisture
+- OR, ANOVA of different depths?
+- Probably useful to treat depth as a continuous variable, but one potentially interacting with soil texture, vegetation (roots?), climate
+- Might be useful to conduct the analysis within aridity/wetness index bins
+
+3. How does site infrastructure/heating regime affect soil moisture trends?
+- again, probably easiest to do in a regression context
+
+5. Does aboveground vs. belowground heating affect soil moisture depth profiles?
+
+6. Is there a heating level for which a given site exceeds a critical soil moisture deficit, e.g., wilting points/etc. [need to think about this more]
+
+7. Does soil moisture affect the variability in heating in XYZ coordinates? For example, saturated soils could be expected to have more even heating; or, for sites with surficial heating, saturated soils may be slower to heat, e.g., at TRACE, KAEFS, etc.
+
+
+## Hypotheses
+
+1. Warmed plots will have lower soil moisture due to increased evaporation (and evapotranspiration?)
+2. Differences between control and heated plot soil moisture will only be apparent in low moisture environments; is there a aridity/wetness index cut-off for this? 
+3. Control-heated soil moisture differences will vary seasonally, greater during periods of increased soil moisture loss, i.e., summer
+
+
+## Data
+- soil temperature and moisture data
+- depths
+  - need to spline so that temperature and moisture are at same depths w/in sites
+- climate:
+  - *MAT*, *MAP*, *PET* (global), PET local (if available), ET, PAR (for calculating PET?)
+- root biomass by depth?
+- *soil texture*
+- *soil organic matter*
+- hydraulic conductivity (?)
+- matric potential (?)
 
 
