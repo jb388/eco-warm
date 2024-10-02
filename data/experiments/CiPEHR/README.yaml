@@ -1,0 +1,29 @@
+Files:
+  - raw
+    - "flux_hh.csv"
+  - data
+Source: Heidi Rodenhizer <hrodenhizer@woodwellclimate.org>
+Curator: J. Beem-Miller
+Date: 26-Sep-2024
+Contents:
+  - soil temperature and moisture data from CiPEHR site
+Notes:
+  - data sent to J. Beem-Miller <jbeemmiller@lbl.gov> by email (google drive link) on 16-Apr-2024
+  - updated files w/ plot & treatment info sent on
+  - Experiment notes from Mauritz et al., 2017:
+    - "Soil warming was initiated in the winter of 2008/2009, air warming in April 2009, and water table manipulation in June 2011. Briefly, soil warming was achieved using snow fences (1.5 m high × 8 m long) that trap snow down-wind and insulate the soil in the winter; air warming was achieved using polycarbonate open top chambers (cubicle OTCs of 0.36 m2 × 0.5 m) and drying was controlled by metal sheets  installed 0.6 m into the ground (2.5 m × 1.5 m) w/ pumps used to lower the water table. Each April, the excess snowpack is manually removed to match the ambient snowpack and to avoid artifacts such as increased water input and delayed phenology"
+  - Sensor data in "experiment" table
+  - Read me.xlsx:
+    - contains metadata describing contents of dir
+    - file missing as of Sep. 2024
+  - flux_hh.csv:
+    - very large matrix, 1.26 GB, [11780352, 15]
+    - soil moisture:
+      - volumetric water content "vwc" (soil surface to 15 cm) measured using site-calibrated Campbell CS616 water content reflectometer probes (two per winter warming treatment)
+      - gravimetric water content "gwc" (soil surface to 5 cm) from site-calibrated DC half-bridge resistance measurements in each flux plot
+    - temp data for 5, 10, 20, and 40 cm; cols w/ "f" represent gap-filled data
+    - half-hour time step
+    - date range 01-Oct-2008 to 30-Sep-2022
+    - heating period specified as late-October to mid-April (e.g., DOY 288 to 105)
+References:
+  - "Mauritz, M., Pegoraro, E., Ogle, K., Ebert, C., & Schuur, E. A. G. (2021). Investigating thaw and plant productivity constraints on old soil carbon respiration from permafrost. Journal of Geophysical Research: Biogeosciences, 126, e2020JG006000. https://doi.org/10.1029/2020JG006000"

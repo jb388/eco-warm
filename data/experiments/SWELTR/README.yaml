@@ -1,0 +1,24 @@
+Files:
+  - "soilT_moist_AN_6-7-2024/SWELTR_to2020_T_H2O_withinfo.csv"
+  - "soilT_moist_AN_6-7-2024/SWELTR_to2020_T_H2O.csv"
+  - "SWELTR_to2020_T_H2O_flmd.csv"
+  - "SWELTR_to2020_T_H2O_dd.csv"
+Source: Andrew Nottingham <A.Nottingham@leeds.ac.uk>
+Curator: J. Beem-Miller
+Date: 02-Aug-2024
+Contents:
+  - soil temperature and moisture data from SWELTR site (up to 2018)
+Notes:
+  - sent to J. Beem-Miller by email on 07-Jun-2024
+  - J. Beem-Miller added FLMD and DD files on 02-Aug-2024 using information provided in file "SWELTR_to2020_T_H2O_withinfo.csv"
+  - SWELTR_to2020_T_H2O_withinfo.csv:
+    - user-supplied data dictionary file for "SWELTR_to2020_T_H2O.csv"
+    - also includes sensor info, units, and measurement protocols
+  - SWELTR_to2020_T_H2O.csv:
+    - large table w/ cols TIME, DEPTH, T, H2O, PLOT, TREAT
+    - first two years of heating (2018-2020)
+  - SWELTR_to2020_T_H2O_flmd.csv:
+    - SWEDDIE flmd
+  - SWELTR_to2020_T_H2O_dd.csv:
+    - SWEDDIE data dictionary file
+References:

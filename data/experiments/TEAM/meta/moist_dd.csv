@@ -1,0 +1,5 @@
+﻿colName,description,unit,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+depth,depth of measurement,cm,numeric,,,,,,,depth,
+time,date of measurement,yyyy-mm-dd,date,,,,,,,,
+plot,plot ID,,string,,,,,,,,
+moist,volumetric soil moisture,cm3/cm3,numeric,,,,,,,,

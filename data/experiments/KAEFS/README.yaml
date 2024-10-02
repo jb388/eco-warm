@@ -1,0 +1,20 @@
+Files:
+  - raw
+  - derived
+  - data
+Source: Zheng Shi
+Curator: J. Beem-Miller
+Date: 24-Sep-2024
+Contents:
+  - soil temperature data from KAEFS site
+Notes:
+  - data provided by Z. Shi in July '24
+  - still missing moisture data as of 28 Sep. '24
+  - formatting is a challenge for data entry
+    - data entered vertically, but identifying information is provided above the data cells
+    - created a derived version of the data with identifying information condensed into a "_" separated string
+    - used this to output a horizontally oriented data file ("temperature_200908_201802_daily_reshaped.csv")
+  - data dictionary information originally provided as "Numbers" file
+    - data from this file extracted and entered into dd file
+  - flmd file also created by J. Beem-Miller
+References:

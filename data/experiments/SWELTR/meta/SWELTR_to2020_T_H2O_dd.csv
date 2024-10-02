@@ -1,0 +1,7 @@
+﻿colName,description,unit,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+TIME,"Day / MONTH/  YEAR, Time",dd-mm-yyyy; time,date,,,,,,,,
+DEPTH,soil depth where 100 = sensor at 100-120cm; 50 = sensor at 50-70 cm; 10 = sensor at 0-20cm,cm,numeric,,,,,,,,
+T,temperature in deg C,,numeric,Campbell CS655 Reflectometer,,Sensors are located at the 'mid-radius point inside each of the plots; with 3 sensors per plot (across 3 depths); Data collection is generally measurement per 30 minutes (may vary due to power cuts; modifications to protocol); data in this file are for the first two years of soil heating,,,,,mineral soil
+H2O,volumetric moisture,cm3 cm3-1,numeric,Campbell CS655 Reflectometer,,Sensors are located at the 'mid-radius point inside each of the plots; with 3 sensors per plot (across 3 depths); Data collection is generally measurement per 30 minutes (may vary due to power cuts; modifications to protocol); data in this file are for the first two years of soil heating,,,,,mineral soil
+PLOT,plot number 1 to 10,,character,,,,,,,,
+TREAT,W = warm plot; C = control plot,,character,,,,,,,,

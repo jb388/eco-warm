@@ -1,0 +1,6 @@
+Column_or_Row_Name,Unit,Definition,Column_Long_Name,Data_Type,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+Collection_date,YYYY-MM_DD,Date of sample collection,Collection_date,Date,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+Temp_treatment,degrees C,Temperature treatment,Temperature_treatment,Numeric,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+Midpoint_depth,cm,Core midpoint depth,Midpoint_depth,Numeric,N/A,N/A,N/A,N/A,Varies,Varies,Varies,N/A
+Bulk_density,g cm-3,Bulk density,Bulk_density,Numeric,N/A,Dry mass divided by volume,None,Standard Protocol,Varies,Varies,Varies,"""average” hollow elevation for each plot"
+Bulk_density_SD,g cm-3,Standard deviation of bulk density ,Bulk_density_SD,Numeric,N/A,Dry mass divided by volume,None,Standard Protocol,Varies,Varies,Varies,"""average” hollow elevation for each plot"

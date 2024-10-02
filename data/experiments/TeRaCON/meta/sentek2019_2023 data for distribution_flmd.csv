@@ -1,0 +1,2 @@
+﻿emailAddress,Name,Data contact name,Data contact email,fileName,siteName,dataType,description,UTC_offset,fileVersionNumber,startDate,endDate,missingValCodes,dataOrientation,notes
+jbeemmiler@lbl.gov,Jeff,Kally Worm,wormx004@umn.edu,sentek2019_2023 data for distribution.csv,TeRaCON,"soil temperature, soil moisture, salinity",data from sentek sensors: temperature; moisture; salinity,-6,,2020-03-19,2023-10-03,NAN,Columns (vertical),Additional T & moisture data available from other sensors (see other files)

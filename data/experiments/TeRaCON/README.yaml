@@ -1,0 +1,60 @@
+Files:
+  - "Plot table.xlsx"
+  - "sentek2019_2023 data for distribution.csv"
+  - "TDR 2019-2023 data for distribution.csv"
+  - "Temperature 2019-2023 data for distribution.csv"
+  - "Biocon_hourly_warmingseason_2012-2018vprimary1.csv"
+  - "Biocon_hourly_2012-2018vprimary1.csv"
+Source: Kally Worm <wormx004@umn.edu>
+Curator: J. Beem-Miller
+Date: 28-Mar-2024
+Contents:
+  - temperature and moisture data from TeRaCON site
+Notes:
+  - sent to J. Beem-Miller by email on 28-Mar-2024
+  - Plot table.xlsx:
+    - contains metadata describing contents of other files in dir
+    - note that updated file received on 2 Apr 2024 with treatment information
+    - updated plot info is on the github "plot" table as of 08-May-2024
+    - layout of sites is as follows, 6 rings, each with 60 plots; rings are blocks within which treatments are applied, e.g., half of the rings are eCO2 plots, etc.
+  - sentek2019_2023 data for distribution.csv:
+    - data from sentek sensors (temp, salinity, vol water content) for time period 2019 to 2023 in 15 min intervals
+    - Very large data object [405203, 219] 766 Mb
+    - Columns 1:3 contain (1) timestamp (m/d/yyyy h:mm), (2) data record ID, (3) STATNAME (ring ID---not sure what this means); columns 4:219 contain measurement data for each sensor
+    - Sensor names/names of columns 4:219 follow the format of var_Sensor_depth, where 'var' is one of "VWC", "SAL", or "TEMP" for volumetric water content, salinity, or temperature, respectively, 'Sensor' is an letter code for the sensor (not sure what this means), and 'depth' is the depth of the sensor / 10 in cm (ex. 1 = 10 cm, 9 = 90 cm)
+    - Questions (29-Mar-2024):
+      - What are units for VWC? Salinity?
+      - What are the "rings"?
+      - What do the letter codes (Probe Letters) for the sensors mean?
+  - TDR 2019-2023 data for distribution.csv:
+    - volumetric soil water content data from TDR sensors
+    - medium sized data object [133497, 11] ~ 10 Mb
+    - Columns 1:3 contain (1) timestamp (m/d/yyyy h:mm), (2) data record ID, (3) Ring (ring ID---not sure what this means); columns 4:11 contain measurement data for each sensor
+    - Questions:
+      - sensor make and model?
+      - units?
+  - Temperature 2019-2023 data for distribution.csv:
+    - temperature probe data. Not sure about sensor here.
+    - Large data object [533695, 26] ~82 Mb
+    - Columns 1:3 contain (1) timestamp (m/d/yyyy h:mm), (2) data record ID, (3) STATNAME (ring ID---not sure what this means); columns 4:6 contain flags for heating system status (0 means "off", -1 = "on"), (4) "program", (5) aboveground, (6) belowground; columns 7:26 contain measurement data for each sensor
+    - sensor info (above/below ground, next to heater or lagged) provided on 'Sensors' tab of "Plot table.xlsx"
+    - aboveground sensors start 50 cm above the soil surface and then are moved to 1 m above the soil surface when plants grow to 50 cm height
+    - belowground pins are located in percent cover area 2 cm away from a heating pin and are in all plots for temperature control
+    - belowground lags are located 25 cm away from all heating pins surrounding it and are used as a check for heating coverage- only in warmed plots
+    - NAN means the sensor is not functioning properly; between 39 and 40 deg C the sensors will go NAN because it is too high
+    - Questions:
+      - Sensor make/model?
+      - What does flag 1 signify? Is it redundant with flags 2 & 3?
+      - Is the date when the aboveground sensors are moved recorded?
+  - Biocon_hourly_warmingseason_2012-2018vprimary1.csv:
+    - temperature data for date range 2012-2018
+    - large data object [1104880, 61] ~ 358 Mb
+    - Questions:
+      - difference between warming season/non-warming season files?
+      - Sensor make/model?
+      - Can you confirm what the flag columns signify here?
+      - Can you provide the units for the measurement columns?
+  - Biocon_hourly_2012-2018vprimary1.csv:
+    - temperature data for date range 2012-2018
+    - large data object [1104880, 61] ~ 512.3 Mb
+References:

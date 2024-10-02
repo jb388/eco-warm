@@ -1,0 +1,8 @@
+colName,description,unit,dataType,siteName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef,notes
+warming,"warming treatment (W = warmed, C = control)",W;C,string,,,,,,,,,,
+precip,precipitation treatment (C = control; H = treatment),C;H,string,,,,,,,,,,
+plot,plot ID,,string,,,,,,,,,,
+block,block ID,,string,,,,,,,,,,
+vegType,vegetation type,C3;C4,string,,,,,,,,,,
+year,year sampled,yyyy,numeric,,,,,,,,,,
+g_m2_y,above ground net primary productivity,g/m2/y,numeric,,,,,,,,,,need to double check the units (waiting for confirmation from Zheng Shi as of 30 Sep. 2024)

@@ -1,0 +1,12 @@
+colName,description,unit,dataType,siteName,plotName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+Date,timestamp,yyyy-mm-ddThh:mm,date,,,,,,,,,,
+year,year,yyyy,numeric,,,,,,,,,,
+month,month,m,numeric,,,,,,,,,,
+day,day of month,d,numeric,,,,,,,,,,
+plotID,plot ID,,string,,,,,,,,,,
+blockID,block ID,,string,,,,,,,,,,
+warmingTreatment,warming treatment,C;W,string,,,,,,,,,,
+precipTreatment,precipitation treatment,C;H,string,,,,,,,,,,
+clippingTreatment,clipping treatment,air;Clipped,string,,,,,,,,,,
+depth_cm,depth,cm,numeric,,,,,,,,,depth,
+T,temperature,deg C,numeric,,,,,,,,,,

@@ -1,0 +1,4 @@
+﻿Name,email,Data contact name,Data contact email,fileName,expName,dataType,description,UTC_offset,fileVersionNumber,startDate,endDate,missingValCodes,dataOrientation,notes
+Jeff,jbeemmiler@lbl.gov,Serita Frey,serita.frey@unh.edu,hf005-04-soil-temp_PH.csv,Harvard Forest,soil temperature from Prospect Hill tract main experiment,soil temperature data from the Prospect Hill tract soil warming experiment at Harvard Forest,-5,,7/1/91,12/31/21,NA,Columns (vertical),
+Jeff,jbeemmiler@lbl.gov,Serita Frey,serita.frey@unh.edu,hf005-07-soil-moisture_PH.csv,Harvard Forest,soil moisture,soil moisture data from the Prospect Hill tract soil warming experiment at Harvard Forest,-5,,9/9/15,12/31/21,NA,Columns (vertical),
+Jeff,jbeemmiler@lbl.gov,Serita Frey,serita.frey@unh.edu,hf045-03-soil-temp.csv,soil temperature,soil temperature data from the SWAN soil warming experiment at Harvard Forest,,-5,,7/6/06,12/31/21,NA,Columns (vertical),

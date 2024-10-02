@@ -1,0 +1,9 @@
+﻿colName,description,unit,dataType,siteName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+Year,year sampled,,numeric,,,,,,,,,
+Plots,plot ID,,string,,,,,,,,,
+Field,site name,,string,,,,,,,,,
+depth_upper,upper depth,cm,numeric,,,,,,,,depth,mineral soil interface
+depth_lower,lower depth,cm,numeric,,,,,,,,depth,mineral soil interface
+Treatment,treatment,,Heated;Control,,,,,,,,,
+Carbon(mgC/g),soil organic carbon content,mgC/g soil,numeric,,,,,,,,,
+Bulk_density(g/cm3),bulk density,g/cm3,numeric,,,,,,,,,

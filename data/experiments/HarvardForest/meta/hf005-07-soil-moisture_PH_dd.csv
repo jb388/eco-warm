@@ -1,0 +1,20 @@
+colName,description,unit,dataType,siteName,plotName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+date,timestamp,mm/dd/yy,date,,,,,,,,,,
+p1_sm,soil moisture; plot 1,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,1,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p2_sm,soil moisture; plot 2,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,2,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p3_sm,soil moisture; plot 3,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,3,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p4_sm,soil moisture; plot 4,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,4,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p5_sm,soil moisture; plot 5,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,5,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p6_sm,soil moisture; plot 6,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,6,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p7_sm,soil moisture; plot 7,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,7,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p8_sm,soil moisture; plot 8,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,8,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p9_sm,soil moisture; plot 9,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,9,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p10_sm,soil moisture; plot 10,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,10,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p11_sm,soil moisture; plot 11,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,11,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p12_sm,soil moisture; plot 12,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,12,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p13_sm,soil moisture; plot 13,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,13,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p14_sm,soil moisture; plot 14,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,14,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p15_sm,soil moisture; plot 15,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,15,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p16_sm,soil moisture; plot 16,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,16,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p17_sm,soil moisture; plot 17,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,17,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface
+p18_sm,soil moisture; plot 18,cm^3 H2O cm^-3 soil,volumetric soil moisture,Prospect Hill,18,,time domain reflectometry,,,0,30,depth,atmosphere-soil interface

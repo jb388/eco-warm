@@ -1,0 +1,5 @@
+colName,description,unit,dataType,siteName,plotName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+Timestamp,timestamp,mm/dd/yy,date,,,,,,,,,,
+plotID,plot ID,,string,,,,,,,,,,
+depth,depth of observation,cm,numeric,,,,,,,,,depth,
+vwc_pct,volumetric water content,percent,numeric,,,,,,,,,,

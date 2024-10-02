@@ -1,0 +1,11 @@
+colName,description,unit,dataType,siteName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+STID,station ID,,,,,,,,,,,
+TIME,timestamp,,date,,,,,,,,,
+TAIR,average temperature over 1.5 minutes,deg F,numeric,,,,,,,,,
+TMIN,minimum temperature over 1.5 minutes,deg F,numeric,,,,,,,,,
+TMAX,max temperature over 1.5 minutes,deg F,numeric,,,,,,,,,
+TDEW,average dew point temperature over 1.5 minutes,deg F,numeric,,,,,,,,,
+RELH,average relative humidity over 1.5 minutes,percent,numeric,,,,,,,,,
+WSPD,average windspeed over 10 minutes,mph,numeric,,,,,,,,,
+RAIN,accumulated precipitation,inches,numeric,,,,,,,,,
+SRAD,solar radiation,W/m2,numeric,,,,,,,,,

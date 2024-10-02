@@ -1,0 +1,7 @@
+colName,description,unit,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+TIMESTAMP,Time when the data was collected. Timezone: America/Regina. Equivalent to Central standard Time (North America) without saving time or also equivalent to UTC-6,YYYY-MM-DD HH:mm:ss,text,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+plot,name/code of the plot in the B4WarmED project where the measurement was collected,N/A,text,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+warm_trt,"level of the warming treatment applied to the plot of this measurement. “AmbT” in case of plots growing at the natural ambient temperature, and “+3.4C” in case of warmed plots that were warmed at 3.4C above the ambient natural temperature",N/A,text,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+warmingIsON,Indicates if the soil was actively warming during the moment of the measurement,N/A,text,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+depthTemp.cm,Depth where the measurement was collected,cm,numeric(integer),N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+soilTempC,Temperature of the soil,degrees Celsius,numeric(float),"Thermocouples type T and AMT25 multiplexer (Campbell Scientific, Logan, Utah, USA)",N/A,N/A,N/A,N/A,N/A,N/A,N/A

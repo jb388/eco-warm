@@ -1,0 +1,152 @@
+Files:
+  - raw
+    - "hf005-04-soil-temp_PH.csv"
+    - "hf005-04-soil-temp_PH_dd.csv"
+    - "hf005-04-soil-temp_PH_flmd.csv"
+    - "hf005-07-soil-moisture_PH.csv"
+    - "hf005-07-soil-moisture_PH_dd.csv"
+    - "hf005-07-soil-moisture_PH_flmd.csv"
+    - "hf045-03-soil-temp.csv"
+    - "hf045-03-soil-temp_dd.csv"
+    - "hf045-03-soil-temp_flmd.csv"
+Source: Serita Frey <serita.frey@unh.edu>
+Curator: J. Beem-Miller
+Date: 24-Sep-2024
+Contents:
+  - soil temperature and moisture data from Harvard Forest
+Notes:
+  - data dictionary and file level metadata updated 24 Sep. 2024
+  - additional information provided by S. Frey and M. Knorr via email in July 2024
+  - retrieved from Harvard Forest archive (web repository) by J. Beem-Miller on 25-Jun-2024
+  - files with suffix "_PH" are from the Prospect Hill tract; this is the original warming experiment established in 1991; retrieved from https://harvardforest1.fas.harvard.edu/exist/apps/datasets/showData.html?id=HF005
+  - file "hf045-03-soil-temp.csv" is from the soil warming and nitrogen addition (SWaN) site, established in 2004; retrieved from https://harvardforest1.fas.harvard.edu/exist/apps/datasets/showData.html?id=HF045
+  - other available data from PH includes:
+    - hf005-01 trace gas flux
+    - hf005-02 lysimeter
+    - hf005-03 nitrogen mineralization
+    - hf005-04 soil temperature
+    - hf005-05 soil respiration
+    - hf005-06 fine root biomass
+    - hf005-07 soil moisture
+    - hf005-08 soil warming layout
+    - link: https://harvardforest1.fas.harvard.edu/exist/apps/datasets/showData.html?id=HF005
+  - additional soil biogeochemical data from PH includes:
+    - hf303-01 microbial biomass based on lipid P (preview)
+    - hf303-02 stable isotope analysis of mineral soil C and N (preview)
+    - hf303-03 soil chemistry based on pyrolysis-GC/MS (preview)
+    - hf303-04 weights of soil aggregates and soil aggregate fractions (preview)
+    - hf303-05 mass percent of carbon and nitrogen in soil aggregate fractions (preview)
+    - hf303-06 potential extracellular enzyme activity for soil samples (preview)
+    - hf303-07 carbon and nitrogen (preview)
+    - hf303-08 loss on ignition data for soil organic content (preview)
+    - link: https://harvardforest1.fas.harvard.edu/exist/apps/datasets/showData.html?id=HF045
+  - other availble data from SWaN includes:
+    - hf045-01 soil CO2 eflux (preview)
+    - hf045-02 nitrogen mineralization (preview)
+    - hf045-03 soil temperature (preview)
+    - hf045-04 plants (preview)
+    - hf045-05 ants (preview)
+    - hf045-06 root biomass (preview)
+    - hf045-07 root species (preview)
+    - hf045-08 root respiration (preview)
+    - link: https://harvardforest1.fas.harvard.edu/exist/apps/datasets/showData.html?id=HF045
+  - Prospect Hill site info:
+    - The soil warming experiment was installed on the Prospect Hill tract in 1991 to allow us to investigate the effects of a 5 deg C temperature increase on soil processes fundamental to the global cycling of carbon and nitrogen. The experiment is located in an even-aged mixed hardwood forest. Six replicates of three treatments, Heated (resistance heating cables buried at 10cm and maintained at a 5 deg C differential from the control plots), Disturbance Control (cables installed but not powered) and Control treatments make up the randomized block design. The temperature differential is maintained with monitoring at five minute increments by an automated thermistor network in the plots, wired to a multiplexer and a datalogger in the control shed. In the plots, measurements of trace gasses (CO2, N2O and CH4), nitrogen mineralization, soil moisture and soil water chemistry have allowed us to quantify changes in the soil system.
+    - Ten years of elevated soil temperatures at the Harvard Forest soil warming experiment suggest that there are limits to a positive feedback to the global warming cycle. After many early years of increased CO2 fluxes from the warmed plots, years nine and ten have revealed no significant differences in releases of CO2 between the heated and control plots. Nitrogen mineralization has shown a large response to warming as well, with twice the rate of N mineralized in years 1-4, followed by a gradual decrease in rates to about the 40% level in 1998. Resumption of mineralization measurements in 2001 reveals a continued decrease in mineralization rates.
+    - Field results from the soil warming experiment indicate that only a small fraction of the soil carbon in this mid-latitude forest ecosystem will be lost to the atmosphere in response to warming. We find that a 5 deg C warming of the soil for a decade results in a loss of about 11% of the carbon stored in the top 60 cm of soil, with most of this loss occurring in the first four to five years. By the end of the decade, warming no longer stimulates soil carbon loss. In addition, we find that warming accelerates the soil nitrogen cycle, particularly in the early years of warming. This acceleration has the potential to stimulate plant carbon storage.
+    - Calculations based on nitrogen uptake in vegetation at the Chronic N Experiment (Magill, Aber et al. 2000) allow us to estimate how much additional carbon might be stored in plants as a result increased N availability at soil warming. Our calculations show that the potential increase in carbon stored is large enough to more than compensate for the soil carbon loss, so that warming may actually stimulate carbon storage at the ecosystem level in this mid-latitude forest.
+    - We are currently expanding our research from the original soil warming experiment to investigate this important feedback at the Harvard Forest. The existing 6x6m plots on the Prospect Hill tract are not large enough to allow for the study of treatment effects on trees, so we are installing a larger warming experiment. The new experiment will have two 30x30m plots, a heated and a control plot, in the Slab City Tract of the Harvard Forest. Many aspects of this experiment will be the same as the original. Using resistance heating cables and thermistors, we will maintain a 5 deg C differential between the heated and control plots, year-round. In addition to the trace gas, nitrogen mineralization and soil water parameters measured to date, we will also be measuring woody increment and other vegetation metrics to allow us to investigate the plant response to perturbations in the carbon and nitrogen cycles.
+  - SWaN site info:
+    - Climate warming and N deposition are occurring on a global scale with unknown long-term effects on soil microbial communities and the biogeochemical processes they perform. Few studies have examined the interactive effects of elevated temperatures and N additions on soil microbial community structure and function. The overall objective of this study is to investigate whether warming and N additions restructure microbial communities and alter the response of soil C pools to these two stressors. A related study is examining the interactive effects of warming and N additions on plant and ant diversity. This research is being carried out at the Soil Warming x Nitrogen Addition Study at the Harvard Forest which includes four treatments = control, warming (heating to 5 deg C above ambient), warming x N, and N additions only (addition of 50 kg N/ha/yr).
+    - Soil respiration measurements have been made monthly since the beginning of the experiment in 2006. In 2010 and 2011, two different methods were compared = static chamber measurements and instantaneous field IRGA assessments. Soil samples (~0-10 cm) have been sampled annually for total C and N, N mineralization, and microbial community composition. Most recently, soils were collected in October 2011 from across the entire profile (0-50 cm) to access potential changes in soil C and N pools with depth. First, 20 x 20 cm forest floor samples were collected. Mineral soils were then collected in 10 cm depth increments to ~50 cm. Samples are currently being analyzed for total C and N, microbial biomass and community composition and fungal gene expression (transcriptomics). Additionally, long-term incubations are being conducted to measure labile and recalcitrant C fractions. Additional soil physical (texture) and chemical (pH, inorganic N) are being measured.
+    - Field season measurements of soil respiration indicate that both warming and N additions continue to stimulate CO2 flux, with warming treatments having a stronger effect on respiration than N additions alone. Where warming x N occur together, warming appears to moderate the negative effects of N additions alone on soil respiration. Microbial biomass estimates show the greatest biomass within the warming x N treatment. Declines in microbial biomass with warming or N additions alone support similar findings from the same assessment in 2007 and 2009. Forest floor mass show small declines under warmed conditions. Soil C storage in the mineral soil showed modest changes with warming (-10% difference compared to control). Genomic and transcriptomic pipelines optimized in the Frey Lab are being used to measure the diversity, composition, and function (via gene expression) of the active fungal community in response to warming and N additions. Recent transcriptomic work has demonstrated that chronic N fertilization results in a decrease in expression of several transcripts of fungal laccase and glycoside hydrolases which are enzymes involved in lignocellulose degradation. Overall, our recent results suggest that anthropogenic stressors and seasonal changes continue to interact to affect soil microbial communities and biogeochemical cycles.
+  - hf005-04-soil-temp_PH.csv:
+    - Soil temperatures were measured at the surface and 2 and 4cm at the time of each gas sampling.
+    - Plot temperatures were also constantly monitored by an automated thermistor system, allowing comparison between control and heated plots at 5 minute intervals, with according powering up or down of the plots as needed.
+    - column info:
+      - date= date
+      - year= year
+      - doy= Julian date (unit= nominalDay / missing value= NA)
+      - month= month
+      - day= day
+      - plot1h= temp measured at 5 cm depth in plot 1 (heated) (unit= celsius / missing value= NA)
+      - plot6h= temp measured at 5 cm depth in plot 6 (heated) (unit= celsius / missing value= NA)
+      - plot8h= temp measured at 5 cm depth in plot 8 (heated) (unit= celsius / missing value= NA)
+      - plot12h= temp measured at 5 cm depth in plot 12 (heated) (unit= celsius / missing value= NA)
+      - plot15h= temp measured at 5 cm depth in plot 15 (heated) (unit= celsius / missing value= NA)
+      - plot16h= temp measured at 5 cm depth in plot 16 (heated) (unit= celsius / missing value= NA)
+      - plot3d= temp measured at 5 cm depth in plot 3 (disturbance control) (unit= celsius / missing value= NA)
+      - plot5d= temp measured at 5 cm depth in plot 5 (disturbance control) (unit= celsius / missing value= NA)
+      - plot9d= temp measured at 5 cm depth in plot 9 (disturbance control) (unit= celsius / missing value= NA)
+      - plot10d= temp measured at 5 cm depth in plot 10 (disturbance control) (unit= celsius / missing value= NA)
+      - plot13d= temp measured at 5 cm depth in plot 13 (disturbance control) (unit= celsius / missing value= NA)
+      - plot17d= temp measured at 5 cm depth in plot 17 (disturbance control) (unit= celsius / missing value= NA)
+      - plot2c= temp measured at 5 cm depth in plot 2 (control) (unit= celsius / missing value= NA)
+      - plot4c= temp measured at 5 cm depth in plot 4 (control) (unit= celsius / missing value= NA)
+      - plot7c= temp measured at 5 cm depth in plot 7 (control) (unit= celsius / missing value= NA)
+      - plot11c= temp measured at 5 cm depth in plot 11 (control) (unit= celsius / missing value= NA)
+      - plot14c= temp measured at 5 cm depth in plot 14 (control) (unit= celsius / missing value= NA)
+      - plot18c= temp measured at 5 cm depth in plot 18 (control) (unit= celsius / missing value= NA)
+      - avg_heat= average temp in Heated plots (unit= celsius / missing value= NA)
+      - avg_cont= average temp in Control plots (unit= celsius / missing value= NA)
+      - avg_dcon= average temp in Disturbance Control plots (unit= celsius / missing value= NA)
+      - shed_air= average air temp taken at the Prospect Hill Soil Warming site (unit= celsius / missing value= NA)
+  - hf005-07-soil-moisture_PH.csv:
+    - Soil moisture measurements were conducted using gravimetric techniques for the first 4 years of the study and by time domain reflectometry (TDR) from 1995-2002.
+    - column info:
+      - date= date
+      - p1_sm= TDR volumetric soil moisture in Plot 1 (Heated) (unit= dimensionless / missing value= NA)
+      - p2_sm= TDR volumetric soil moisture in Plot 2 (Control) (unit= dimensionless / missing value= NA)
+      - p3_sm= TDR volumetric soil moisture in Plot 3 (Disturbance Control) (unit= dimensionless / missing value= NA)
+      - p4_sm= TDR volumetric soil moisture in Plot 4 (Control) (unit= dimensionless / missing value= NA)
+      - p5_sm= TDR volumetric soil moisture in Plot 5 (Disturbance Control) (unit= dimensionless / missing value= NA)
+      - p6_sm= TDR volumetric soil moisture in Plot 6 (Heated) (unit= dimensionless / missing value= NA)
+      - p7_sm= TDR volumetric soil moisture in Plot 7 (Control) (unit= dimensionless / missing value= NA)
+      - p8_sm= TDR volumetric soil moisture in Plot 8 (Heated) (unit= dimensionless / missing value= NA)
+      - p9_sm= TDR volumetric soil moisture in Plot 9 (Disturbance Control) (unit= dimensionless / missing value= NA)
+      - p10_sm= TDR volumetric soil moisture in Plot 10 (Disturbance Control) (unit= dimensionless / missing value= NA)
+      - p11_sm= TDR volumetric soil moisture in Plot 11 (Control) (unit= dimensionless / missing value= NA)
+      - p12_sm= TDR volumetric soil moisture in Plot 12 (Heated) (unit= dimensionless / missing value= NA)
+      - p13_sm= TDR volumetric soil moisture in Plot 13 (Disturbance Control) (unit= dimensionless / missing value= NA)
+      - p14_sm= TDR volumetric soil moisture in Plot 14 (Control) (unit= dimensionless / missing value= NA)
+      - p15_sm= TDR volumetric soil moisture in Plot 15 (Heated) (unit= dimensionless / missing value= NA)
+      - p16_sm= TDR volumetric soil moisture in Plot 16 (Heated) (unit= dimensionless / missing value= NA)
+      - p17_sm= TDR volumetric soil moisture in Plot 17 (Disturbance Control) (unit= dimensionless / missing value= NA)
+      - p18_sm= TDR volumetric soil moisture in Plot 18 (Control) (unit= dimensionless / missing value= NA)
+  - hf045-03-soil-temp.csv:
+    - Plot temperatures are measured by thermistors buried to 5 cm depth in both heated and adjacent, unheated plots. Heated plots contain five thermistors each, while unheated plots contain two. The thermistors are connected to a Campbell Scientific CR10 datalogger, which reads them every 15 minutes and records the average plot temperature every hour.
+    - column info:
+      - datetime= date and time
+      - year= year
+      - month= month
+      - day= day of month
+      - time= time of measurement (unit= number / missing value= NA)
+      - c1= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - c12= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - c14= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - c19= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - c20= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - c24= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - n6= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - n9= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - n21= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - h2= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - h5= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - h8= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - h13= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - h18= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - h22= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - hn3= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - hn4= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - hn7= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - hn10= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - hn15= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - hn17= temperature (°C) measured at 5cm depth (unit= celsius / missing value= NA)
+      - cmean= average temperature (°C) of control plots (unit= celsius / missing value= NA)
+      - nmean= average temperature (°C) of nitrogen plots (unit= celsius / missing value= NA)
+      - hmean= average temperature (°C) of heated plots (unit= celsius / missing value= NA)
+      - hnmean= average temperature (° C) of heated plus nitrogen plots (unit= celsius / missing value= NA)
+      - notes= notes
+References:
+  - Frey S. 2023. Soil Warming Plus Nitrogen Addition Experiment at Harvard Forest since 2006. Harvard Forest Data Archive: HF045 (v.34). Environmental Data Initiative: https://doi.org/10.6073/pasta/97ee5c52392f39d4e5aa76c630336fe4.
+  - Frey S, Melillo J. 2024. Prospect Hill Soil Warming Experiment at Harvard Forest since 1991. Harvard Forest Data Archive: HF005 (v.37). Environmental Data Initiative: https://doi.org/10.6073/pasta/abf59a218a5868baf5b2c073a7dd1d7f.

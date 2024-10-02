@@ -1,0 +1,2 @@
+﻿emailAddress,Name,Data contact name,Data contact email,fileName,siteName,dataType,description,UTC_offset,fileVersionNumber,startDate,endDate,missingValCodes,dataOrientation,notes
+dongwx@sjziam.ac.cn,WenxuDong,,,datafile.csv,"Luancheng District, Shijiazhuang City, Hebei province",soil temperature; soil moisture,soil temperature sensor data and soil moisture sensor data from 2021-2024,8,,5/9/21 10:00,7/4/24 18:00,#N/A,horizontal,

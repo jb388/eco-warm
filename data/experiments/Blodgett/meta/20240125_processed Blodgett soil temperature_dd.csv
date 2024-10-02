@@ -1,0 +1,9 @@
+﻿colName,description,unit,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+,index,,numeric,,,,,,,,
+TIMESTAMP,date and time in Pacific timezone (UTC-8),YYYY-mm-dd HH:MM:SS,date,,,,,,,,
+PP,paired plot ID,,character,,,,,,,,
+variable,"Variable is the name of the column on the datalogger indicating the wiring sequence. We keep this information for internal use, but it is useless for everyone else",,,,,,,,,,
+temp,temperature,deg C,numeric,,,,,,,,
+date,date,YYYY-mm-ddd,date,,,,,,,,
+depth,depth in the soil profile where the sensor is recording data,cm,numeric,,,,,,,,
+trt,"Warming treatment: Control ""C"" and Heated ""H""",C;H,character,,,,,,,,
