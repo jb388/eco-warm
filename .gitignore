@@ -9,4 +9,4 @@
 ##ignore excel temp files
 ~$*
 # Folders
-/data/raw
+/data/experiments
