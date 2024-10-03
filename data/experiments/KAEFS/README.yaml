@@ -17,4 +17,9 @@ Notes:
   - data dictionary information originally provided as "Numbers" file
     - data from this file extracted and entered into dd file
   - flmd file also created by J. Beem-Miller
+  - additional data provided by Z. Shi in Oct. '24
+    - soil moisture, ANPP, BNPP, soil properties, local climate
+  - BNPP provided as Numbers file, which I downloaded as a .csv into the derived directory
+    - first row of numbers file specifies that depth increment is 0-90 cm
+    - this information is now in the accompanying _dd file
 References:

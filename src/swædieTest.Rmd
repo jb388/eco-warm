@@ -221,76 +221,78 @@ read_meta <- function (expName) {
   # get site dir paths and variable directory names
   exp.ls <- list.dirs("../data/experiments", recursive = FALSE)
   exp.dir <- exp.ls[match(expName, basename(exp.ls))]
-  dat.dir <- list.files(file.path(exp.dir, "data"), full.names = TRUE)
+  stopifnot(dir.exists(exp.dir))
+  dat.dir <- file.path(exp.dir, "input_data")
+  stopifnot(dir.exists(dat.dir))
+  dat.dir.ls <- list.files(dat.dir, full.names = TRUE)
+  mta.dir <- file.path(exp.dir, "meta")
+  stopifnot(dir.exists(mta.dir))
+  mta.dir.ls <- list.files(mta.dir, full.names = TRUE)
+    
+  # check metadata directory
+  flmd.ls <- mta.dir.ls[which(grepl("_flmd.csv", mta.dir.ls))]
+  dd.ls <- mta.dir.ls[which(grepl("_dd.csv", mta.dir.ls))]
   
-  # check files
-  
-  flmd.ls <- dat.dir[which(grepl("_flmd.csv", dat.dir))]
-  dd.ls <- dat.dir[which(grepl("_dd.csv", dat.dir))]
-  dat.ls <- gsub("_dd", "", dd.ls)
-  
-  if (sum(length(flmd.ls), length(dd.ls), length(dat.ls)) != length(dat.dir)) {
-    warning (paste("Non-standard files present in ", expName, " data directory. Only data files and accompanying flmd and dd files allowed.", "\n"))
+  # check for non-standard files
+  if (sum(length(flmd.ls), length(dd.ls)) != length(mta.dir.ls)) {
+    ix <- which(!(basename(dat.dir.ls) %in% c(basename(flmd.ls), basename(dd.ls))))
+    message(paste(expName, "meta directory contains the following non-standard files that will be ignored:\n", basename(mta.dir.ls)[ix], "\n"))
   }
   
-  if (any(is.na(match(dat.ls, dat.dir)))) {
-    warning (paste(expName, " data and data dictionary file names do not match", "\n"))
+  # get valid input data names from dd.ls
+  dat.ls <- dat.dir.ls[which(basename(dat.dir.ls) %in% basename(gsub("_dd", "", dd.ls)))]
+  
+  # exclude dd files without matching input data
+  ix <- which(is.na(match(basename(gsub("_dd", "", dd.ls)), basename(dat.dir.ls))))
+  if (length(ix) > 0) {
+    message(paste("The following", expName, "data dictionary files are missing input data and will not be ingested:\n", basename(dd.ls)[ix], "\n"))
+    dd.ls <- dd.ls[-ix]
   }
+  
+  # report input data missing dd file
+  ix <- which(is.na(match(basename(dat.dir.ls), basename(gsub("_dd", "", dd.ls)))))
+  if (length(ix) > 0) {
+    message(paste("The following", expName, "input data files are missing data dictionaries and will not be ingested:\n", basename(dat.dir.ls)[ix], "\n"))
+  }
+  
+  # read dd files
+  dd <- lapply(dd.ls, read.csv)
+  names(dd) <- gsub("\\.csv", "", basename(dd.ls))
 
   # read flmd files
   flmd <- lapply(flmd.ls, read.csv)
   names(flmd) <- gsub("\\.csv", "", basename(flmd.ls))
   
-  # check flmd file names against data files
-  if (any(is.na(unlist(lapply(flmd, function(x) {
-    unlist(
-      sapply(
-        glob2rx(x$fileName), grep, basename(dat.ls), USE.NAMES = F))
-  }))))) {
-    warning (paste(expName, " data file names do not match flmd names", "\n"))
-    }
+  # exclude input files without matching flmd
+  ix <- which(unlist(lapply(lapply(basename(dat.ls), function(x)
+    unlist(lapply(flmd, function(y)
+      lapply(y$fileName, function(z)
+        grep(glob2rx(z), x))))), function(d) length(d) == 0)))
+  if (length(ix) > 0) {
+    message(paste("The following", expName, "input data files are missing flmd and will not be ingested:\n", basename(dat.ls)[ix], "\n"))
+    dat.ls <- dat.ls[-ix]
+  }
   
-  # read dd files
-  dd <- lapply(dd.ls, read.csv)
-  names(dd) <- gsub("\\.csv", "", basename(dd.ls))
+  # exclude flmd files without matching input data
+  flmd.na <- Filter(Negate(is.null), lapply(flmd, function(x)
+    names(unlist(
+      sapply(
+        sapply(
+          glob2rx(x$fileName), grep, basename(dat.ls)), 
+        function(y) which(length(y) == 0))))))
+  if (length(unlist(flmd.na)) > 0) {
+    flmd.na.nms <- unlist(lapply(flmd, function(x) {
+      ix <- unlist(sapply(unlist(flmd.na), grep, x$fileName))
+      x$fileName[ix]
+    }))
+    flmd <- lapply(flmd, function(x) x[-ix, ])
+    message(paste0("The following ", expName, " input files are listed in the flmd file '", names(flmd.na.nms), ".csv', but cannot be found:\n", flmd.na.nms, "\n"))
+  }
   
   return(
     list(flmd = flmd, dd = dd)
   )
 }
-
-# old code
-  # # extract file level metadata (flmd) & data dictionary (dd) files
-  # unlist(Filter(Negate(is.null), lapply(seq_along(dat.dir), function(i) {
-  #     
-  #     # check for flmd files
-  #   if (any(grepl("_flmd.csv", list.files(dat.dir[i])))) {
-  #     flmd.ls <- lapply(as.list(list.files(dat.dir[i], pattern = "_flmd.csv", full.names = TRUE)), read.csv)
-  #           
-  #     # get dat names and ensure data files are present
-  #     dat.nms <- unlist(lapply(flmd.ls, "[[", "fileName"))
-  #     if (length(match(dat.nms, list.files(dat.dir[i]))) != length(dat.nms)) {
-  #       warning("files named in file level metadata not found")
-  #     }
-  #     
-  #     # define names for flmd & dd lists
-  #     flmd.nms <- paste0(
-  #       sapply(strsplit(dat.nms, "\\."), "[[", 1), "_flmd")
-  #     dd.nms <- paste0(
-  #       sapply(strsplit(dat.nms, "\\."), "[[", 1), "_dd")
-  #     
-  #     # extract dd files
-  #     dd.ls <- lapply(seq_along(dd.nms), function(j)
-  #       read.csv(file.path(var.dirs[i], paste0(dd.nms[j], ".csv"))))
-  #     
-  #     # assign names for flmd & dd lists
-  #     names(flmd.ls) <- flmd.nms
-  #     names(dd.ls) <- dd.nms
-  #     
-  #     list(flmd = flmd.ls, dd = dd.ls)
-  #   }
-  #   })
-  #   ), recursive = FALSE)
 ```
 
 ```{r helper-fxs}
@@ -298,13 +300,14 @@ read_meta <- function (expName) {
 dd_helper <- function(expName, dataName, DATA_DIR = NULL, write_out = TRUE) {
   if (is.null(DATA_DIR)) {
     DATA_DIR <- file.path("~/eco-warm/data/experiments", expName, "data") 
+    META_DIR <- file.path("~/eco-warm/data/experiments", expName, "meta") 
   }
   template <- read.csv("~/eco-warm/data/sweddie/metadata/datTemplate_dd.csv")
   data <- read.csv(file.path(DATA_DIR, paste0(dataName, ".csv")))
   template[1:ncol(data), 1] <- names(data)
   if (write_out) {
     write.csv(x = template, 
-              file = file.path(DATA_DIR, paste0(dataName, "_dd.csv")),
+              file = file.path(META_DIR, paste0(dataName, "_dd.csv")),
               row.names = FALSE)
   } else {
     template
@@ -312,15 +315,16 @@ dd_helper <- function(expName, dataName, DATA_DIR = NULL, write_out = TRUE) {
 }
 
 # template for flmd
-flmd_helper <- function(expName, dataFileName, dateColName, rename = FALSE, append = TRUE, write_out = TRUE, ...) {
+flmd_helper <- function(expName, dataFileName, dateColName, rename = FALSE, append = TRUE, write_out = TRUE, orders, ...) {
 
   # set data directory path
   DATA_DIR <- file.path("~/eco-warm/data/experiments", expName, "data") 
+  META_DIR <- file.path("~/eco-warm/data/experiments", expName, "meta")
   
   # get flmd template
   if (append) {
     files <- list.files(
-        DATA_DIR,
+        META_DIR,
         full.names = TRUE)
     flmd.s <- as.list(files[grepl("flmd", files)])
     if (length(flmd.s) == 0) {
@@ -351,7 +355,7 @@ flmd_helper <- function(expName, dataFileName, dateColName, rename = FALSE, appe
   }
   nm[["expName"]] <- expName
   nm[["fileName"]] <- paste0(dataFileName, ".csv")
-  if (!is.null(orders)) {
+  if (!missing(orders)) {
     data[[dateColName]] <- parse_date_time(data[[dateColName]], orders = orders)
   }
   nm[["startDate"]] <- as.character(min(data[[dateColName]], na.rm = TRUE))
@@ -405,10 +409,10 @@ flmd_helper <- function(expName, dataFileName, dateColName, rename = FALSE, appe
   }
   if (write_out) {
     if (rename) {
-      write.csv(x = flmd, file = file.path(DATA_DIR, paste0(expName, "_flmd.csv")), row.names = FALSE) 
+      write.csv(x = flmd, file = file.path(META_DIR, paste0(expName, "_flmd.csv")), row.names = FALSE) 
     } else {
       if (is.null(flmdName)) {
-        flmdName <- file.path(DATA_DIR, paste0(expName, "_flmd.csv"))
+        flmdName <- file.path(META_DIR, paste0(expName, "_flmd.csv"))
       }
       write.csv(x = flmd, file = flmdName, row.names = FALSE) 
     }
@@ -792,6 +796,38 @@ kaefs.anpp.l <- pivot_longer(
 write.csv(kaefs.anpp.l, file = "../data/experiments/KAEFS/data/ANPP_2009_2023_reshapedLong.csv", row.names = FALSE)
 dd_helper("KAEFS", "ANPP_2009_2023_reshapedLong")
 
+# ANPP
+kaefs.anpp <- read.csv("../data/experiments/KAEFS/derived/ANPP_2009_2023_reshaped.csv")
+kaefs.anpp.l <- pivot_longer(
+  kaefs.anpp,
+  cols = 5:ncol(kaefs.anpp),
+  names_to = c("vegType", "year"),
+  names_sep = "_",
+  values_to = "g_m2_y"
+)
+write.csv(kaefs.anpp.l, file = "../data/experiments/KAEFS/data/ANPP_2009_2023_reshapedLong.csv", row.names = FALSE)
+dd_helper("KAEFS", "ANPP_2009_2023_reshapedLong")
+
+# BNPP
+kaefs.bnpp <- read.csv("../data/experiments/KAEFS/derived/BNPP10-13forJeff.csv")
+kaefs.bnpp.l <- pivot_longer(
+  kaefs.bnpp,
+  cols = 5:ncol(kaefs.bnpp),
+  names_to = c("year"),
+  values_to = "g_m2_y"
+) %>%
+  mutate(year = as.numeric(sub("X", "", year)),
+         subplotID = plotID,
+         plotID = ifelse(grepl("S", plotID), sub("S", "", plotID), sub("N", "", plotID)))
+write.csv(kaefs.bnpp.l, file = "../data/experiments/KAEFS/data/BNPP10-13_reshapedLong.csv", row.names = FALSE)
+dd_helper("KAEFS", "BNPP10-13_reshapedLong")
+flmd_helper(
+  expName = "KAEFS", 
+  dataFileName = "BNPP10-13_reshapedLong", 
+  dateColName = "year",
+  append = TRUE, write_out = TRUE,
+  Jeff = TRUE)
+
 # soil moisture
 kaefs.moist <- read.csv("../data/experiments/KAEFS/derived/SoilMoisture2018-2023_reshape.csv")
 kaefs.moist.l <- pivot_longer(
@@ -802,6 +838,7 @@ kaefs.moist.l <- pivot_longer(
   values_to = "vwc_pct"
 )
 write.csv(kaefs.moist.l, file = "../data/experiments/KAEFS/data/SoilMoisture2018-2023_reshapeLong.csv", row.names = FALSE)
+
 dd_helper("KAEFS", "SoilMoisture2018-2023_reshapeLong")
 
 dd_helper("KAEFS", "local_climate_data")
@@ -814,8 +851,6 @@ flmd_helper(
   orders = "%Y-%m-%d %H:%M")
 
 
-# check plot IDs
-kaefs.t <- read.csv("../data/experiments/KAEFS/data/temperature_200908_201802_daily_reshaped.csv")
 ```
 
 ## Lyon, HI
