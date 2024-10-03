@@ -9,6 +9,6 @@
 ##ignore excel temp files
 ~$*
 # Folders
-/data/experiments/*/data
+/data/experiments/*/input_data
 /data/experiments/*/raw
 /data/experiments/*/derived
