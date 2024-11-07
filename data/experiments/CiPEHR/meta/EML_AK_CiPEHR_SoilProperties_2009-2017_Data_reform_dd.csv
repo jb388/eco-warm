@@ -1,0 +1,15 @@
+colName,description,unit,dataType,siteName,plotName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef,notes
+year,year sampled,year sampled,date,EightMileLake,,,,,,,,,,
+block,block ID,,string,EightMileLake,,,,,,,,,,
+fence,fence ID,,string,EightMileLake,,,,,,,,,,"fence is essentially a sub-block (see Natali et al., 2011 for plot layout)"
+plot,plot ID,,string,EightMileLake,,,,,,,,,,
+treatment,warming (w) or control (c ),w;c,string,EightMileLake,,,,,,,,,,not sure why these are NA for the early samples
+depth_upper,upper depth,cm,numeric,EightMileLake,,,,,,,,,,
+depth_lower,lower depth,cm,numeric,EightMileLake,,,,,,,,,,
+moisture,soil water content,g kg-1,numeric,EightMileLake,,,,,,,,,,
+bulk.density,soil bulk density,g cm-3,numeric,EightMileLake,,,,,,,,,,
+ash,dry ash content,g kg-1,numeric,EightMileLake,,,,,,,,,,
+C,carbon content,g kg-1,numeric,EightMileLake,,,,,,,,,,
+N,nitrogen content,g kg-1,numeric,EightMileLake,,,,,,,,,,
+delta13C,delta 13C with reference to VDPB,delta13C,numeric,EightMileLake,,,,,,,,,,
+delta15N,delta 15N,delta15N,numeric,EightMileLake,,,,,,,,,,

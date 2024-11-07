@@ -1,0 +1,7 @@
+col_name,type,description,units,notes
+PlotID,string,Treatment name,,CK: control; W: only warming; N: N fertilizer; WN: Warming and N fertilizer
+replicate,num,Plot replicate ID,,
+Date,string,Sampling time,year,
+BD,num,Bulk density,g cm-3,
+depth_top,num,upper depth,cm,
+depth_bot,num,lower depth,cm,

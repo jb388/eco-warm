@@ -1,0 +1,7 @@
+col_name,type,description,units,notes
+PlotID,string,Treatment name,,CK: control; W: only warming; N: N fertilizer; WN: Warming and N fertilizer
+replicate,num,Plot replicate ID,,
+Date,string,Sampling time,year,
+Temperature,num,local air temperature,deg C,
+Relative humidity,num,local humidity,percent,
+Precipitation,num,local recipitation,mm,

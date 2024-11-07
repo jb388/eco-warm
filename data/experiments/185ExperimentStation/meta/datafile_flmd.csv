@@ -1,2 +1,4 @@
-﻿emailAddress,Name,Data contact name,Data contact email,fileName,siteName,dataType,description,UTC_offset,fileVersionNumber,startDate,endDate,missingValCodes,dataOrientation,notes
-dongwx@sjziam.ac.cn,WenxuDong,,,datafile.csv,"Luancheng District, Shijiazhuang City, Hebei province",soil temperature; soil moisture,soil temperature sensor data and soil moisture sensor data from 2021-2024,8,,5/9/21 10:00,7/4/24 18:00,#N/A,horizontal,
+emailAddress,Name,Data.contact.name,Data.contact.email,fileName,siteName,dataType,description,UTC_offset,fileVersionNumber,startDate,endDate,missingValCodes,dataOrientation,notes
+dongwx@sjziam.ac.cn,WenxuDong,Wenxu Dong,dongwx@sjziam.ac.cn,datafile.csv,"Luancheng District, Shijiazhuang City, Hebei province",soil temperature; soil moisture,soil temperature sensor data and soil moisture sensor data from 2021-2024,8,NA,5/9/21 10:00,7/4/24 18:00,NA,horizontal,NA
+jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Wenxu Dong,dongwx@sjziam.ac.cn,datafile_Climate.csv,"Luancheng District, Shijiazhuang City, Hebei province",local climate,air temp;humidity;precip from 2024,8,NA,2024,2024,NA,horizontal,NA
+jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Wenxu Dong,dongwx@sjziam.ac.cn,datafile_BD.csv,"Luancheng District, Shijiazhuang City, Hebei province",bulk density,soil bulk density for 0-10; 10-20; 20-30 cm,8,NA,2024,2024,NA,horizontal,NA
