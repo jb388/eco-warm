@@ -5,13 +5,15 @@ Files:
   - "Temperature 2019-2023 data for distribution.csv"
   - "Biocon_hourly_warmingseason_2012-2018vprimary1.csv"
   - "Biocon_hourly_2012-2018vprimary1.csv"
+  - "E141 data for Jeff Beem-Miller_241011.xls"
 Source: Kally Worm <wormx004@umn.edu>
 Curator: J. Beem-Miller
-Date: 28-Mar-2024
+Date: 14-Oct-2024
 Contents:
-  - temperature and moisture data from TeRaCON site
+  - soil temperature moisture data from TeRaCON site
 Notes:
-  - sent to J. Beem-Miller by email on 28-Mar-2024
+  - initial data files, soil temp & moisture, sent to J. Beem-Miller by email on 28-Mar-2024
+  - second set of data, local climate, soil physical properties (file 'E141 data for Jeff Beem-Miller_241011.xls') sent on 11-Oct-2024
   - Plot table.xlsx:
     - contains metadata describing contents of other files in dir
     - note that updated file received on 2 Apr 2024 with treatment information

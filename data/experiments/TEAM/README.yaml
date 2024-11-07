@@ -7,5 +7,13 @@ Date: 22-Jul-2024
 Contents:
   - soil temperature and moisture data from TEAM site
 Notes:
-  - sent to J. Beem-Miller by email on 16-July-2024
-References:s
+  - soil temp & moisture sent to J. Beem-Miller by email on 16-July-2024
+  - additional data (ANPP, BNPP, SOC, climate) sent on 20-Oct-2024
+  - BNPP 2019, 2020, 2021 (0-10, 10-20, 20-30, 30-40 soil depth)
+  - ANPP (2018, 2019, 2020, 2021)
+  - SOC content (2019, 2021) provided in Chen et al., 2024
+  - local climate data available from Qin et al., 2023 (Fig. S4)
+  - from X. Wang, "In addition, we did not monitor the local climate data by ourselves, but we obtained the official data from the experimental station. However, due to confidentiality, the station did not allow us to provide the original data, so I suggest you read the data from the Fig S4 of Qin WK et al., 2023. I have attached the attachment and corresponding figures (Fig S4 is also attached to the email).  GetData may help you."
+References:
+- Qin WK et al., 2023. Fundamental Research, https://doi.org/10.1016/j.fmre.2022.09.025
+- Chen Y et al., 2024. NC, https://doi.org/10.1038/s41467-024-48736-w
