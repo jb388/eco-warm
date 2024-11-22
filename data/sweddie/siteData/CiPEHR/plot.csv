@@ -1,30 +1,52 @@
-exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_date_i,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
-CiPEHR,Eight Mile Lake,winterWarm_1,,1,,,2009,3,,,,
-CiPEHR,Eight Mile Lake,winterWarm_summerWarm_1,,1,,,2009,3,,,,
-CiPEHR,Eight Mile Lake,winterWarm_2,,2,,,2009,3,,,,
-CiPEHR,Eight Mile Lake,winterWarm_summerWarm_2,,2,,,2009,3,,,,
-CiPEHR,Eight Mile Lake,control_1,,1,,,2009,0,,,,
-CiPEHR,Eight Mile Lake,control_summerWarm_1,,1,,,2009,0,,,,
-CiPEHR,Eight Mile Lake,control_2,,2,,,2009,0,,,,
-CiPEHR,Eight Mile Lake,control_summerWarm_1,,2,,,2009,0,,,,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+exp_name,sit_name,plt_name,plt_block,plt_subBlock,plt_rep,plt_lat,plt_long,plt_treat_heat,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
+CiPEHR,Eight Mile Lake,control_a_1_1,a,1,1,,,control,0,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_summerWarm_a_1_1,a,1,1,,,control,0,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_a_1_2,a,1,2,,,control,0,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_summerWarm_a_1_2,a,1,2,,,control,0,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_a_1_1,a,1,1,,,treatment,3,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_summerWarm_a_1_1,a,1,1,,,treatment,3,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_a_1_2,a,1,2,,,treatment,3,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_summerWarm_a_1_2,a,1,2,,,treatment,3,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_a_2_1,a,2,1,,,control,0,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_summerWarm_a_2_1,a,2,1,,,control,0,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_a_2_2,a,2,2,,,control,0,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_summerWarm_a_2_2,a,2,2,,,control,0,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_a_2_1,a,2,1,,,treatment,3,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_summerWarm_a_2_1,a,2,1,,,treatment,3,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_a_2_2,a,2,2,,,treatment,3,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_summerWarm_a_2_2,a,2,2,,,treatment,3,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_b_3_1,b,3,1,,,control,0,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_summerWarm_b_3_1,b,3,1,,,control,0,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_b_3_2,b,3,2,,,control,0,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_summerWarm_b_3_2,b,3,2,,,control,0,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_b_3_1,b,3,1,,,treatment,3,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_summerWarm_b_3_1,b,3,1,,,treatment,3,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_b_3_2,b,3,2,,,treatment,3,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_summerWarm_b_3_2,b,3,2,,,treatment,3,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_b_4_1,b,4,1,,,control,0,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_summerWarm_b_4_1,b,4,1,,,control,0,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_b_4_2,b,4,2,,,control,0,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_summerWarm_b_4_2,b,4,2,,,control,0,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_b_4_1,b,4,1,,,treatment,3,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_summerWarm_b_4_1,b,4,1,,,treatment,3,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_b_4_2,b,4,2,,,treatment,3,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_summerWarm_b_4_2,b,4,2,,,treatment,3,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_c_5_1,c,5,1,,,control,0,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_summerWarm_c_5_1,c,5,1,,,control,0,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_c_5_2,c,5,2,,,control,0,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_summerWarm_c_5_2,c,5,2,,,control,0,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_c_5_1,c,5,1,,,treatment,3,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_summerWarm_c_5_1,c,5,1,,,treatment,3,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_c_5_2,c,5,2,,,treatment,3,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_summerWarm_c_5_2,c,5,2,,,treatment,3,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_c_6_1,c,6,1,,,control,0,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_summerWarm_c_6_1,c,6,1,,,control,0,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_c_6_2,c,6,2,,,control,0,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,control_summerWarm_c_6_2,c,6,2,,,control,0,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_c_6_1,c,6,1,,,treatment,3,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_summerWarm_c_6_1,c,6,1,,,treatment,3,summerWarm,,,OTC; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_c_6_2,c,6,2,,,treatment,3,,,,air warming control; subBlock = snow fence ID
+CiPEHR,Eight Mile Lake,winterWarm_summerWarm_c_6_2,c,6,2,,,treatment,3,summerWarm,,,OTC; subBlock = snow fence ID
 
 
 

@@ -1,0 +1,5 @@
+﻿colName,description,unit,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+plt_name,plot ID,,string,,,,,,,,
+Depth,depth,cm,numeric,,,,,,,depth,
+Date,date,yyyy/mm/dd hh:mm,date,,,,,,,,
+soil temperature,soil temperature,deg C,numeric,,,,,,,,

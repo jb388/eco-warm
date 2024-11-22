@@ -1,0 +1,256 @@
+SWEDDIE Compilation Log 
+ 
+ 2024-11-11 15:28:56 
+ - - - - - - - - - - - - - - - 
+
+
+Compiling data files in siteData 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Compiling and checking core data...
+
+
+ 185ExperimentStation 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock plt_notes 
+	 site 
+
+ ACBB 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ Achenkirch 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ B4WarmED 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ Blodgett 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ CiPEHR 
+	 experiment 
+	 plot 
+	 site 
+
+ ForHot 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ HarvardForest 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ KAEFS 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ LyonHI 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ MERIT 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ PtReyes 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ Sanming 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ SMARTX 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ SPRUCE 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ Stillberg 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ SWAMP 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ SWELTR 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ TEAM 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ TeRaCON 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ TRACE 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ 185ExperimentStation 
+
+	Column ' PlotID replicate Date BD depth_top depth_bot ' is missing from data dictionary file:  datafile_BD_dd.csv	Column ' Date Temperature Relative humidity Precipitation ' is missing from data dictionary file:  datafile_Climate_dd.csv
+ ACBB 
+
+
+ Achenkirch 
+
+
+ B4WarmED 
+
+	Column ' site canopy ' is missing from data dictionary file:  dat_B4W_2008-2010_15min_DeepSoilTemp_dd.csv	Column ' site canopy ' is missing from data dictionary file:  dat_B4W_2011_2012_30min_DeepSoilTemp_dd.csv	Column ' site canopy ' is missing from data dictionary file:  dat_B4W_2012_15min_DeepSoilTemp_dd.csv	Column ' site canopy ' is missing from data dictionary file:  dat_B4W_2013-2022_60min_DeepSoilTemp_dd.csv
+ Blodgett 
+
+
+ CiPEHR 
+
+	Column ' block fence plot treatment ' is missing from data dictionary file:  flux_hh_dd.csv
+ ForHot 
+
+
+ HarvardForest 
+
+
+ KAEFS 
+
+
+ LyonHI 
+
+
+ MERIT 
+
+
+ PtReyes 
+
+
+ Sanming 
+
+
+ SMARTX 
+
+
+ SPRUCE 
+
+	Column ' Collection_date Temp_treatment Midpoint_depth Bulk_density Bulk_density_SD ' is missing from data dictionary file:  SPRUCE_Bulk_Density_DeepSoil_2020_dd.csv
+ SWAMP 
+
+
+ SWELTR 
+
+
+ TEAM 
+
+
+ TeRaCON 
+
+
+ TRACE 
+
+	Column ' Precipitacion(mm) day month ' is missing from data dictionary file:  Bisley_MET_2015_dd.csv	Column ' Precipitacion(mm) day month ' is missing from data dictionary file:  Bisley_MET_2016_dd.csv	Column ' Precipitacion(mm) day month ' is missing from data dictionary file:  Bisley_MET_2017_dd.csv	Column ' # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F ' is missing from data dictionary file:  Plot_1_TRACE_TairHumidity_dd.csv	Column ' # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F ' is missing from data dictionary file:  Plot_2_TRACE_TairHumidity_dd.csv	Column ' # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F ' is missing from data dictionary file:  Plot_3_TRACE_TairHumidity_dd.csv	Column ' # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F ' is missing from data dictionary file:  Plot_4_TRACE_TairHumidity_dd.csv	Column ' # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F ' is missing from data dictionary file:  Plot_5_TRACE_TairHumidity_dd.csv	Column ' # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F ' is missing from data dictionary file:  Plot_6_TRACE_TairHumidity_dd.csv	Column ' DateTime(1) DateTime(9) DateTime(4) DateTime(5) ' is missing from data dictionary file:  TRACE_DeepSoil_2016-2018_dd.csv	Column ' DateTime(1) DateTime(9) DateTime(4) DateTime(5) ' is missing from data dictionary file:  TRACE_SurfaceSoil_2015-2018_dd.csv	Column ' DateTime(1) DateTime(9) DateTime(4) DateTime(5) WindDir_Hst(1) WindDir_Hst(2) WindDir_Hst(3) WindDir_Hst(4) WindDir_Hst(5) WindDir_Hst(6) WindDir_Hst(7) WindDir_Hst(8) Solar_Avg(1) Solar_Avg(2) AirTempRH_Avg(1) AirTempRH_Avg(2) mV_tpileR_Avg(1) mV_tpileR_Avg(2) mV_tpileR_Avg(3) mV_tpileH_Avg(1) mV_tpileH_Avg(2) mV_tpileH_Avg(3) TbodyRC_Avg(1) TbodyRC_Avg(2) TbodyRC_Avg(3) TbodyHC_Avg(1) TbodyHC_Avg(2) TbodyHC_Avg(3) TtarRC_Avg(1) TtarRC_Avg(2) TtarRC_Avg(3) TtarHC_Avg(1) TtarHC_Avg(2) TtarHC_Avg(3) TadjH_Avg(1) TadjH_Avg(2) TadjH_Avg(3) ' is missing from data dictionary file:  TRACE_WarmingData1_2015-2016_dd.csv	Column ' DateTime(1) DateTime(9) DateTime(4) DateTime(5) WindDir_Hst(1) WindDir_Hst(2) WindDir_Hst(3) WindDir_Hst(4) WindDir_Hst(5) WindDir_Hst(6) WindDir_Hst(7) WindDir_Hst(8) Solar_Avg(1) Solar_Avg(2) AirTempRH_Avg(1) AirTempRH_Avg(2) mV_tpileR_Avg(1) mV_tpileR_Avg(2) mV_tpileR_Avg(3) mV_tpileH_Avg(1) mV_tpileH_Avg(2) mV_tpileH_Avg(3) TbodyRC_Avg(1) TbodyRC_Avg(2) TbodyRC_Avg(3) TbodyHC_Avg(1) TbodyHC_Avg(2) TbodyHC_Avg(3) TtarRC_Avg(1) TtarRC_Avg(2) TtarRC_Avg(3) TtarHC_Avg(1) TtarHC_Avg(2) TtarHC_Avg(3) TadjH_Avg(1) TadjH_Avg(2) TadjH_Avg(3) T_Diffrns_Avg(1) T_Diffrns_Avg(2) T_Diffrns_Avg(3) PID_out_Avg(1) PID_out_Avg(2) PID_out_Avg(3) PID_lmt_Avg(1) PID_lmt_Avg(2) PID_lmt_Avg(3) ScldOut_Avg(1) ScldOut_Avg(2) ScldOut_Avg(3) ' is missing from data dictionary file:  TRACE_WarmingData2_2016-2018_dd.csv
+ 185ExperimentStation 
+
+	Column ' PlotID replicate Date BD depth_top depth_bot ' is missing from data dictionary file:  datafile_BD_dd.csv	Column ' Date Temperature Relative humidity Precipitation ' is missing from data dictionary file:  datafile_Climate_dd.csv
+ ACBB 
+
+
+ Achenkirch 
+
+
+ B4WarmED 
+
+	Column ' site canopy ' is missing from data dictionary file:  dat_B4W_2008-2010_15min_DeepSoilTemp_dd.csv	Column ' site canopy ' is missing from data dictionary file:  dat_B4W_2011_2012_30min_DeepSoilTemp_dd.csv	Column ' site canopy ' is missing from data dictionary file:  dat_B4W_2012_15min_DeepSoilTemp_dd.csv	Column ' site canopy ' is missing from data dictionary file:  dat_B4W_2013-2022_60min_DeepSoilTemp_dd.csv
+ Blodgett 
+
+
+ CiPEHR 
+
+	Column ' block fence plot treatment ' is missing from data dictionary file:  flux_hh_dd.csv
+ ForHot 
+
+
+ HarvardForest 
+
+
+ KAEFS 
+
+
+ LyonHI 
+
+
+ MERIT 
+
+
+ PtReyes 
+
+
+ Sanming 
+
+
+ SMARTX 
+
+
+ SPRUCE 
+
+	Column ' Collection_date Temp_treatment Midpoint_depth Bulk_density Bulk_density_SD ' is missing from data dictionary file:  SPRUCE_Bulk_Density_DeepSoil_2020_dd.csv
+ SWAMP 
+
+
+ SWELTR 
+
+
+ TEAM 
+
+
+ TeRaCON 
+
+
+ TRACE 
+
+	Column ' Precipitacion(mm) day month ' is missing from data dictionary file:  Bisley_MET_2015_dd.csv	Column ' Precipitacion(mm) day month ' is missing from data dictionary file:  Bisley_MET_2016_dd.csv	Column ' Precipitacion(mm) day month ' is missing from data dictionary file:  Bisley_MET_2017_dd.csv	Column ' # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F ' is missing from data dictionary file:  Plot_1_TRACE_TairHumidity_dd.csv	Column ' # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F ' is missing from data dictionary file:  Plot_2_TRACE_TairHumidity_dd.csv	Column ' # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F ' is missing from data dictionary file:  Plot_3_TRACE_TairHumidity_dd.csv	Column ' # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F ' is missing from data dictionary file:  Plot_4_TRACE_TairHumidity_dd.csv	Column ' # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F ' is missing from data dictionary file:  Plot_5_TRACE_TairHumidity_dd.csv	Column ' # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F ' is missing from data dictionary file:  Plot_6_TRACE_TairHumidity_dd.csv	Column ' DateTime(1) DateTime(9) DateTime(4) DateTime(5) ' is missing from data dictionary file:  TRACE_DeepSoil_2016-2018_dd.csv	Column ' DateTime(1) DateTime(9) DateTime(4) DateTime(5) ' is missing from data dictionary file:  TRACE_SurfaceSoil_2015-2018_dd.csv	Column ' DateTime(1) DateTime(9) DateTime(4) DateTime(5) WindDir_Hst(1) WindDir_Hst(2) WindDir_Hst(3) WindDir_Hst(4) WindDir_Hst(5) WindDir_Hst(6) WindDir_Hst(7) WindDir_Hst(8) Solar_Avg(1) Solar_Avg(2) AirTempRH_Avg(1) AirTempRH_Avg(2) mV_tpileR_Avg(1) mV_tpileR_Avg(2) mV_tpileR_Avg(3) mV_tpileH_Avg(1) mV_tpileH_Avg(2) mV_tpileH_Avg(3) TbodyRC_Avg(1) TbodyRC_Avg(2) TbodyRC_Avg(3) TbodyHC_Avg(1) TbodyHC_Avg(2) TbodyHC_Avg(3) TtarRC_Avg(1) TtarRC_Avg(2) TtarRC_Avg(3) TtarHC_Avg(1) TtarHC_Avg(2) TtarHC_Avg(3) TadjH_Avg(1) TadjH_Avg(2) TadjH_Avg(3) ' is missing from data dictionary file:  TRACE_WarmingData1_2015-2016_dd.csv	Column ' DateTime(1) DateTime(9) DateTime(4) DateTime(5) WindDir_Hst(1) WindDir_Hst(2) WindDir_Hst(3) WindDir_Hst(4) WindDir_Hst(5) WindDir_Hst(6) WindDir_Hst(7) WindDir_Hst(8) Solar_Avg(1) Solar_Avg(2) AirTempRH_Avg(1) AirTempRH_Avg(2) mV_tpileR_Avg(1) mV_tpileR_Avg(2) mV_tpileR_Avg(3) mV_tpileH_Avg(1) mV_tpileH_Avg(2) mV_tpileH_Avg(3) TbodyRC_Avg(1) TbodyRC_Avg(2) TbodyRC_Avg(3) TbodyHC_Avg(1) TbodyHC_Avg(2) TbodyHC_Avg(3) TtarRC_Avg(1) TtarRC_Avg(2) TtarRC_Avg(3) TtarHC_Avg(1) TtarHC_Avg(2) TtarHC_Avg(3) TadjH_Avg(1) TadjH_Avg(2) TadjH_Avg(3) T_Diffrns_Avg(1) T_Diffrns_Avg(2) T_Diffrns_Avg(3) PID_out_Avg(1) PID_out_Avg(2) PID_out_Avg(3) PID_lmt_Avg(1) PID_lmt_Avg(2) PID_lmt_Avg(3) ScldOut_Avg(1) ScldOut_Avg(2) ScldOut_Avg(3) ' is missing from data dictionary file:  TRACE_WarmingData2_2016-2018_dd.csv

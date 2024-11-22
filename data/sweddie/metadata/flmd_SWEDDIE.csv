@@ -1,1 +1,1 @@
-email,Name,Data contact name,Data contact email,fileName,expName,dataType,description,UTC_offset,fileVersionNumber,startDate,endDate,missingValCodes,dataOrientation,notes
+email,name,dataContactName,dataContactEmail,fileName,sit_name,varName,description,UTC_offset,fileVersionNumber,startDate,endDate,missingValCodes,notes

@@ -1,0 +1,151 @@
+SWEDDIE Compilation Log 
+ 
+ 2024-11-20 14:20:05 
+ - - - - - - - - - - - - - - - 
+
+
+Compiling data files in siteData 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Compiling and checking core data...
+
+
+ 185ExperimentStation 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock plt_notes 
+	 site 
+
+ ACBB 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ Achenkirch 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ B4WarmED 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ Blodgett 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ CiPEHR 
+	 experiment 
+	 plot 
+	 site 
+
+ ForHot 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ HarvardForest 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ KAEFS 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ LyonHI 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ MERIT 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ PtReyes 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ Sanming 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ SMARTX 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ SPRUCE 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ Stillberg 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ SWAMP 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ SWELTR 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ TEAM 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ TeRaCON 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ TRACE 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ 185ExperimentStation 
+
+	The following data dictionary files are missing input data and will not be ingested:
+ datafile_airT_dd.csv 
+	The following input data files are missing data dictionaries and will not be ingested:
+ datafile_airTemp.csv 
+The following input files are listed in the flmd file ' datafile_flmd .csv', but cannot be found:
+ datafile_airTemp.csv 
+	Column/s  miss  missing from data dictionary file:  datafile_BD_dd.csv 
+	Column/s  miss  missing from data dictionary file:  datafile_humidity_dd.csv 
+	Column/s  miss  missing from data dictionary file:  datafile_precip_dd.csv 
+	Column/s  miss  missing from data dictionary file:  datafile_soilT_dd.csv 
+	Column/s  miss  missing from data dictionary file:  datafile_soilW_dd.csv 
+	Column/s  miss  missing from data dictionary file:  datafile_SOM_dd.csv 
+	Column/s  miss  missing from data dictionary file:  datafile_YIELD_dd.csv 

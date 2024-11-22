@@ -1,9 +1,10 @@
-﻿colName,description,unit,dataType,siteName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
-Year,year sampled,yyyy,numeric,,,,,,,,,
-Land management practices,vegetation management,wheat;Continous grassland,string,,,,,,,,,
-Field ,site name,Cropland;Grassland,string,,,,,,,,,
-Plots,plot name,,string,,,,,,,,,
-Treatment,treatment,Control,string,,,,,,,,,
-depth_upper,upper depth,cm,numeric,,,,,,,,depth,mineral soil interface
-depth_lower,lower depth,cm,numeric,,,,,,,,depth,mineral soil interface
-Root_density(kg/ha),fine root mass,kg/ha,numeric,,,,,,,,,
+﻿colName,description,unit,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+Year,year sampled,yyyy,date,,,,,,,,
+Land management practices,vegetation management,wheat;Continous grassland,string,,,,,,,,
+Field,site name,Cropland;Grassland,string,,,,,,,,
+plt_name,plot name from plot table,,string,,,,,,,,
+Plots,plot name,,string,,,,,,,,
+Treatment,treatment,Control,string,,,,,,,,
+depth_upper,upper depth,cm,numeric,,,,,,,depth,mineral soil interface
+depth_lower,lower depth,cm,numeric,,,,,,,depth,mineral soil interface
+Root_density(kg/ha),fine root mass,kg/ha,numeric,,,,,,,,

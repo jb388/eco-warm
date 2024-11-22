@@ -1,5 +1,14 @@
-﻿exp_name,sit_name,sit_lat,sit_long,datum,elevation,country,MAT,MAT_refPeriod,MAP,MAP_refPeriod,landCover,leafPheno,species,landscape_position,slope,aspect,soil_drainage,soil_texture_class,soil_taxon_sys,soil_taxon,parent_material,site_notes,permafrost,soil_depth
+﻿exp_name,sit_name,sit_lat,sit_long,datum,elevation,country,MAT,MAT_refPeriod,MAP,MAP_refPeriod,biome,leafPheno,species,landscape_position,slope,aspect,soil_drainage,soil_texture_class,soil_taxon_sys,soil_taxon,parent_material,site_notes,permafrost,soil_depth
 185ExperimentalStation,185ExperimentalStation,37.88,114.68,,50.1,China,14.8,2023,741.4,2023,cultivated,deciduous,,,,,,,,sandy loam,,,,
+
+
+
+
+
+
+
+
+
 
 
 

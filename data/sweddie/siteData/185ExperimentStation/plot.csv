@@ -1,15 +1,19 @@
-﻿exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units
-185ExperimentalStation,185ExperimentalStation,CK_1,,1,,,0,N,0,kg/ha
-185ExperimentalStation,185ExperimentalStation,CK_2,,2,,,0,N,0,kg/ha
-185ExperimentalStation,185ExperimentalStation,CK_3,,3,,,0,N,0,kg/ha
-185ExperimentalStation,185ExperimentalStation,W_1,,1,,,1.5,N,0,kg/ha
-185ExperimentalStation,185ExperimentalStation,W_2,,2,,,1.5,N,0,kg/ha
-185ExperimentalStation,185ExperimentalStation,N_1,,1,,,0,N,240,kg/ha
-185ExperimentalStation,185ExperimentalStation,N_2,,2,,,0,N,240,kg/ha
-185ExperimentalStation,185ExperimentalStation,N_3,,3,,,0,N,240,kg/ha
-185ExperimentalStation,185ExperimentalStation,WN_1,,1,,,1.5,N,240,kg/ha
-185ExperimentalStation,185ExperimentalStation,WN_2,,2,,,1.5,N,240,kg/ha
-185ExperimentalStation,185ExperimentalStation,WN_3,,3,,,1.5,N,240,kg/ha
+﻿exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_treat_heat,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units
+185ExperimentalStation,185ExperimentalStation,CK_1,,1,,,control,0,N,0,kg/ha
+185ExperimentalStation,185ExperimentalStation,CK_2,,2,,,control,0,N,0,kg/ha
+185ExperimentalStation,185ExperimentalStation,CK_3,,3,,,control,0,N,0,kg/ha
+185ExperimentalStation,185ExperimentalStation,W_1,,1,,,treatment,1.5,N,0,kg/ha
+185ExperimentalStation,185ExperimentalStation,W_2,,2,,,treatment,1.5,N,0,kg/ha
+185ExperimentalStation,185ExperimentalStation,N_1,,1,,,control,0,N,240,kg/ha
+185ExperimentalStation,185ExperimentalStation,N_2,,2,,,control,0,N,240,kg/ha
+185ExperimentalStation,185ExperimentalStation,N_3,,3,,,control,0,N,240,kg/ha
+185ExperimentalStation,185ExperimentalStation,WN_1,,1,,,treatment,1.5,N,240,kg/ha
+185ExperimentalStation,185ExperimentalStation,WN_2,,2,,,treatment,1.5,N,240,kg/ha
+185ExperimentalStation,185ExperimentalStation,WN_3,,3,,,treatment,1.5,N,240,kg/ha
+
+
+
+
 
 
 

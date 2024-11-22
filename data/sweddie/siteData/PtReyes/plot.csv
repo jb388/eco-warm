@@ -1,31 +1,16 @@
-exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_date_i,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
-PtReyes,PtReyes,control_1,,1,,,2022,0,,,,
-PtReyes,PtReyes,control_2,,2,,,2022,0,,,,
-PtReyes,PtReyes,control_3,,3,,,2022,0,,,,
-PtReyes,PtReyes,heated_1,,1,,,2022,4,,,,
-PtReyes,PtReyes,heated_2,,2,,,2022,4,,,,
-PtReyes,PtReyes,heated_3,,3,,,2022,4,,,,
-PtReyes,PtReyes,control_4,,4,,,2022,0,,,,
-PtReyes,PtReyes,control_5,,5,,,2022,0,,,,
-PtReyes,PtReyes,control_6,,6,,,2022,0,,,,
-PtReyes,PtReyes,heated_4,,4,,,2022,4,,,,
-PtReyes,PtReyes,heated_5,,5,,,2022,4,,,,
-PtReyes,PtReyes,heated_6,,6,,,2022,4,,,,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_treat_heat,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
+PtReyes,PtReyes,control_1,,1,,,control,0,,,,
+PtReyes,PtReyes,control_2,,2,,,control,0,,,,
+PtReyes,PtReyes,control_3,,3,,,control,0,,,,
+PtReyes,PtReyes,heated_1,,1,,,treatment,4,,,,
+PtReyes,PtReyes,heated_2,,2,,,treatment,4,,,,
+PtReyes,PtReyes,heated_3,,3,,,treatment,4,,,,
+PtReyes,PtReyes,control_4,,4,,,control,0,,,,
+PtReyes,PtReyes,control_5,,5,,,control,0,,,,
+PtReyes,PtReyes,control_6,,6,,,control,0,,,,
+PtReyes,PtReyes,heated_4,,4,,,treatment,4,,,,
+PtReyes,PtReyes,heated_5,,5,,,treatment,4,,,,
+PtReyes,PtReyes,heated_6,,6,,,treatment,4,,,,
 
 
 

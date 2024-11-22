@@ -1,34 +1,16 @@
-exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_date_i,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
-SWAMP,Altun-Qilian,control_1,1,1,,,2021,0,,,,
-SWAMP,Altun-Qilian,heated_1,1,1,,,2021,2,,,,
-SWAMP,Altun-Qilian,control_2,2,2,,,2021,0,,,,
-SWAMP,Altun-Qilian,heated_2,2,2,,,2021,2,,,,
-SWAMP,Altun-Qilian,control_3,3,3,,,2021,0,,,,
-SWAMP,Altun-Qilian,heated_3,3,3,,,2021,2,,,,
-SWAMP,Altun-Qilian,control_4,4,4,,,2021,0,,,,
-SWAMP,Altun-Qilian,heated_4,4,4,,,2021,2,,,,
-SWAMP,Altun-Qilian,control_5,5,5,,,2021,0,,,,
-SWAMP,Altun-Qilian,heated_5,5,5,,,2021,2,,,,
-SWAMP,Altun-Qilian,control_6,6,6,,,2021,0,,,,
-SWAMP,Altun-Qilian,heated_6,6,6,,,2021,2,,,,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_treat_heat,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
+SWAMP,Altun-Qilian,control_1,1,1,,,control,0,,,,
+SWAMP,Altun-Qilian,heated_1,1,1,,,treatment,2,,,,
+SWAMP,Altun-Qilian,control_2,2,2,,,control,0,,,,
+SWAMP,Altun-Qilian,heated_2,2,2,,,treatment,2,,,,
+SWAMP,Altun-Qilian,control_3,3,3,,,control,0,,,,
+SWAMP,Altun-Qilian,heated_3,3,3,,,treatment,2,,,,
+SWAMP,Altun-Qilian,control_4,4,4,,,control,0,,,,
+SWAMP,Altun-Qilian,heated_4,4,4,,,treatment,2,,,,
+SWAMP,Altun-Qilian,control_5,5,5,,,control,0,,,,
+SWAMP,Altun-Qilian,heated_5,5,5,,,treatment,2,,,,
+SWAMP,Altun-Qilian,control_6,6,6,,,control,0,,,,
+SWAMP,Altun-Qilian,heated_6,6,6,,,treatment,2,,,,
 
 
 

@@ -1,0 +1,5 @@
+col_name,type,description,units,notes,depthTopM,depthBottomM
+plt_name,string,Treatment name,,CK: control; W: only warming; N: N fertilizer; WN: Warming and N fertilizer,,
+Depth,string,Sampling depth,cm,,,
+Date,string,Sampling time,,,,
+SOM,num,Soil organic matter content,g kg-1,,0,0.2

@@ -1,8 +1,0 @@
-﻿colName,description,unit,dataType,siteName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
-Year,year sampled,yyyy,numeric,,,,,,,,,
-Plots,plot ID,,string,,,,,,,,,
-Treatment,warming treatment,Heated;Control,string,,,,,,,,,
-Field,cropping treatment,Cropland;Grassland,string,,,,,,,,,
-Straw(t/ha),straw yield,Mg/ha,numeric,,,,,,,,,
-Grain(t/ha),grain yield,Mg/ha,numeric,,,,,,,,,
-LAI,leaf area index,,numeric,,,,,,,,,

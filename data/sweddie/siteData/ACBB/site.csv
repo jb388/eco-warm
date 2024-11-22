@@ -1,6 +1,5 @@
 exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAT_refPeriod,MAP,MAP_refPeriod,biome,leafPheno,species,landscape_position,slope,aspect,soil_drainage,soil_texture_class,soil_taxon_sys,soil_taxon,parent_material,site_notes,country,permafrost,soil_depth
-ACBB,ACBB_cropland,46.42025278,0.124819444,,,12,,760,,temperate grassland,,Zea mays; Triticum spp.; Hordeum vulgare; Lolium perenne; Dactylis glomerata; Festuca arundinacea,,0.5,,,,WRB,Cambisol; Paleo-Ferralsol,,,France,,
-ACBB,ACBB_grassland,46.42025278,0.124819444,,,12,,760,,temperate grassland,,Zea mays; Triticum spp.; Hordeum vulgare; Lolium perenne; Dactylis glomerata; Festuca arundinacea,,0.5,,,,WRB,Cambisol; Paleo-Ferralsol,,,France,,
+ACBB,Lusignan,46.42025278,0.124819444,,,12,,760,,temperate grassland,,Zea mays; Triticum spp.; Hordeum vulgare; Lolium perenne; Dactylis glomerata; Festuca arundinacea,,0.5,,,,WRB,Cambisol; Paleo-Ferralsol,,,France,,
 
 
 

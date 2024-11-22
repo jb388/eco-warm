@@ -1,28 +1,16 @@
-exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_date_i,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
-Blodgett,Blodgett,control_1,,1,,,2013,0,,,,
-Blodgett,Blodgett,control_2,,2,,,2013,0,,,,
-Blodgett,Blodgett,control_3,,3,,,2013,0,,,,
-Blodgett,Blodgett,heated_1,,1,,,2013,4,,,,
-Blodgett,Blodgett,heated_2,,2,,,2013,4,,,,
-Blodgett,Blodgett,heated_3,,3,,,2013,4,,,,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_treat_heat,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
+Blodgett,Blodgett,control_1,,1,,,control,0,,,,
+Blodgett,Blodgett,control_2,,2,,,control,0,,,,
+Blodgett,Blodgett,control_3,,3,,,control,0,,,,
+Blodgett,Blodgett,treatment_1,,1,,,treatment,4,,,,
+Blodgett,Blodgett,treatment_2,,2,,,treatment,4,,,,
+Blodgett,Blodgett,treatment_3,,3,,,treatment,4,,,,
+Blodgett,Blodgett,control_4,,4,,,control,0,,,,new plot
+Blodgett,Blodgett,control_5,,5,,,control,0,,,,new plot
+Blodgett,Blodgett,control_6,,6,,,control,0,,,,new plot
+Blodgett,Blodgett,treatment_4,,4,,,treatment,4,,,,new plot
+Blodgett,Blodgett,treatment_5,,5,,,treatment,4,,,,new plot
+Blodgett,Blodgett,treatment_6,,6,,,treatment,4,,,,new plot
 
 
 

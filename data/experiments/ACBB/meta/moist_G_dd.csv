@@ -1,0 +1,6 @@
+colName,description,units,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef,notes
+TIMESTAMP,date sampled,date,,,,,,,,,,
+treat,"treatment (C = heated, H = control)",C;H,string,,,,,,,,,
+plot,plot name corresponding to plt_name in plot table,string,,,,,,,,,,
+depth,sensor depth,,numeric,,,,,,,,mineral organic interface,
+data,soil moisture,,numeric,,,,,,,,,

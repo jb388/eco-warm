@@ -1,27 +1,37 @@
-exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_date_i,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
-KAEFS,Kessler,1,1,,,,2009,0,,,,
-KAEFS,Kessler,2,1,,,,2009,0,precip,0.5,times ambient precip,
-KAEFS,Kessler,3,1,,,,2009,0,precip,2,times ambient precip,
-KAEFS,Kessler,4,2,,,,2009,3,,,,
-KAEFS,Kessler,5,2,,,,2009,3,precip,0.5,times ambient precip,
-KAEFS,Kessler,6,2,,,,2009,3,precip,2,times ambient precip,
-KAEFS,Kessler,7,1,,,,2009,0,,,,
-KAEFS,Kessler,8,1,,,,2009,0,precip,0.5,times ambient precip,
-KAEFS,Kessler,9,1,,,,2009,0,precip,2,times ambient precip,
-KAEFS,Kessler,10,2,,,,2009,3,,,,
-KAEFS,Kessler,11,2,,,,2009,3,precip,0.5,times ambient precip,
-KAEFS,Kessler,12,2,,,,2009,3,precip,2,times ambient precip,
-KAEFS,Kessler,13,3,,,,2009,0,,,,
-KAEFS,Kessler,14,3,,,,2009,0,precip,0.5,times ambient precip,
-KAEFS,Kessler,15,3,,,,2009,0,precip,2,times ambient precip,
-KAEFS,Kessler,16,4,,,,2009,3,,,,
-KAEFS,Kessler,17,4,,,,2009,3,precip,0.5,times ambient precip,
-KAEFS,Kessler,18,4,,,,2009,3,precip,2,times ambient precip,
-KAEFS,Kessler,19,3,,,,2009,0,,,,
-KAEFS,Kessler,20,3,,,,2009,0,precip,0.5,times ambient precip,
-KAEFS,Kessler,21,3,,,,2009,0,precip,2,times ambient precip,
-KAEFS,Kessler,22,4,,,,2009,3,,,,
-KAEFS,Kessler,23,4,,,,2009,3,precip,0.5,times ambient precip,
-KAEFS,Kessler,24,4,,,,2009,3,precip,2,times ambient precip,
+exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_treat_heat,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
+KAEFS,Kessler,1,1,,,,control,0,,,,
+KAEFS,Kessler,2,1,,,,control,0,precip,0.5,times ambient precip,
+KAEFS,Kessler,3,1,,,,control,0,precip,2,times ambient precip,
+KAEFS,Kessler,4,2,,,,treatment,3,,,,
+KAEFS,Kessler,5,2,,,,treatment,3,precip,0.5,times ambient precip,
+KAEFS,Kessler,6,2,,,,treatment,3,precip,2,times ambient precip,
+KAEFS,Kessler,7,1,,,,control,0,,,,
+KAEFS,Kessler,8,1,,,,control,0,precip,0.5,times ambient precip,
+KAEFS,Kessler,9,1,,,,control,0,precip,2,times ambient precip,
+KAEFS,Kessler,10,2,,,,treatment,3,,,,
+KAEFS,Kessler,11,2,,,,treatment,3,precip,0.5,times ambient precip,
+KAEFS,Kessler,12,2,,,,treatment,3,precip,2,times ambient precip,
+KAEFS,Kessler,13,3,,,,control,0,,,,
+KAEFS,Kessler,14,3,,,,control,0,precip,0.5,times ambient precip,
+KAEFS,Kessler,15,3,,,,control,0,precip,2,times ambient precip,
+KAEFS,Kessler,16,4,,,,treatment,3,,,,
+KAEFS,Kessler,17,4,,,,treatment,3,precip,0.5,times ambient precip,
+KAEFS,Kessler,18,4,,,,treatment,3,precip,2,times ambient precip,
+KAEFS,Kessler,19,3,,,,control,0,,,,
+KAEFS,Kessler,20,3,,,,control,0,precip,0.5,times ambient precip,
+KAEFS,Kessler,21,3,,,,control,0,precip,2,times ambient precip,
+KAEFS,Kessler,22,4,,,,treatment,3,,,,
+KAEFS,Kessler,23,4,,,,treatment,3,precip,0.5,times ambient precip,
+KAEFS,Kessler,24,4,,,,treatment,3,precip,2,times ambient precip,
+
+
+
+
+
+
+
+
+
+
 
 

@@ -1,0 +1,7 @@
+﻿colName,description,unit,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+Year,year sampled,yyyy,date,,,,,,,,
+plt_name,plot name from plot table,,string,,,,,,,,
+Plots,plot ID,,string,,,,,,,,
+Treatment,warming treatment,Heated;Control,string,,,,,,,,
+Field,cropping treatment,Cropland;Grassland,string,,,,,,,,
+Straw(t/ha),straw yield,Mg/ha,numeric,,,,,,,,

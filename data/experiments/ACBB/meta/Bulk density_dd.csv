@@ -1,0 +1,7 @@
+"colName","description","unit","dataType","sensorMakeModel","methodName","methodNotes","methodDOI","depthTopM","depthBottomM","depthHeight","zeroRef"
+"Date","year sampled","yyyy","date",NA,NA,NA,NA,NA,NA,"",""
+"depth_upper","upper depth","cm","numeric",NA,NA,NA,NA,NA,NA,"depth","mineral soil interface"
+"depth_lower","lower depth","cm","numeric",NA,NA,NA,NA,NA,NA,"depth","mineral soil interface"
+"Bulk density","soil bulk density","g/cm3","numeric",NA,NA,NA,NA,NA,NA,"",""
+"replicates","number of replicates","","numeric",NA,NA,NA,NA,NA,NA,"",""
+"bd_cv","soil bulk density cv","percent","numeric",NA,NA,NA,NA,NA,NA,"",""

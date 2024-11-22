@@ -1,29 +1,16 @@
-exp_name,sit_name,plt_name,plt_block,plt_rep,plt_notes,plt_lat,plt_long,plt_date_i,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units
-ACBB,Lusignan,grassland_0_1,,1,,,,,0,grassland,0,grassland
-ACBB,Lusignan,grassland_0_2,,2,,,,,0,grassland,0,grassland
-ACBB,Lusignan,grassland_0_3,,3,,,,,0,grassland,0,grassland
-ACBB,Lusignan,grassland_4_1,,1,,,,,4,grassland,0,grassland
-ACBB,Lusignan,grassland_4_2,,2,,,,,4,grassland,0,grassland
-ACBB,Lusignan,grassland_4_3,,3,,,,,4,grassland,0,grassland
-ACBB,Lusignan,cropland_0_1,,1,,,,,0,cropland,1,cropland
-ACBB,Lusignan,cropland_0_2,,2,,,,,0,cropland,1,cropland
-ACBB,Lusignan,cropland_0_3,,3,,,,,0,cropland,1,cropland
-ACBB,Lusignan,cropland_4_1,,1,,,,,4,cropland,1,cropland
-ACBB,Lusignan,cropland_4_2,,2,,,,,4,cropland,1,cropland
-ACBB,Lusignan,cropland_4_3,,3,,,,,4,cropland,1,cropland
-
-
-
-
-
-
-
-
-
-
-
-
-
+exp_name,sit_name,plt_name,plt_block,plt_rep,plt_notes,plt_lat,plt_long,plt_treat_heat,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units
+ACBB,Lusignan,grassland_0_1,,1,,,,control,0,grassland,0,grassland
+ACBB,Lusignan,grassland_0_2,,2,,,,control,0,grassland,0,grassland
+ACBB,Lusignan,grassland_0_3,,3,,,,control,0,grassland,0,grassland
+ACBB,Lusignan,grassland_4_1,,1,,,,treatment,4,grassland,0,grassland
+ACBB,Lusignan,grassland_4_2,,2,,,,treatment,4,grassland,0,grassland
+ACBB,Lusignan,grassland_4_3,,3,,,,treatment,4,grassland,0,grassland
+ACBB,Lusignan,cropland_0_1,,1,,,,control,0,cropland,1,cropland
+ACBB,Lusignan,cropland_0_2,,2,,,,control,0,cropland,1,cropland
+ACBB,Lusignan,cropland_0_3,,3,,,,control,0,cropland,1,cropland
+ACBB,Lusignan,cropland_4_1,,1,,,,treatment,4,cropland,1,cropland
+ACBB,Lusignan,cropland_4_2,,2,,,,treatment,4,cropland,1,cropland
+ACBB,Lusignan,cropland_4_3,,3,,,,treatment,4,cropland,1,cropland
 
 
 

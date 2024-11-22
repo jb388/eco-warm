@@ -1,32 +1,14 @@
-exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_date_i,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
-SWELTR,BCI,,,,,,16-Nov,0,,,,
-SWELTR,BCI,,,,,,16-Nov,4,,,,
-SWELTR,BCI,,,,,,16-Nov,0,,,,
-SWELTR,BCI,,,,,,16-Nov,4,,,,
-SWELTR,BCI,,,,,,16-Nov,0,,,,
-SWELTR,BCI,,,,,,16-Nov,4,,,,
-SWELTR,BCI,,,,,,16-Nov,0,,,,
-SWELTR,BCI,,,,,,16-Nov,4,,,,
-SWELTR,BCI,,,,,,16-Nov,0,,,,
-SWELTR,BCI,,,,,,16-Nov,4,,,,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_treat_heat,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
+SWELTR,BCI,,,,,,control,0,,,,
+SWELTR,BCI,,,,,,treatment,4,,,,
+SWELTR,BCI,,,,,,control,0,,,,
+SWELTR,BCI,,,,,,treatment,4,,,,
+SWELTR,BCI,,,,,,control,0,,,,
+SWELTR,BCI,,,,,,treatment,4,,,,
+SWELTR,BCI,,,,,,control,0,,,,
+SWELTR,BCI,,,,,,treatment,4,,,,
+SWELTR,BCI,,,,,,control,0,,,,
+SWELTR,BCI,,,,,,treatment,4,,,,
 
 
 

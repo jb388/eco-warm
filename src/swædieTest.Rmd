@@ -33,14 +33,19 @@ library(tidyterra)
 
 ```{r utils}
 # add carriage return to .csv files (recursive by default)
-crAdd <- function(dataDir, ..) {
-  ls <- list.files(path = dataDir, pattern = ".csv$", recursive = TRUE, full.names = TRUE)
-  sapply(ls, function(file) write.table(
-    "", file = file, sep = ",", append = TRUE, quote = FALSE, col.names = FALSE, row.names = FALSE))
+crAdd <- function(file) {
+  write.table(
+    "", file = file, sep = ",", append = TRUE, quote = FALSE, col.names = FALSE, row.names = FALSE)
 }
 
-# print and append message to "outfile" if verbose == TRUE
-vcat <- function(..., append = TRUE) if (verbose) cat(..., file = outfile, append = append)
+# wrapper for running on a directory
+crAdd_dir <- function(dataDir, ..) {
+  ls <- list.files(path = dataDir, pattern = ".csv$", recursive = TRUE, full.names = TRUE)
+  sapply(ls, crAdd)
+}
+
+# print if (verbose)
+vcat <- function(...) if (verbose) cat(...)
 
 # read core data
 readCore <- function(coreDir, return = "template") {
@@ -54,11 +59,10 @@ readCore <- function(coreDir, return = "template") {
   ls.dd <- ls[ix.dd]
   ls.tm <- ls[-ix.dd]
   dd <- lapply(
-    setNames(ls.dd, nm = sub(pattern = "(.*)\\..*$", replacement = "\\1", basename(ls.dd))),
+    setNames(ls.dd, nm = sapply(strsplit(basename(ls.dd), "_"), "[[", 1)),
     read.csv)
   if (return == "template") {
-    lapply(
-      setNames(dd, nm = c("experiment", "plot", "site")), function(x) {
+    lapply(dd, function(x) {
         setNames(data.frame(matrix(ncol = nrow(x), nrow = 0)), x[ , 1])
       })
   } else {
@@ -67,30 +71,46 @@ readCore <- function(coreDir, return = "template") {
 }
 
 # checks column names
-checkColNms <- function(metadata, tableName, datIn, err, ...) {
+checkColNms <- function(tableName, datIn, err, verbose = TRUE, ...) {
+  
+  vcat(paste("\t", tableName, "\n"))
   
   # check for template
-  if (missing(metadata)) metadata <- readMeta()
-  
-  # check tableNames
-  if (!names(datIn)[which(names(datIn) == tableName)] %in% names(metadata)[which(names(metadata) == tableName)])  {
+  metadata <- readCore(return = "dd")
+
+  # check that required data files are present (experiment, site, plot)
+  if (!any(grepl(tableName, names(datIn)))) {
     err <- err + 1
     vcat(warning(
-      paste("\t", names(datIn)[tableName], "is missing in data file\n")))
+      paste("\t", tableName, "is missing in metadata/siteData directory\n")))
+  }
+  
+  # check that required columns are present
+  req <- metadata[[tableName]][which(metadata[[tableName]][["req"]] == "yes"), 1]
+  for (i in seq_along(req)) {
+    if (!any(grepl(req[i], names(datIn[[tableName]])))) {
+      err <- err + 1
+      vcat(warning(
+        paste("\t\t", "Required column", req[i], "is missing in", tableName, "table\n")))
+    }
   }
   
   # check for missing cols in data
-  miss <- setdiff(colnames(metadata[[tableName]]), colnames(datIn[[tableName]]))
-  
-  # check for extra cols in data
-  xtra <- setdiff(colnames(datIn[[tableName]]), colnames(metadata[[tableName]]))
+  miss <- setdiff(metadata[[tableName]][["col_name"]], colnames(datIn[[tableName]]))
+  miss <- miss[!(miss %in% req)]
 
-  if (length(miss) > 0 | length(xtra) > 0) {
-    err <- err + 1
-    vcat(warning(
-      paste("\t", names(datIn[tableName]), "table names do not match template\n")))
-    if (length(miss) > 0) vcat("\t\tColumn names missing:", miss, "\n")
-    if (length(xtra > 0)) vcat("\t\tColumn names extra:", xtra, "\n")
+  # check for extra cols in data
+  xtra <- setdiff(colnames(datIn[[tableName]]), metadata[[tableName]][["col_name"]])
+
+  if (length(miss) > 0 ) {
+    vcat("\t\t Non-required columns missing from data:", miss, "\n")
+  }
+  if (length(xtra > 0)) {
+    xtras <- sapply(seq_along(xtra), function(i) {
+      ix <- which(colnames(datIn[[tableName]]) == xtra[i])
+      paste0(xtra[i], " (", ix, ")")
+    }) 
+    vcat("\t\t Extra columns:", xtras, "\n")
   }
   return(err)
 }
@@ -106,109 +126,111 @@ siteMap <- function(database) {
     theme_bw(base_size = 16) +
     labs(title = "SWEDDIE: Site_Map", x = "Longitude", y = "Latitude")
 }
+
+# get csv names
+getCSVnms <- function (path.csv) {
+  names(read.csv(path.csv, nrows = 1, check.names = FALSE, strip.white = TRUE))
+}
 ```
 
 # Build core database
 
 ```{r sweddie-assemble}
-# function for assembling database
-DIR = "../data/sweddie"
-write_report = TRUE
-write_out = TRUE
-output_ext = c(".csv", ".rda")
-verbose = TRUE
-
-# Constants
-DB_DIR <- "database"
-S_DIR <- "siteData"
-LIST_FILE <- "coreData.rda"
-TIMESTAMP <- format(Sys.time(), "%y%m%d-%H%M") 
-  
-# Set output file
-outfile <- ""
-if (write_report) {
-  outfile <- file.path(DIR, DB_DIR, paste0("logs/coreLog", "_", TIMESTAMP, ".txt"))
-  file.create(outfile)
-}
-
-# Start writing in the output file
-vcat("SWEDDIE Compilation Log \n",
-     "\n", as.character(Sys.time()),
-     "\n", rep("-", 15), "\n")
-
-
-# Get the tables stored in the template sheets
-metadata <- readCore()
-
-vcat("\n\nCompiling data files in", S_DIR, "\n", rep("-", 30), "\n")
-
-data_dirs <- list.dirs(file.path(DIR, S_DIR), full.names = TRUE, recursive = FALSE)
-if (!length(data_dirs)) {
-  vcat(warning("No data directories found!\n"))
-  return(NULL)
-}
-
-# ensure EOL carriage return present
-crAdd(file.path(DIR, S_DIR))
-
-vcat("Compiling and checking site data...\n")
-  #   pb <- txtProgressBar(min = 0, max = length(data_dirs), style = 3)
-  # }
-  # 
-  # check if previous database object exists in database directory, and only update file if new data exisit
-if (file.exists(file.path(DIR, DB_DIR, LIST_FILE))) {
-  
-  # load existing database
-  load(file.path(dataset_directory, DB_DIR, LIST_FILE)) # obj "coreDat"
-  
-  # convert to character and coerce to list of data frames
-  coreDat_chr <- lapplydf(lapply(coreData, function(x) lapply(x, as.character)))
-
-  # remove old version of ISRaD
-  rm(coreDat)
-
-  # Split each table by entry_name
-  coreDat_old <- lapply(coreDat_chr, function(x) split(x, x$exp_name))
-} else {
-  database <- metadata
-}
-
-# compile new templates and check against existing data
-for (d in seq_along(data_dirs)) {
-  
-  # get site name
-  site_nm <- basename(data_dirs[d])
-  
-  vcat(paste(site_nm, "\n"))
-  
-  # get tables
-  tbls <- list.files(data_dirs[d], full.names = TRUE)
-  
-  # check that required files are present
-  ix <- which(!names(metadata) %in% sub("\\..*", "", basename(tbls)))
-  if (length(ix) > 0) {
-    vcat(warning(
-      paste0(paste(names(metadata)[ix], collapse = ", "), 
-             " files not found for site ", site_nm, "!\n")))
-  } 
-  
-  # read files
-  datIn <- lapply(setNames(tbls, nm = sub("\\..*", "", basename(tbls))), read.csv)
-  
-  # check data fidelity against template
-  err <- 0
-  for (i in seq_along(datIn)) {
+coreData.fx <- function(DIR = "../data/sweddie", write_report = TRUE, write_out = TRUE, verbose = TRUE) {
+ 
+  # Constants
+  DB_DIR <- "database"
+  S_DIR <- "siteData"
+  LIST_FILE <- "coreData.rda"
+  TIMESTAMP <- format(Sys.time(), "%y%m%d-%H%M") 
     
-    # check column names
-    err <- checkColNms(metadata, names(datIn)[i], datIn, err)
+  # Set output file
+  outfile <- ""
+  if (write_report) {
+    outfile <- file.path(DIR, DB_DIR, paste0("logs/coreLog", "_", TIMESTAMP, ".txt"))
+    file.create(outfile)
+  }
+  
+  # Start writing in the output file
+  vcat("SWEDDIE Compilation Log \n",
+       "\n", as.character(Sys.time()),
+       "\n", rep("-", 15), "\n", file = outfile, verbose = verbose)
+  
+  vcat("\n\nCompiling data files in", S_DIR, "\n", rep("-", 30), "\n", file = outfile, append = TRUE, verbose = verbose)
+  
+  data_dirs <- list.dirs(file.path(DIR, S_DIR), full.names = TRUE, recursive = FALSE)
+  if (!length(data_dirs)) {
+    vcat(warning("No data directories found!\n"), file = outfile, append = TRUE, verbose = verbose)
+    return(NULL)
+  }
+  
+  # ensure EOL carriage return present
+  invisible(crAdd_dir(file.path(DIR, S_DIR)))
+  
+  vcat("Compiling and checking core data...\n\n", file = outfile, append = TRUE, verbose = verbose)
+    #   pb <- txtProgressBar(min = 0, max = length(data_dirs), style = 3)
+    # }
+    # 
+    # check if previous database object exists in database directory, and only update file if new data exisit
+  if (file.exists(file.path(DIR, DB_DIR, LIST_FILE))) {
     
-    # check data types
+    # load existing database
+    load(file.path(dataset_directory, DB_DIR, LIST_FILE)) # obj "coreDat"
     
-    # check data values
+    # convert to character and coerce to list of data frames
+    coreDat_chr <- lapplydf(lapply(coreData, function(x) lapply(x, as.character)))
+  
+    # remove old version
+    rm(coreDat)
+  
+    # Split each table by entry_name
+    coreDat_old <- lapply(coreDat_chr, function(x) split(x, x$exp_name))
+  } else {
+    database <- setNames(vector(mode = "list", length = length(data_dirs)), nm = basename(data_dirs))
+  }
+  
+  # compile new templates and check against existing data
+  for (d in seq_along(database)) {
+    
+    # get expName
+    expName <- names(database[d])
+    
+    vcat(paste("\n", expName, "\n"), file = outfile, append = TRUE, verbose = verbose)
+    
+    # get tables
+    tbls <- list.files(data_dirs[d], full.names = TRUE)
+    
+    # read files
+    datIn <- lapply(setNames(tbls, nm = sub("\\..*", "", basename(tbls))), read.csv)
+    
+    # check data fidelity against template
+    err <- 0
+    for (i in seq_along(datIn)) {
+      
+      # check column names
+      err <- checkColNms(names(datIn)[i], datIn, err)
+      
+      # check data types
+      
+      # check data values
+    }
     
     # bind to database
-    if (err == 0) database[[i]] <- rbind(database[[i]], datIn[[i]]) 
+    if (err == 0) database[[d]] <- datIn
   }
+  
+  # add plot index to plot table
+  database <- lapply(database, function(x) {
+    if (!("plt_ind" %in% names(x$plot))) {
+      if (nrow(x$plot) > 0) {
+        plt_ind <- 1:nrow(x$plot)
+        x$plot <- cbind(x$plot, plt_ind)  
+      }
+    }
+    return(x)
+  })
+  
+  database
 }
 ```
 
@@ -216,7 +238,9 @@ for (d in seq_along(data_dirs)) {
 Reads data dictionary and file level metadata files
 
 ```{r read-dat}
-read_meta <- function (expName, ...) {
+read_meta <- function (expName, verbose = TRUE, ...) {
+  
+  vcat("\n", expName, "\n\n")
   
   # get site dir paths and variable directory names
   exp.ls <- list.dirs("../data/experiments", recursive = FALSE)
@@ -242,8 +266,8 @@ read_meta <- function (expName, ...) {
     
     # check for non-standard files
     if (sum(length(flmd.ls), length(dd.ls)) != length(mta.dir.ls)) {
-      ix <- which(!(basename(dat.dir.ls) %in% c(basename(flmd.ls), basename(dd.ls))))
-      message(paste(expName, "meta directory contains the following non-standard files that will be ignored:\n", basename(mta.dir.ls)[ix], "\n"))
+      ix <- which(!(basename(mta.dir.ls) %in% c(basename(flmd.ls), basename(dd.ls))))
+      vcat("\t meta directory contains the following non-standard files that will be ignored:\n", basename(mta.dir.ls)[ix], "\n")
     }
     
     # get valid input data names from dd.ls
@@ -252,22 +276,22 @@ read_meta <- function (expName, ...) {
     # exclude dd files without matching input data
     ix <- which(is.na(match(basename(gsub("_dd", "", dd.ls)), basename(dat.dir.ls))))
     if (length(ix) > 0) {
-      message(paste("The following", expName, "data dictionary files are missing input data and will not be ingested:\n", basename(dd.ls)[ix], "\n"))
+      vcat("\tThe following data dictionary files are missing input data and will not be ingested:\n", basename(dd.ls)[ix], "\n")
       dd.ls <- dd.ls[-ix]
     }
     
     # report input data missing dd file
     ix <- which(is.na(match(basename(dat.dir.ls), basename(gsub("_dd", "", dd.ls)))))
     if (length(ix) > 0) {
-      message(paste("The following", expName, "input data files are missing data dictionaries and will not be ingested:\n", basename(dat.dir.ls)[ix], "\n"))
+      vcat("\tThe following input data files are missing data dictionaries and will not be ingested:\n", basename(dat.dir.ls)[ix], "\n")
     }
     
     # read dd files
-    dd <- lapply(dd.ls, read.csv)
+    dd <- lapply(dd.ls, read.csv, strip.white = TRUE)
     names(dd) <- gsub("\\.csv", "", basename(dd.ls))
   
     # read flmd files
-    flmd <- lapply(flmd.ls, read.csv)
+    flmd <- lapply(flmd.ls, read.csv, strip.white = TRUE)
     names(flmd) <- gsub("\\.csv", "", basename(flmd.ls))
     
     # exclude input files without matching flmd
@@ -276,7 +300,7 @@ read_meta <- function (expName, ...) {
         lapply(y$fileName, function(z)
           grep(glob2rx(z), x))))), function(d) length(d) == 0)))
     if (length(ix) > 0) {
-      message(paste("The following", expName, "input data files are missing flmd and will not be ingested:\n", basename(dat.ls)[ix], "\n"))
+      vcat("\tThe following input data files are missing flmd and will not be ingested:\n", basename(dat.ls)[ix], "\n")
       dat.ls <- dat.ls[-ix]
     }
     
@@ -293,7 +317,18 @@ read_meta <- function (expName, ...) {
         x$fileName[ix]
       }))
       flmd <- lapply(flmd, function(x) x[-ix, ])
-      message(paste0("The following ", expName, " input files are listed in the flmd file '", names(flmd.na.nms), ".csv', but cannot be found:\n", flmd.na.nms, "\n"))
+      vcat(paste0("The following input files are listed in the flmd file '", names(flmd.na.nms), ".csv', but cannot be found:\n", flmd.na.nms, "\n"))
+    }
+    
+    # check input data names against dd
+    dat.ls.colNms <- lapply(
+      setNames(dat.dir.ls, nm = basename(dat.dir.ls)), getCSVnms) 
+    for (i in seq_along(dat.ls.colNms)) {
+      if (any(!(dat.ls.colNms[[i]] %in% dd[[i]][["colName"]]))) {
+        miss <- dat.ls.colNms[[i]][which(!(dat.ls.colNms[[i]] %in% dd[[i]][["colName"]]))]
+        vcat("Data dictionary file '", basename(dd.ls[i]), "' missing column/s: ", miss, "\n")
+        
+      }
     }
     return(list(flmd = flmd, dd = dd))
   }
@@ -310,7 +345,7 @@ dd_helper <- function(expName, dataName, DATA_DIR = NULL, write_out = TRUE) {
     META_DIR <- file.path("~/eco-warm/data/experiments", expName, "meta") 
   }
   template <- read.csv("~/eco-warm/data/sweddie/metadata/datTemplate_dd.csv")
-  data <- read.csv(file.path(DATA_DIR, paste0(dataName, ".csv")))
+  data <- read.csv(file.path(DATA_DIR, paste0(dataName, ".csv")), nrows = 1)
   template[1:ncol(data), 1] <- names(data)
   if (write_out) {
     write.csv(x = template, 
@@ -322,8 +357,14 @@ dd_helper <- function(expName, dataName, DATA_DIR = NULL, write_out = TRUE) {
 }
 
 # template for flmd
-flmd_helper <- function(expName, dataFileName, dateColName, rename = FALSE, append = TRUE, write_out = TRUE, orders, ...) {
+flmd_helper <- function(expName, dataFileName, dateColName, rename = FALSE, append = TRUE, write_out = TRUE, orders = NULL, ...) {
 
+  # print dataFileName
+  cat(paste(dataFileName, "\n"))
+    
+  # list optionals
+  optArgs <- list(...)
+  
   # set data directory path
   DATA_DIR <- file.path("~/eco-warm/data/experiments", expName, "input_data") 
   META_DIR <- file.path("~/eco-warm/data/experiments", expName, "meta")
@@ -355,16 +396,16 @@ flmd_helper <- function(expName, dataFileName, dateColName, rename = FALSE, appe
   data <- read.csv(file.path(DATA_DIR, paste0(dataFileName, ".csv")))
   
   # fill out flmd
-  nm <- vector(length = ncol(flmd), mode = "list")
-  names(nm) <- names(flmd)
-  if (Jeff) {
-    nm[["Name"]] <- "Jeffrey Beem-Miller"
-    nm[["emailAddress"]] <- "jbeemmiller@lbl.gov"
+  nm <- setNames(vector(length = ncol(flmd), mode = "list"), names(flmd))
+  if (!is.null(optArgs[["Jeff"]])) {
+    nm[["name"]] <- "Jeffrey Beem-Miller"
+    nm[["email"]] <- "jbeemmiller@lbl.gov"
   }
-  nm[["expName"]] <- expName
   nm[["fileName"]] <- paste0(dataFileName, ".csv")
   if (!missing(orders)) {
     data[[dateColName]] <- parse_date_time(data[[dateColName]], orders = orders)
+  } else {
+    data[[dateColName]] <- ymd_hms(data[[dateColName]], truncated = 5)
   }
   nm[["startDate"]] <- as.character(min(data[[dateColName]], na.rm = TRUE))
   nm[["endDate"]] <- as.character(max(data[[dateColName]], na.rm = TRUE))
@@ -388,23 +429,18 @@ flmd_helper <- function(expName, dataFileName, dateColName, rename = FALSE, appe
   
   for (i in seq_along(nm)) {
     if (is.null(nm[[i]])) {
-      if (names(nm)[i] == "Name") {
-        nm[[i]] <- menu.fx()
-      } else if (names(nm)[i] == "email") {
-        nm[[i]] <- menu.fx()
-      } else if (names(nm)[i] == "dataContactName") {
-        nm[[i]] <- menu.fx()
-      } else if (names(nm)[i] == "dataContactEmail") {
-        nm[[i]] <- menu.fx()
-      } else if (names(nm)[i] == "UTC_offset") {
-        nm[[i]] <- menu.fx()
-      } else if (names(nm)[i] == "dataType") {
+      if (names(nm)[i] == "varName") {
         if (!is.null(flmd_dd.ls)) {
-          dataType_opts <- unique(unlist(lapply(lapply(flmd_dd.ls, "[[", "flmd"), function(x) lapply(x, "[[", "dataType"))))
-          nm[[i]] <- menu.fx(opt = dataType_opts)
+          varName_opts <- unique(c(unlist(lapply(lapply(flmd_dd.ls, "[[", "flmd"), function(x) lapply(x, "[[", "varName"))),
+            flmd$varName))
+          nm[[i]] <- menu.fx(opt = varName_opts)
         }
       } else {
-        nm[[i]] <- readline(prompt = paste0(names(flmd)[i], "? ")) 
+        if (append) {
+          nm[[i]] <- menu.fx() 
+        } else {
+          nm[[i]] <- readline(prompt = paste0(names(flmd)[i], "? ")) 
+        }
       }
     }
   }
@@ -425,156 +461,255 @@ flmd_helper <- function(expName, dataFileName, dateColName, rename = FALSE, appe
     flmd
   }
 }
-```
 
-# Visualize core data
+# input function
+inputDat.fx <- function(expName, path.dat.csv, path.dd.csv, append.flmd, ...) {
+  
+  # define allowable cols
+  allowable_cols <- c("date", "depth", "depth_lower", "depth_upper", "variable", "variance", "replicates", "plt_name")
+  
+  # read raw data files
+  dat <- read.csv(path.dat.csv, strip.white = TRUE, check.names = FALSE, as.is = TRUE)
+  dd <- read.csv(path.dd.csv, strip.white = TRUE, check.names = FALSE, as.is = TRUE)
+  
+  # check data orientation
+  hzn.vrt <- menu(
+    c("horizontal", "vertical"), 
+    title = paste0("How are data oriented? i.e., are data oriented in rows (horizontal), e.g., ID column/s with subsequent measurement columns, or in columns (vertical), e.g., each column represents data from a different sensor, different depths, or plot?"))
+  if (hzn.vrt == "vertical") {
+    
+  }
+    
+  # function to get and validate indices
+  get_valid_indices <- function(df, colType) {
+    
+    # print indices
+    cat(paste0(1:length(names(df)), ": ", names(df)), sep = "\n")
+    
+    while (TRUE) {
+     
+       # Prompt the user to enter row indices or 'cancel'
+      cat(paste0("Specify ", "'", colType, "'", " column/s by index # (comma separated) or enter '0' to cancel: "))
+      input <- readline()
+      
+      # Check if the user wants to cancel
+      if (input == '0') {
+        return(NULL)
+      }
+      
+      # Try to convert input to numeric
+      ix.in <- unlist(strsplit(input, ","))
+      ix.cln <- sapply(ix.in, grepl, pattern = ":")
+      ix.csv <- as.numeric(ix.in[which(!ix.cln)])
+      
+      if(any(ix.cln)) {
+          ix.rng <- unlist(lapply(sapply(
+            ix.in[which(ix.cln)], strsplit, ":"), function(x) {
+              seq(x[1], x[2])
+            }), use.names = FALSE)
+          ix <- c(ix.csv, ix.rng)
+        } else {
+          ix <- ix.csv
+        }
+      
+      # Check if the indices are valid
+      if (all(!is.na(ix)) && all(ix >= 1) && all(ix <= ncol(df))) {
+        return(ix)
+      } else {
+        cat("Error: Invalid indices. Please ensure the indices are numeric and within the range (1 to ", ncol(df), ").\n")
+      }
+    }
+  }
+  
+  # print columns names & prompt for req. col indices
+  ## data col/s
+  ix.dat <- get_valid_indices(dat, "data")
+  dat.nms.in <- names(dat)[ix.dat]
+  dat.nms <- vector(mode = "list", length = length(dat.nms.in))
+  for (i in seq_along(dat.nms)) {
+    if (!exists(flmd_dd.ls)) {
+      flmd_dd.ls <- getFLMD_DD()
+    }
+    varName_opts <- unique(c(unlist(lapply(lapply(flmd_dd.ls, "[[", "flmd"), function(x) lapply(x, "[[", "varName"))),
+                            flmd$varName))
+    sel <- menu(varName_opts, title = paste0("Does the data in column '", dat.nms.in[i], "' match one of the following variable names? (Enter '0' if none are appropriate)"))
+      if (sel != 0) {
+        dat.nms[i] <- varName_opts[sel]
+      } else {
+        dat.nms[i] <- readline(prompt = paste0("Please describe the variable in data column ", dat.nms[i], "\n")) 
+      } 
+  }
+  
+  ## depth
+  ix.dpt <- get_valid_indices(dat, "depth/height")
+  dpt.nms <- names(dat)[ix.dpt]
+  
+  ### check for values entered as ranges
+  if (any(suppressWarnings(is.na(as.numeric(dat[[ix.dpt]]))))) {
+    ix <- menu(c("yes", "no"), title = paste0("\nNon-numeric values detected in column/s '", dpt.nms, "'. Are values entered as ranges, e.g., '0-10' or '10-20 cm', etc.?"))
+    if (ix == 1) {
+      if (length(ix.dpt) > 1) {
+        warning("\nRanges not allowed with more than one depth column\n")
+      }
+      # Keep only digits and decimal points
+      cleaned_string <- gsub("[^0-9.-]", "", dat[[ix.dpt]]) 
+      
+      # Split the cleaned string by hyphen and convert to numeric
+      numbers <- lapply(strsplit(cleaned_string, "-"), as.numeric)
+      
+      # bind upper & lower depths to dat
+      dat <- cbind(dat, depth_upper = sapply(numbers, min), depth_lower = sapply(numbers, max))
+      ix.dpt <- c(ncol(dat)-1, ncol(dat))
+      dpt.nms <- names(dat)[ix.dpt]
+    } else {
+      warning(paste0("\nPlease fix non-numeric values in depth column/s ", dpt.nms, "\n"))
+    }
+  }
+  
+  # check for summarized data (means/var)
+  ix <- menu(
+      c("yes", "no"), 
+      title = paste0("Do any columns contain replicates or variance estimates (standard deviation, coefficient of variation, standard error, confidence interval)?"))
+  if (ix == 1) {
+    ix.rep <- get_valid_indices(dat, "replicates")
+    if (length(ix.rep) > 1) {
+      cat("\nOnly one replicate column is permitted\n")
+    }
+    ix.var <- get_valid_indices(dat, "variance")
+    vcl.nms <- names(dat)[ix.var]
+    vcl.dat.nms <- setNames(vector(mode = "list", length = length(ix.var)), nm = vcl.nms)
+    dat.nms <- names(dat[ix.dat[which(!(ix.dat %in% ix.var))]])
+    for (i in seq_along(vcl.nms)) {
+      ix <- menu(
+        dat.nms,
+        title = cat("\nWhich data column corresponds to variance column '", vcl.nms[i], "'?"))
+      vcl.dat.nms[[i]] <- dat.nms[ix]
+    }
+  }
 
-```{r plots}
-# get KG data
-tifRaster <- terra::rast("/Users/jeff/Seafile/ISRaD_geospatial_data/Beck_KG_V1/Beck_KG_V1_present_0p5.tif")
-terra::crs(tifRaster) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
-ext <- terra::extract(tifRaster, cbind(database$site$sit_long, database$site$sit_lat))
-key.df <- data.frame(
-  utils::read.csv("/Users/jeff/Seafile/ISRaD_geospatial_data/ISRaD_extra_keys/KG_x_x_x_x_present.csv",
-                  stringsAsFactors = FALSE))
-database$site <- cbind(database$site, key.df[ext[ , 1], c(2,3)])
+  # get date/time col
+  ix.tim <- which(dd$dataType == "date")
+  if (length(ix.tim) > 1) {
+    cat("Data dictionary (dd) file denotes more than one columns with dataType = 'date' \n but only one is allowed. Please update data and dd files\n")
+  } else {
+    ix <- menu(
+      c("yes", "no"), 
+      title = paste0("Is '", dd$colName[ix.tim], "' the primary date/time column?"))
+    if (ix != 1) {
+      cat("\nPlease check data and data dictionary files\n")
+    }
+  }
+  
+  # check for database object
+  if (!exists("database")) {
+    database <- tryCatch(coreData.fx(verbose = FALSE))
+  }
+  
+   # get plt_name column
+  ix.plt <- which(names(dat) == "plt_name")
+  if (length(ix.plt) == 0) {
+    cat("Required column 'plt_name' missing from data file\n")
+     ix <- menu(
+      c("plot", "site"), 
+      title = paste0("Were these data collected at the site or plot level?"))
+    if (ix == 1) {
+      cat("\nColumn 'plt_name' not detected in input data. We can try to match the plot names entered in the 'plot' table with a unique combination of identifying columns in the input data.\n")
+      iix <- menu(c("yes", "no"), title = "\nDo you want to try this?\n")
+      if (iix == 1) {
+        ix.plt <- get_valid_indices(dat, "unique plot identifier")
+        plt.nms <- names(dat)[ix.plt]
+        for (i in seq_along(plt.nms)) {
+          j <- menu(names(database[[expName]]$plot), cat(paste0("\nWhich plot table column matches input data column '", plt.nms[i], "'?\n")))
+          plt.vls <- database[[expName]]$plot[[j]]
+          dat.vls <- unlist(dat[ix.plt[i]])
+          mch <- unique(dat.vls) %in% unique(plt.vls)
+          if (!all(mch)) {
+            cat("\nPlease check input data column '", plt.nms[i], "'. Value/s '",  unique(dat.vls)[which(!mch)], "' do not match values entered in plot table column '", plt.nms[i], "'.\n")
+          }
+        }
+      }
+      cat("\nPlease ensure column 'plt_name' is present in data and data dictionary files\n")
+      return(NULL)
+    } else {
+      ix.plt <- NULL
+    }
+  }
+  
+  # check plt_names against plot table
+  plt.nms <- unlist(unique(dat[ix.plt])) %in% database[[expName]]$plot$plt_name
+  if (any(!plt.nms)) {
+    cat("\nThe following plt_name values do not match entries in the plot: ", unlist(unique(dat[ix.plt]), use.names = FALSE)[which(!plt.nms)], "\nAllowable values: ", database[[expName]]$plot$plt_name)
+  }
+  
+  # define data and metadata directories
+  DATA_DIR <- path.expand(file.path("~/eco-warm/data/experiments", expName, "input_data"))
+  META_DIR <- path.expand(file.path("~/eco-warm/data/experiments", expName, "meta"))
+  
+  # create data files
+  dat.ls <- setNames(lapply(seq_along(dat.nms), function(i) {
+    dat.i <- match(dat.nms[i], names(dat))
+    ix <- c(ix.dat, ix.plt, ix.dpt, dat.i)
+    if (exists("vcl.dat.nms")) {
+      var.i <- match(names(vcl.dat.nms)[match(dat.nms[i], unlist(vcl.dat.nms))], names(dat)) 
+      ix <- c(ix, var.i)
+    }
+    dat[ , na.omit(ix)] 
+  }), nm = dat.nms)
+  for (i in seq_along(dat.ls)) {
+    write.csv(
+      dat.ls[[i]],
+      file = file.path(DATA_DIR, paste0(names(dat.ls[i]), ".csv")),
+      row.names = FALSE
+    )
+  }
 
-newcols <- coltab(tifRaster)
-newcols[[1]][["alpha"]] <- 100
-lg <- newcols[[1]][2:31, ]
-lg <- cbind(lg, key.df[, 2:3])
-
-kg <- tifRaster
-coltab(kg) <- newcols
-lvls <- rbind(key.df[ , c(1, 2)], data.frame("ID" = seq(31, 255, 1), "pro_KG_present_short" = 0))
-lg.ch <- rgb(lg[,2:4], maxColorValue = 255)
-names(lg.ch) <- lg$pro_KG_present_short
-levels(kg) <- lvls
-
-# heat levels
-exp_hlvls <- separate_longer_delim(database$experiment, "heat_levels", ";")
-exp_hlvls$heat_levels <- as.numeric(exp_hlvls$heat_levels)
-plot_hlvl.df <- exp_hlvls[exp_hlvls$heat_levels != 0, ]
-hist(plot_hlvl.df$heat_levels, breaks = length(unique(exp_hlvls$heat_levels)))
-
-# heat mtd BG
-exp_hmtdB <- separate_longer_delim(database$experiment, "heat_mtd_belowGround", ";")
-
-# MAT & MAP
-exp.site <- database$experiment %>%
-  left_join(database$site, by = c("exp_name")) %>%
-  mutate(MAP.scaled = MAP / 10)
-
-ggplot(exp.site, aes(MAT, MAP, color = pro_KG_present_short)) +
-  geom_point(size = 4) +
-  scale_color_manual(name = "Köppen-Geiger Zone", 
-                     breaks = names(lg.ch), 
-                     values = lg.ch) +
-  theme_bw() +
-  theme(panel.grid = element_blank(),
-        legend.position = "none")
-
-# get stand along legend for KG
-lg.ch.long <- lg.ch
-names(lg.ch.long) <- lg$pro_KG_present_long
-kg.legend <- cowplot::get_legend(
-  exp.site %>%
-    mutate(pro_KG_present_long = factor(pro_KG_present_long, levels = names(lg.ch.long))) %>%
-    ggplot(., aes(MAT, MAP, color = pro_KG_present_long)) +
-    geom_point(size = 4) +
-    scale_color_manual(name = "Köppen-Geiger Zone", 
-                       breaks = names(lg.ch.long), 
-                       values = lg.ch.long, 
-                       drop = FALSE) +
-    theme_bw() +
-    theme(panel.grid = element_blank())
-)
-grid::grid.newpage()
-grid::grid.draw(kg.legend)
-
-# MAT v. MAP w/ PM
-ggplot(exp.site, aes(MAT, MAP, color = parent_material)) +
-  geom_point(size = 4) +
-  theme_bw() +
-  theme(panel.grid = element_blank(),
-        legend.position = "none") 
-
-# stand along legend for PM
-pm.legend <- cowplot::get_legend(
- ggplot(exp.site, aes(MAT, MAP, color = parent_material)) +
-  geom_point(size = 4) +
-  theme_bw() +
-  theme(panel.grid = element_blank()) 
-)
-grid::grid.newpage()
-grid::grid.draw(pm.legend)
-
-# plot land use
-left_join(database$experiment, database$site, by = "exp_name", multiple = "first") %>%
-  mutate(biome = ifelse(grepl("tundra", biome), "tundra", 
-                        ifelse(grepl("peat", biome), "peatland",
-                               ifelse(grepl("grassland", biome), "grassland", biome))),
-         biome = reorder(biome, biome, function(x) -length(x))) %>%
-  ggplot(., aes(biome, fill = biome)) +
-  geom_bar() +
-  scale_fill_manual(
-    values = c("temperate forest" = "#97B669",
-               "grassland" = "#FCD57A",
-               "tundra" = "#C1E1DD",
-               "tropical forest" = "#317A22",
-               "boreal forest" = "#A5C790",
-               "peatland" = "#D16E3F",
-               "salt marsh" = "#db8d68",
-               "subtropical forest" = "#75A95E")) +
-  theme_bw() +
-  theme(panel.grid = element_blank(),
-        axis.text.x = element_text(angle = 45, hjust = 1)) 
-
-# Map
-latlon <- database$site[, 3:4]
-world <- map_data("world")
-ggplot() +
-  geom_polygon(data = world, aes(x = .data$long, y = .data$lat, group = .data$group), fill = NA, color = "Black") +
-  geom_point(data = latlon, aes(x = .data$sit_long, y = .data$sit_lat), color = "red", size = 3, alpha = 0.5) +
-  theme_bw(base_size = 16) +
-  labs(title = "SWEDDIE: Site_Map", x = "Longitude", y = "Latitude")
-
-# parse dates
-BG_i <- parse_date_time(exp.site$heat_BG_date_i, orders = c("%Y", "%m/%d/%y", "%m/%d/%Y", "%b-%y", "%d-%b"))
-AG_i <-  parse_date_time(exp.site$heat_AG_date_i, orders = c("%Y", "%m/%d/%y", "%m/%d/%Y", "%b-%y", "%d-%b"))
-dur.BG <- time_length(interval(BG_i, today()), "year")
-dur.AG <- time_length(interval(AG_i, today()), "year")
-
-exp.site$belowground <- dur.BG
-exp.site$aboveground <- dur.AG
-
-exp.site %>%
-  pivot_longer(cols = c(belowground, aboveground), 
-               names_to = "heating", 
-               values_to = "duration") %>%
-  arrange(desc(duration)) %>%
-  mutate(exp_name = ordered(exp_name, levels = unique(exp_name))) %>%
-  ggplot(., aes(duration, exp_name)) +
-  geom_point(aes(shape = heating), size = 4) +
-  scale_shape_manual(values = c("belowground" = 6, "aboveground" = 2)) +
-  theme_bw() +
-  theme(panel.grid = element_blank()) 
+  # create dd files
+  dd.ls <- setNames(lapply(seq_along(dat.ls), function(i) {
+    dd[match(names(dat.ls[[i]]), dd$colName), ]
+  }), nm = paste0(names(dat.ls), "_dd"))
+  for (i in seq_along(dd.ls)) {
+    write.csv(
+      dd.ls[[i]],
+      file = file.path(META_DIR, paste0(names(dd.ls[i]), ".csv")),
+      row.names = FALSE
+    )
+  }
+  
+  # update flmd
+  if (append.flmd) {
+    lapply(seq_along(dat.ls), function(i) {
+      flmd_helper(
+        expName = expName,
+        dataFileName = names(dat.ls[i]),
+        dateColName = names(dat[ix.tim]),
+        append = append.flmd, 
+        write_out = TRUE, ...)
+   })
+  }
+}
 ```
 
 # Metadata
 
 ```{r read-meta-files}
-exp_names <- list.files("../data/experiments")
-flmd_dd.ls <- lapply(
-  lapply(exp_names, read_meta, verbose = TRUE), function(x) {
-    if (length(x$flmd) == 0) {
-      NULL
-    } else {
-      x
-    }
-})
-names(flmd_dd.ls) <- exp_names
-flmd_dd.ls <- Filter(Negate(is.null), flmd_dd.ls)
+getFLMD_DD <- function(exp_names = NULL) {
+  if (missing(exp_names)) {
+    exp_names <- list.files(path.expand("~/eco-warm/data/experiments")) 
+  }
+  flmd_dd.ls <- lapply(
+    lapply(exp_names, read_meta), function(x) {
+      if (length(x$flmd) == 0) {
+        NULL
+      } else {
+        x
+      }
+    })
+  names(flmd_dd.ls) <- exp_names
+  Filter(Negate(is.null), flmd_dd.ls)
+}
+flmd_dd.ls <- getFLMD_DD()
+
+inputDat.fx("185ExperimentStation", "/Users/jeff/eco-warm/data/experiments/185ExperimentStation/input_data/datafile_SOM.csv", "/Users/jeff/eco-warm/data/experiments/185ExperimentStation/meta/datafile_SOM_dd.csv", append.flmd = FALSE)
 ```
 
 # Sites
@@ -589,15 +724,86 @@ Do we want to include MERIT & SMARTX? I guess they would serve as good end membe
 - soil temp & moisture measurements to 40 cm
 - PI Wenxu Dong
 
-```{r 185ExpSt-data}
-tempMoist185 <- read.csv("../data/experiments/185ExperimentStation/data/datafile.csv") %>%
-  mutate(date = parse_date_time(date, orders = "%Y-%m-%d %H-%M"),
-         soil.moisture = as.numeric(soil.moisture),
-         soil.temperature = as.numeric(soil.temperature))
-tempMoist185$plot.rep <- paste0(tempMoist185$PlotID.treatment., "_", tempMoist185$replicate)
+```{r 185ExpSt-data-cleaning}
+# fix date issue and separate soil temp & moisture data
+tempMoist185 <- read.csv("/Users/jeff/eco-warm/data/experiments/185ExperimentStation/raw/rererereresoilwarmingsynthesisfollowup/datafile.CSV", as.is = TRUE, strip.white = TRUE, check.names = FALSE)
+tempMoist185$Date <- ymd_hm(tempMoist185$date)
+
+# find bad dates
+which(temp185$Date > "2024-07-04 18:00:00 UTC")
+
+# remove, and simplify files
+temp185 <- tempMoist185[c(1:261236, 261254:nrow(tempMoist185)), names(tempMoist185)[c(1:2, 5, 8:9)]]
+smoist185 <- tempMoist185[c(1:261236, 261254:nrow(tempMoist185)), names(tempMoist185)[c(1:2, 5, 7, 9)]]
+write.csv(temp185, "/Users/jeff/eco-warm/data/experiments/185ExperimentStation/input_data/datafile_soilT.csv")
+write.csv(smoist185, "/Users/jeff/eco-warm/data/experiments/185ExperimentStation/input_data/datafile_soilW.csv")
+
+dat.dir <- "/Users/jeff/eco-warm/data/experiments/185ExperimentStation/input_data"
+dat.dir.ls <- list.files(dat.dir)
+lapply(dat.dir.ls, function(i)
+  flmd_helper(
+    expName = "185ExperimentStation",
+    dataFileName = sub(".csv", "", dat.dir.ls[i]),
+    dateColName = "Date",
+    orders = c("%m/%d%y %H:%M", "%m/%d/%y", "Y"),
+    append = TRUE,
+    Jeff = TRUE))
 ```
 
 ## ACBB
+
+```{r pivot-ACBB}
+temp_C <- read.csv("/Users/jeff/eco-warm/data/experiments/ACBB/input_data/soil_temp_cropland.csv")
+temp_C$T1_Temp5 <- as.numeric(temp_C$T1_Temp5)
+temp_G <- read.csv("/Users/jeff/eco-warm/data/experiments/ACBB/input_data/soil_temp_grassland.csv")
+moist_C <- read.csv("/Users/jeff/eco-warm/data/experiments/ACBB/input_data/soil_water_cropland.csv")
+moist_G <- read.csv("/Users/jeff/eco-warm/data/experiments/ACBB/input_data/soil_water_grassland.csv")
+
+ACBB_dat.ls <- list(temp_C = temp_C, temp_G = temp_G, moist_C = moist_C, moist_G = moist_G)
+ACBB_dat_rnm.ls <- setNames(lapply(seq_along(ACBB_dat.ls), function(i) {
+    dat <- ACBB_dat.ls[[i]]
+    v.nms <- names(dat)[2:ncol(dat)]
+    dpt <- ifelse(
+      grepl("Temp", v.nms), 
+      gsub("Temp", "", sapply(strsplit(v.nms, "_"), "[[", 2)), 
+      sapply(strsplit(v.nms, "_"), "[[", 3))
+    trt <- substr(v.nms, 1, 1)
+    plt <- substr(v.nms, 2, 2)
+    names(dat)[2:ncol(dat)] <- paste(trt, plt, dpt, sep = "_")
+    dat
+}), nm = names(ACBB_dat.ls))
+
+pl.ACBB.fx <- function(ACBB_dat, type) {
+  pivot_longer(
+    ACBB_dat,
+    cols = 2:ncol(ACBB_dat),
+    names_to = c("treat", "plot", "depth"),
+    names_sep = "_",
+    values_to = "data")
+}
+ACBB_dat.hz.ls <- lapply(ACBB_dat_rnm.ls, pl.ACBB.fx)
+lapply(seq_along(ACBB_dat.hz.ls), function(i) write.csv(ACBB_dat.hz.ls[[i]], file = paste0("/Users/jeff/eco-warm/data/experiments/ACBB/input_data/", names(ACBB_dat.hz.ls[i]), ".csv"), row.names = FALSE))
+
+# create dd files for temp & moist data
+for (i in seq_along(ACBB_dat.hz.ls)) {
+  dd_helper(expName = "ACBB", dataName = names(ACBB_dat.hz.ls)[i])
+}
+
+dat.dir <- "/Users/jeff/eco-warm/data/experiments/ACBB/input_data"
+dat.dir.ls <- setNames(sub(".csv", "", list.files(dat.dir)), nm = sub(".csv", "", list.files(dat.dir)))
+
+inputDat.fx("ACBB", "/Users/jeff/eco-warm/data/experiments/ACBB/derived/initialBulkSoilProperties.csv", "/Users/jeff/eco-warm/data/experiments/ACBB/derived/initialBulkSoilProperties_dd.csv", append.flmd = TRUE, Jeff = TRUE)
+
+lapply(seq_along(dat.dir.ls[c(14:15, 21:22)]), function(i)
+  flmd_helper(
+      expName = "ACBB",
+      dataFileName = names(dat.dir.ls[c(14:15, 21:22)])[i],
+      dateColName = "TIMESTAMP",
+      orders = "%m/%d/%y H:M",
+      append = TRUE, 
+      write_out = TRUE, Jeff = TRUE)
+  )
+```
 
 ## Achenkirch
 
@@ -737,6 +943,15 @@ blg.t.m.d %>%
 ```{r CiPEHR-dat}
 # read data files, save as uncompressed RDS for fast loading
 tmp_mstCpr <- read.csv("../data/experiments/CiPEHR/raw/flux_hh_v2.csv")
+
+tmp_mstCpr2 <- read.csv("../data/experiments/CiPEHR/input_data/flux_hh.csv")
+tmp_mstCpr2_nms <- names(read.csv("../data/experiments/CiPEHR/input_data/flux_hh.csv", nrows = 1))
+  
+```
+
+```{r soil-dat}
+dd_helper("CiPEHR", "EML_AK_CiPEHR_SoilProperties_2009-2017_Data_reform")
+flmd_helper("CiPEHR", "EML_AK_CiPEHR_SoilProperties_2009-2017_Data_reform","year")
 ```
 
 ```{r convert-to-ts}
@@ -844,6 +1059,14 @@ kaefs.moist.l <- pivot_longer(
   values_to = "vwc_pct"
 )
 write.csv(kaefs.moist.l, file = "../data/experiments/KAEFS/data/SoilMoisture2018-2023_reshapeLong.csv", row.names = FALSE)
+
+flmd_helper(
+  expName = "KAEFS", 
+  dataFileName = "SoilMoisture2018-2023_reshapeLong", 
+  dateColName = "Timestamp",
+  rename = TRUE, append = TRUE, write_out = TRUE,
+  Jeff = TRUE,
+  orders = "%m-%d-%y")
 
 dd_helper("KAEFS", "SoilMoisture2018-2023_reshapeLong")
 
@@ -1058,8 +1281,11 @@ lapply(seq_along(xlsx.TRACE.metPth2), function(i) {
   dd_helper("TRACE", nm)
 })
 TRACE.dat.ls <- lapply(xlsx.TRACE.metPth2, read.csv)
-date.nms <- c(rep("Date", 3), rep("Date.Time..GMT..0400", 5), rep("TIMESTAMP", 5))
-
+names(TRACE.dat.ls) <- lapply(seq_along(xlsx.TRACE.metPth2), function(i) {
+  sapply(strsplit(basename(xlsx.TRACE.metPth2[i]), ".csv"), "[[", 1)
+})
+date.nms <- c(rep("Date", 3), rep("Date.Time..GMT..0400", 6), rep("TIMESTAMP", 5))
+orders.ls <- c(rep("%d-%b-%y", 3), rep("%Y-%m-%d H:M:S", 6), rep("%m/%d/%y %H:%M", 5))
 Bisley_MET_2015 <- read.csv("/Users/jeff/eco-warm/data/experiments/TRACE/input_data/Bisley_MET_2015.csv")
 
 # initialize flmd
@@ -1071,27 +1297,26 @@ flmd_helper(
   Jeff = TRUE,
   orders = "%d-%b-%y")
 
-# initialize flmd
+# additional flmd
 flmd_helper(
   expName = "TRACE", 
-  dataFileName = "Bisley_MET_2016", 
+  dataFileName = "Bisley_MET_2017", 
   dateColName = "Date",
   append = TRUE, write_out = TRUE,
   Jeff = TRUE,
   orders = "%d-%b-%y")
 
-lapply(seq_along(xlsx.TRACE.metPth2[2:14]), function(i) {
-  nm <- sapply(strsplit(basename(xlsx.TRACE.metPth2[i]), ".csv"), "[[", 1)
-  dateNms <- date.nms[i]
+lapply(seq_along(xlsx.TRACE.metPth2[10:14]), function(i) {
+  nm <- sapply(strsplit(basename(xlsx.TRACE.metPth2[10:14][i]), ".csv"), "[[", 1)
+  cat(paste0("\n", nm, "\n"))
   flmd_helper(
     expName = "TRACE", 
     dataFileName = nm, 
-    dateColName = "year",
+    dateColName = date.nms[10:14][i],
+    orders = orders.ls[10:14][i],
     append = TRUE, write_out = TRUE,
     Jeff = TRUE)
 })
-
-
 ```
 
 # General Workflow
@@ -1189,3 +1414,298 @@ Start with overall trends, i.e., simplify data to assess data on daily time step
 - matric potential (?)
 
 
+## Visualize core data
+
+# Visualize core data
+
+```{r plots}
+# get KG data
+tifRaster <- terra::rast("/Users/jeff/Seafile/ISRaD_geospatial_data/Beck_KG_V1/Beck_KG_V1_present_0p5.tif")
+terra::crs(tifRaster) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
+ext <- terra::extract(tifRaster, cbind(bind_rows(lapply(database, function(x) x$site[ , c("sit_long", "sit_lat")]))))
+key.df <- data.frame(
+  utils::read.csv("/Users/jeff/Seafile/ISRaD_geospatial_data/ISRaD_extra_keys/KG_x_x_x_x_present.csv",
+                  stringsAsFactors = FALSE))
+database$site <- cbind(database$site, key.df[ext[ , 1], c(2,3)])
+
+newcols <- coltab(tifRaster)
+newcols[[1]][["alpha"]] <- 100
+lg <- newcols[[1]][2:31, ]
+lg <- cbind(lg, key.df[, 2:3])
+
+kg <- tifRaster
+coltab(kg) <- newcols
+lvls <- rbind(key.df[ , c(1, 2)], data.frame("ID" = seq(31, 255, 1), "pro_KG_present_short" = 0))
+lg.ch <- rgb(lg[,2:4], maxColorValue = 255)
+names(lg.ch) <- lg$pro_KG_present_short
+levels(kg) <- lvls
+
+# heat levels
+exp_hlvls <- separate_longer_delim(database$experiment, "heat_levels", ";")
+exp_hlvls$heat_levels <- as.numeric(exp_hlvls$heat_levels)
+plot_hlvl.df <- exp_hlvls[exp_hlvls$heat_levels != 0, ]
+hist(plot_hlvl.df$heat_levels, breaks = length(unique(exp_hlvls$heat_levels)))
+
+# heat mtd BG
+exp_hmtdB <- separate_longer_delim(database$experiment, "heat_mtd_belowGround", ";")
+
+# MAT & MAP
+exp.site <- database$experiment %>%
+  left_join(database$site, by = c("exp_name")) %>%
+  mutate(MAP.scaled = MAP / 10)
+
+ggplot(exp.site, aes(MAT, MAP, color = pro_KG_present_short)) +
+  geom_point(size = 4) +
+  scale_color_manual(name = "Köppen-Geiger Zone", 
+                     breaks = names(lg.ch), 
+                     values = lg.ch) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        legend.position = "none")
+
+# get stand along legend for KG
+lg.ch.long <- lg.ch
+names(lg.ch.long) <- lg$pro_KG_present_long
+kg.legend <- cowplot::get_legend(
+  exp.site %>%
+    mutate(pro_KG_present_long = factor(pro_KG_present_long, levels = names(lg.ch.long))) %>%
+    ggplot(., aes(MAT, MAP, color = pro_KG_present_long)) +
+    geom_point(size = 4) +
+    scale_color_manual(name = "Köppen-Geiger Zone", 
+                       breaks = names(lg.ch.long), 
+                       values = lg.ch.long, 
+                       drop = FALSE) +
+    theme_bw() +
+    theme(panel.grid = element_blank())
+)
+grid::grid.newpage()
+grid::grid.draw(kg.legend)
+
+# MAT v. MAP w/ PM
+ggplot(exp.site, aes(MAT, MAP, color = parent_material)) +
+  geom_point(size = 4) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        legend.position = "none") 
+
+# stand along legend for PM
+pm.legend <- cowplot::get_legend(
+ ggplot(exp.site, aes(MAT, MAP, color = parent_material)) +
+  geom_point(size = 4) +
+  theme_bw() +
+  theme(panel.grid = element_blank()) 
+)
+grid::grid.newpage()
+grid::grid.draw(pm.legend)
+
+# plot land use
+left_join(database$experiment, database$site, by = "exp_name", multiple = "first") %>%
+  mutate(biome = ifelse(grepl("tundra", biome), "tundra", 
+                        ifelse(grepl("peat", biome), "peatland",
+                               ifelse(grepl("grassland", biome), "grassland", biome))),
+         biome = reorder(biome, biome, function(x) -length(x))) %>%
+  ggplot(., aes(biome, fill = biome)) +
+  geom_bar() +
+  scale_fill_manual(
+    values = c("temperate forest" = "#97B669",
+               "grassland" = "#FCD57A",
+               "tundra" = "#C1E1DD",
+               "tropical forest" = "#317A22",
+               "boreal forest" = "#A5C790",
+               "peatland" = "#D16E3F",
+               "salt marsh" = "#db8d68",
+               "subtropical forest" = "#75A95E")) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+# Map
+latlon <- bind_rows(lapply(database, function(x) x$site[, c(3,4)]), .id = "expName")
+world <- map_data("world")
+
+ggplot() +
+  geom_polygon(data = world, aes(x = .data$long, y = .data$lat, group = .data$group), fill = NA, color = "Black") +
+  geom_point(data = latlon, aes(x = .data$sit_long, y = .data$sit_lat), color = "red", size = 3, alpha = 0.5) +
+  theme_bw(base_size = 16) +
+  labs(title = "SWEDDIE: Site_Map", x = "Longitude", y = "Latitude")
+
+latlon.v <- vect(latlon, geom = c("sit_long", "sit_lat"), crs = "+proj=longlat +datum=WGS84")
+plot(tifRaster, plg = list(loc = "right")); plot(latlon.v, add = T, pch = 21, col = "white", bg = "black")
+
+# parse dates
+BG_i <- parse_date_time(exp.site$heat_BG_date_i, orders = c("%Y", "%m/%d/%y", "%m/%d/%Y", "%b-%y", "%d-%b"))
+AG_i <-  parse_date_time(exp.site$heat_AG_date_i, orders = c("%Y", "%m/%d/%y", "%m/%d/%Y", "%b-%y", "%d-%b"))
+dur.BG <- time_length(interval(BG_i, today()), "year")
+dur.AG <- time_length(interval(AG_i, today()), "year")
+
+exp.site$belowground <- dur.BG
+exp.site$aboveground <- dur.AG
+
+exp.site %>%
+  pivot_longer(cols = c(belowground, aboveground), 
+               names_to = "heating", 
+               values_to = "duration") %>%
+  arrange(desc(duration)) %>%
+  mutate(exp_name = ordered(exp_name, levels = unique(exp_name))) %>%
+  ggplot(., aes(duration, exp_name)) +
+  geom_point(aes(shape = heating), size = 4) +
+  scale_shape_manual(values = c("belowground" = 6, "aboveground" = 2)) +
+  theme_bw() +
+  theme(panel.grid = element_blank()) 
+```
+
+
+## Harmonization
+- how to harmonize data?
+  - need to make sure common variables have the same name
+  - search the description columns? E.g., of the _dd files
+    - choose key words
+    - may need to control variable types from flmd...e.g., as a ";" separated list
+  - need some way to know the date column as well
+    - can use "type" from _dd file
+
+```{r test-hmz}
+# search for temperature data
+# need temp + date + IDs
+test_temp <- lapply(seq_along(flmd_dd.ls), function(i) {
+  expName <- names(flmd_dd.ls[i])
+  basePath <- "../data/experiments/"
+  
+  # get file names for files containing target varName
+  nms <- lapply(flmd_dd.ls[[i]][["flmd"]], function(x) {
+    sub(".csv", "", x[which(x$varNames == "soil temperature"), "fileName"])
+  })
+  
+  # get corresponding _dd files
+  dds <- flmd_dd.ls[[i]][["dd"]][unlist(lapply(unlist(nms), function(y) grep(y, names(flmd_dd.ls[[i]][["dd"]]))))]
+  
+  # search for required columns & var units: 
+  # 'date', variable, units, 'depth_upper', 'depth_lower', 'plt_ind'
+  datVarName <- stringdist()
+  ix <- lapply()
+  
+  dat.ls <- lapply(unlist(nms), function(z) read.csv(paste0(basePath, "/", expName, "/input_data/", z)))
+  ix <- lapply(flmd_dd.ls[[i]][["dd"]], function(x) {
+    list(which(x$dataType == "date"), which(grepl("temp", x$description)))
+  })
+  })  
+  }))
+})
+names(test_temp) <- names(flmd_dd.ls)
+
+test <- flmd_dd.ls$ACBB$dd
+```
+
+### stringdist
+
+Use 'varNames' values to search for best match among 'description' columns of _dd files
+
+```{r harmony-test}
+library(purrr)
+library(stringdist)
+
+result <- bind_cols(df_1, map_df(df_1$str_1, function(x) {
+  vals <- stringdist(x, df_2$str_2,  method = 'jw')
+  data.frame(Nearest_matching =  df_2$str_2[which.min(vals)],
+             Nearest_matching_score = max(vals))
+}))
+
+apply(flmd_dd.ls$ACBB$flmd$ACBB_flmd, 1, )
+
+```
+
+
+### moist dat
+
+First cut of grabbing all moisture data
+
+```{r moist-data-test}
+expName.ls <- list.files("/Users/jeff/eco-warm/data/experiments")
+
+moist.ls <- setNames(vector(mode = "list", length = length(expName.ls)), nm = expName.ls)
+
+chkNms <- function(expName) {
+  lapply(moist.ls[[expName]], function(x) unique(x$plt_name) %in% database[[expName]]$plot$plt_name)
+}
+
+# 185Exp
+moist.ls$`185ExperimentStation` <- list(read.csv( "/Users/jeff/eco-warm/data/experiments/185ExperimentStation/input_data/datafile_soilW.csv"))
+
+
+# ACBB
+moist.ls$ACBB <- list(
+  cropland = read.csv("/Users/jeff/eco-warm/data/experiments/ACBB/input_data/moist_C.csv"),
+  grassland = read.csv("/Users/jeff/eco-warm/data/experiments/ACBB/input_data/moist_G.csv"))
+
+
+# B4W
+moist.ls$B4WarmED <- list()
+
+
+# Blodgett
+moist.ls$Blodgett <- list(read.csv("/Users/jeff/eco-warm/data/experiments/Blodgett/input_data/20240125_processed Blodgett soil moisture.csv"))
+
+# remove data from plots 7 / ambient and select relevant columns
+moist.ls$Blodgett[[1]] <- moist.ls$Blodgett[[1]][-which(moist.ls$Blodgett[[1]][["PP"]] == "ambient" | moist.ls$Blodgett[[1]][["PP"]] == "7"), c("TIMESTAMP", "PP", "moisture", "depth", "trt")]
+moist.ls$Blodgett[[1]][["plt_name"]] <- paste0(ifelse(moist.ls$Blodgett[[1]][["trt"]] == "H", "treatment", "control"), "_",  moist.ls$Blodgett[[1]][["PP"]])
+
+# check for matches w/ plt_name and plt_name
+# "X"         "TIMESTAMP" "PP"        "variable"  "moisture"  "date"      "depth"    "trt"
+
+lapply(moist.ls, function(x) lapply(x, names))
+
+# CiPEHR
+moist.ls$CiPEHR <- list(
+  read.csv("/Users/jeff/eco-warm/data/experiments/CiPEHR/input_data/flux_hh.csv"))
+moist.ls$CiPEHR[[1]] <- moist.ls$CiPEHR[[1]] %>%
+  select(block, fence, plot, ts, vwc)
+
+# block, fence, plot, ts, vwc)
+
+# Harvard Forest
+moist.ls$HarvardForest <- list(read.csv("/Users/jeff/eco-warm/data/experiments/HarvardForest/input_data/hf005-07-soil-moisture_PH.csv"))
+
+# "date"   "p1_sm"  "p2_sm"  "p3_sm"  "p4_sm"  "p5_sm"  "p6_sm"  "p7_sm"  "p8_sm" "p9_sm"  "p10_sm" "p11_sm" "p12_sm" "p13_sm" "p14_sm" "p15_sm" "p16_sm" "p17_sm" "p18_sm"
+
+
+# KAEFS
+moist.ls$KAEFS <- list(read.csv("/Users/jeff/eco-warm/data/experiments/KAEFS/input_data/SoilMoisture2018-2023_reshapeLong.csv"))
+
+# "Timestamp" "plotID"    "depth"     "vwc_pct" 
+
+
+# SPRUCE
+moist.ls$SPRUCE <- lapply(list.files("/Users/jeff/eco-warm/data/experiments/SPRUCE/input_data", full.names = TRUE)[1:7], read.csv)
+names(moist.ls$SPRUCE) <- paste0("soil_", seq(2016, 2022))
+
+# Note: VWC missing from "soil_2016"; VERT
+
+
+# SWELTR
+moist.ls$SWELTR <- list(read.csv("/Users/jeff/eco-warm/data/experiments/SWELTR/input_data/SWELTR_to2020_T_H2O.csv"))
+
+# "TIME"  "DEPTH" "T"     "H2O"   "PLOT"  "TREAT"
+
+
+# TEAM
+moist.ls$TEAM <- list(read.csv("/Users/jeff/eco-warm/data/experiments/TEAM/input_data/moist.csv"))
+
+# "depth" "time"  "plot"  "moist"
+
+
+# TeRaCON
+moist.ls$TeRaCON <- list(read.csv("/Users/jeff/eco-warm/data/experiments/TeRaCON/raw/Biocon_hourly_warmingseason_2012-2018vprimary1.csv"))
+
+
+
+# TRACE
+moist.ls$TRACE <- list(
+  surface = read.csv("/Users/jeff/eco-warm/data/experiments/TRACE/meta/TRACE_SurfaceSoil_2015-2018_dd.csv"),
+  deep = read.csv("/Users/jeff/eco-warm/data/experiments/TRACE/meta/TRACE_DeepSoil_2016-2018_dd.csv"))
+
+# "colName"         "description"     "unit"            "dataType" "siteName"        "plotName"        "sensorMakeModel" "methodName"     "methodNotes"     "methodDOI"       "depthTopM"       "depthBottomM"   "depthHeight"     "zeroRef"
+
+# remove NULL
+moist.ls <- Filter(Negate(is.null), moist.ls)
+
+```

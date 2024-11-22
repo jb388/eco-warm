@@ -1,9 +1,0 @@
-﻿colName,description,unit,dataType,siteName,plotName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
-PlotID(treatment),plot ID,,string,185ExperimentalStation,,,,,,,,,
-replicate,replicate,,string,185ExperimentalStation,,,,,,,,,
-Latitude,site latitude,dec deg,numeric,185ExperimentalStation,,,,,,,,,
-Longitude,site longitude,dec deg,numeric,185ExperimentalStation,,,,,,,,,
-Depth,depth,cm,numeric,185ExperimentalStation,,,,,,,,depth,
-Date,date,yyyy/mm/dd hh:mm,date,185ExperimentalStation,,,,,,,,,
-soil moisture,soil moisture,volumetric water content,numeric,185ExperimentalStation,,,,,,,,,
-soil temperature,soil temperature,deg C,numeric,185ExperimentalStation,,,,,,,,,

@@ -1,27 +1,10 @@
-exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_date_i,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
-Achenkirch,montane forest,control_1,,1,,,2005,0,,,,
-Achenkirch,montane forest,heated_1,,1,,,2005,4,,,,
-Achenkirch,montane forest,control_2,,2,,,2005,0,,,,
-Achenkirch,montane forest,heated_2,,2,,,2005,4,,,,
-Achenkirch,montane forest,control_3,,3,,,2005,0,,,,
-Achenkirch,montane forest,heated_3,,3,,,2005,4,,,,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_treat_heat,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
+Achenkirch,montane forest,control_1,,1,,,control,0,,,,
+Achenkirch,montane forest,heated_1,,1,,,treatment,4,,,,
+Achenkirch,montane forest,control_2,,2,,,control,0,,,,
+Achenkirch,montane forest,heated_2,,2,,,treatment,4,,,,
+Achenkirch,montane forest,control_3,,3,,,control,0,,,,
+Achenkirch,montane forest,heated_3,,3,,,treatment,4,,,,
 
 
 

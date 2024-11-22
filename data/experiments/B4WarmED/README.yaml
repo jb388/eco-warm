@@ -1,10 +1,18 @@
 Files:
-  -
-Source: Raimondo
+  - processedFilesForDatabase-20240828T154642Z-001.zip
+Source: Raimundo Bermudez Villanueva <bermu019@umn.edu>
 Curator: J. Beem-Miller
-Date: 28-Mar-2024
+Date: 19-Nov-2024
 Contents:
-  - temperature and moisture data from B4WarmED
+  - temperature data from B4WarmED
 Notes:
-  - where is the moisture data?!?
+  - depth resolved soil temperature data from B4W
+  - also contains active heating timeseries
+  - date range 2008-2024
+  - re soil moisture (19 Nov. 2024)
+    "Hi Jeff,
+
+    It was not there because we just have one measurement per ploy and not several as for depth temperatures. Also that data is recorded at a different frequency (hourly) than temperatures. I am working on that but I have some problems with some gaps on the data. I am trying to fill it recovering data from old folders and backup folders. First years there were issues with the data collection and there are hundreds of small files. I will send it to you soon
+
+    Thanks, Rai"
 References:

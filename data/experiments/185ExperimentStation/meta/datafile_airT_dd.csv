@@ -1,0 +1,4 @@
+colName,dataType,description,units,notes
+Date,date,Sampling time,year,
+Temperature,num,local air temperature,deg C,
+
