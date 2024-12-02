@@ -1,6 +1,23 @@
-exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAT_refPeriod,MAP,MAP_refPeriod,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material,aspect,soil_texture_class,site_notes,country,permafrost,soil_depth
-SMARTX,C3,38.88333333,-76.55,,0,,,,,salt marsh,,Schoenoplectus americanus,,,saturated,,,,,,,,,
-SMARTX,C4,38.88333333,-76.55,,0,,,,,salt marsh,,Spartina patens; Distichlis spicata,,,saturated,,,,,,,,,
+exp_name,sit_name,sit_lat,sit_long,datum,elevation,MAT,MAP,biome,leafPheno,species,landscape_position,slope,soil_drainage,soil_taxon_sys,soil_taxon,parent_material
+SMARTX,C3,38.88333333,-76.55,NAD83,0.268 m,,,salt marsh,,Schoenoplectus americanus,,,saturated,,,
+SMARTX,C4,38.88333333,-76.55,NAD83,0.371 m,,,salt marsh,,Spartina patens; Distichlis spicata,,,saturated,,,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -8,6 +8,7 @@ Contents:
   - soil temperature and moisture data from TEAM site
 Notes:
   - soil temp & moisture sent to J. Beem-Miller by email on 16-July-2024
+  - note that "treatment" info coded by color in the raw .xlsx file (blue = control [odd plot num.], red = heated [even plot num.])
   - additional data (ANPP, BNPP, SOC, climate) sent on 20-Oct-2024
   - BNPP 2019, 2020, 2021 (0-10, 10-20, 20-30, 30-40 soil depth)
   - ANPP (2018, 2019, 2020, 2021)

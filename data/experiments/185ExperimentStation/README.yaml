@@ -1,13 +1,13 @@
 Files:
   -
-Source: Md. Zulfikar Khan <>
+Source: Wenxu Dong <dongwx@sjziam.ac.cn>
 Curator: J. Beem-Miller
-Date: 19-Nov-2024
+Date: 2-Dec-2024
 Contents:
   - soil temperature
   - soil moisture
-  - soil physical & chemical properties
-  - local climate
 Notes:
-  -
+  - data sent from Wenxu Dong in July '24
+  - noticed ca. 1/4 of data missing, mostly 2022, plus some erroneous values
+  - follow-up file 'datafile-annotate.xlsx' sent with record of flagged values
 References:

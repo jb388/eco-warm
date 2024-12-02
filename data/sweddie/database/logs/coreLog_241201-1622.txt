@@ -1,6 +1,6 @@
 SWEDDIE Compilation Log 
  
- 2024-11-20 13:03:10 
+ 2024-12-01 16:22:37 
  - - - - - - - - - - - - - - - 
 
 
@@ -50,6 +50,15 @@ Compiling and checking core data...
 		 Non-required columns missing from data: plt_subBlock 
 	 site 
 
+ GENX 
+	 experiment 
+		 Non-required columns missing from data: treatment_add_units heat_AG_date_f 
+		 Extra columns: heat_BG_date_f.1 (14) 
+	 plot 
+		 Required column plt_treat_heat is missing in plot table
+	 site 
+		 Non-required columns missing from data: country MAT_refPeriod MAP_refPeriod aspect soil_texture_class site_notes permafrost soil_depth 
+
  HarvardForest 
 	 experiment 
 	 plot 
@@ -70,9 +79,12 @@ Compiling and checking core data...
 
  MERIT 
 	 experiment 
+		 Non-required columns missing from data: treatment_add_units heat_AG_date_f 
+		 Extra columns: heat_BG_date_f.1 (14) 
 	 plot 
-		 Non-required columns missing from data: plt_subBlock 
+		 Required column plt_treat_heat is missing in plot table
 	 site 
+		 Non-required columns missing from data: country MAT_refPeriod MAP_refPeriod aspect soil_texture_class site_notes permafrost soil_depth 
 
  PtReyes 
 	 experiment 
@@ -88,9 +100,12 @@ Compiling and checking core data...
 
  SMARTX 
 	 experiment 
+		 Non-required columns missing from data: treatment_add_units heat_AG_date_f 
+		 Extra columns: heat_BG_date_f.1 (14) 
 	 plot 
-		 Non-required columns missing from data: plt_subBlock 
+		 Required column plt_treat_heat is missing in plot table
 	 site 
+		 Non-required columns missing from data: country MAT_refPeriod MAP_refPeriod aspect soil_texture_class site_notes permafrost soil_depth 
 
  SPRUCE 
 	 experiment 

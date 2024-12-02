@@ -1,25 +1,35 @@
 exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_treat_heat,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
-SPRUCE,S1,,benchmark,1,,,control,0,,,,
-SPRUCE,S1,,,2,,,control,0,,,,
-SPRUCE,S1,,,3,,,control,0,,,,
-SPRUCE,S1,,,4,,,treatment,4.5,eCO2,,,
-SPRUCE,S1,,,5,,,control,0,,,,
-SPRUCE,S1,,control,6,,,control,0,,,,
-SPRUCE,S1,,ambient,7,,,control,0,,,,
-SPRUCE,S1,,,8,,,treatment,6.75,,,,
-SPRUCE,S1,,,9,,,control,0,,,,
-SPRUCE,S1,,,10,,,treatment,9,eCO2,,,
-SPRUCE,S1,,,11,,,treatment,2.25,eCO2,,,
-SPRUCE,S1,,benchmark,12,,,control,0,,,,
-SPRUCE,S1,,,13,,,treatment,4.5,,,,
-SPRUCE,S1,,,14,,,control,0,,,,
-SPRUCE,S1,,,15,,,control,0,,,,
-SPRUCE,S1,,,16,,,treatment,6.75,eCO2,,,
-SPRUCE,S1,,,17,,,treatment,9,,,,
-SPRUCE,S1,,benchmark,18,,,control,0,,,,
-SPRUCE,S1,,control,19,,,control,0,eCO2,,,
-SPRUCE,S1,,,20,,,treatment,2.25,,,,
-SPRUCE,S1,,ambient,21,,,control,0,,,,
+SPRUCE,S1,1,benchmark,1,,,control,0,,,,
+SPRUCE,S1,2,,1,,,control,0,,,,
+SPRUCE,S1,3,,1,,,control,0,,,,
+SPRUCE,S1,4,,1,,,treatment,4.5,eCO2,500,ppm above ambient,
+SPRUCE,S1,5,,1,,,control,0,,,,
+SPRUCE,S1,6,control,1,,,control,0,,,,
+SPRUCE,S1,7,ambient,1,,,control,0,,,,
+SPRUCE,S1,8,,1,,,treatment,6.75,,,,
+SPRUCE,S1,9,,1,,,control,0,,,,
+SPRUCE,S1,10,,1,,,treatment,9,eCO2,500,ppm above ambient,
+SPRUCE,S1,11,,1,,,treatment,2.25,eCO2,500,ppm above ambient,
+SPRUCE,S1,12,benchmark,1,,,control,0,,,,
+SPRUCE,S1,13,,1,,,treatment,4.5,,,,
+SPRUCE,S1,14,,1,,,control,0,,,,
+SPRUCE,S1,15,,1,,,control,0,,,,
+SPRUCE,S1,16,,1,,,treatment,6.75,eCO2,500,ppm above ambient,
+SPRUCE,S1,17,,1,,,treatment,9,,,,
+SPRUCE,S1,18,benchmark,1,,,control,0,,,,
+SPRUCE,S1,19,control,1,,,control,0,eCO2,500,ppm above ambient,
+SPRUCE,S1,20,,1,,,treatment,2.25,,,,
+SPRUCE,S1,21,ambient,1,,,control,0,,,,
+
+
+
+
+
+
+
+
+
+
 
 
 

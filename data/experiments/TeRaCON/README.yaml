@@ -14,6 +14,7 @@ Contents:
 Notes:
   - initial data files, soil temp & moisture, sent to J. Beem-Miller by email on 28-Mar-2024
   - second set of data, local climate, soil physical properties (file 'E141 data for Jeff Beem-Miller_241011.xls') sent on 11-Oct-2024
+  - soil moisture data collected with TDR probes from 2012 to 2018, then with Sentek sensors for 2019-2023
   - Plot table.xlsx:
     - contains metadata describing contents of other files in dir
     - note that updated file received on 2 Apr 2024 with treatment information
@@ -35,6 +36,7 @@ Notes:
     - Questions:
       - sensor make and model?
       - units?
+      - depth of sensor?
   - Temperature 2019-2023 data for distribution.csv:
     - temperature probe data. Not sure about sensor here.
     - Large data object [533695, 26] ~82 Mb

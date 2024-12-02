@@ -1,4 +1,4 @@
-col_name,type,description,units,notes
+colName,type,description,units,notes
 plt_name,string,Treatment name,,CK: control; W: only warming; N: N fertilizer; WN: Warming and N fertilizer
 Depth,string,Sampling depth,cm,
 Date,string,Sampling time,,

@@ -4,6 +4,9 @@ date,date,yyyy-mm-ddThh:mm:ssZ,date,,,,,,,,
 year,year,yyyy,numeric,,,,,,,,
 month,month,mm,numeric,,,,,,,,
 doy,day of year,,numeric,,,,,,,,
+block,block ID,,,,,,,,,,
+fence,fence ID (suBlock),,,,,,,,,,
+plot,plot ID,,,,,,,,,,
 t5,temperature at 5 cm,deg C,numeric,,,,,0,5,depth,atmosphere-soil interface
 t10,temperature at 10 cm,deg C,numeric,,,,,5,10,depth,atmosphere-soil interface
 t20,temperature at 20 cm,deg C,numeric,,,,,10,20,depth,atmosphere-soil interface

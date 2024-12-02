@@ -45,7 +45,7 @@ crAdd_dir <- function(dataDir, ..) {
 }
 
 # print if (verbose)
-vcat <- function(...) if (verbose) cat(...)
+vcat <- function(..., verbose = TRUE) if (verbose) cat(...)
 
 # read core data
 readCore <- function(coreDir, return = "template") {
@@ -71,9 +71,9 @@ readCore <- function(coreDir, return = "template") {
 }
 
 # checks column names
-checkColNms <- function(tableName, datIn, err, verbose = TRUE, ...) {
+checkColNms <- function(tableName, datIn, err, outfile = outfile) {
   
-  vcat(paste("\t", tableName, "\n"))
+  vcat("\t", tableName, "\n", append = TRUE, file = outfile)
   
   # check for template
   metadata <- readCore(return = "dd")
@@ -81,8 +81,7 @@ checkColNms <- function(tableName, datIn, err, verbose = TRUE, ...) {
   # check that required data files are present (experiment, site, plot)
   if (!any(grepl(tableName, names(datIn)))) {
     err <- err + 1
-    vcat(warning(
-      paste("\t", tableName, "is missing in metadata/siteData directory\n")))
+    vcat("\t", tableName, "is missing in metadata/siteData directory\n", append = TRUE, file = outfile)
   }
   
   # check that required columns are present
@@ -90,8 +89,7 @@ checkColNms <- function(tableName, datIn, err, verbose = TRUE, ...) {
   for (i in seq_along(req)) {
     if (!any(grepl(req[i], names(datIn[[tableName]])))) {
       err <- err + 1
-      vcat(warning(
-        paste("\t\t", "Required column", req[i], "is missing in", tableName, "table\n")))
+      vcat("\t\t", "Required column", req[i], "is missing in", tableName, "table\n", append = TRUE, file = outfile)
     }
   }
   
@@ -103,14 +101,14 @@ checkColNms <- function(tableName, datIn, err, verbose = TRUE, ...) {
   xtra <- setdiff(colnames(datIn[[tableName]]), metadata[[tableName]][["col_name"]])
 
   if (length(miss) > 0 ) {
-    vcat("\t\t Non-required columns missing from data:", miss, "\n")
+    vcat("\t\t Non-required columns missing from data:", miss, "\n", append = TRUE, file = outfile)
   }
   if (length(xtra > 0)) {
     xtras <- sapply(seq_along(xtra), function(i) {
       ix <- which(colnames(datIn[[tableName]]) == xtra[i])
       paste0(xtra[i], " (", ix, ")")
     }) 
-    vcat("\t\t Extra columns:", xtras, "\n")
+    vcat("\t\t Extra columns:", xtras, "\n", append = TRUE, file = outfile)
   }
   return(err)
 }
@@ -148,7 +146,7 @@ coreData.fx <- function(DIR = "../data/sweddie", write_report = TRUE, write_out 
   outfile <- ""
   if (write_report) {
     outfile <- file.path(DIR, DB_DIR, paste0("logs/coreLog", "_", TIMESTAMP, ".txt"))
-    file.create(outfile)
+    invisible(file.create(outfile))
   }
   
   # Start writing in the output file
@@ -195,7 +193,7 @@ coreData.fx <- function(DIR = "../data/sweddie", write_report = TRUE, write_out 
     # get expName
     expName <- names(database[d])
     
-    vcat(paste("\n", expName, "\n"), file = outfile, append = TRUE, verbose = verbose)
+    vcat("\n", expName, "\n", file = outfile, append = TRUE, verbose = verbose)
     
     # get tables
     tbls <- list.files(data_dirs[d], full.names = TRUE)
@@ -208,7 +206,7 @@ coreData.fx <- function(DIR = "../data/sweddie", write_report = TRUE, write_out 
     for (i in seq_along(datIn)) {
       
       # check column names
-      err <- checkColNms(names(datIn)[i], datIn, err)
+      err <- checkColNms(names(datIn)[i], datIn, err, outfile = outfile)
       
       # check data types
       
@@ -218,20 +216,9 @@ coreData.fx <- function(DIR = "../data/sweddie", write_report = TRUE, write_out 
     # bind to database
     if (err == 0) database[[d]] <- datIn
   }
-  
-  # add plot index to plot table
-  database <- lapply(database, function(x) {
-    if (!("plt_ind" %in% names(x$plot))) {
-      if (nrow(x$plot) > 0) {
-        plt_ind <- 1:nrow(x$plot)
-        x$plot <- cbind(x$plot, plt_ind)  
-      }
-    }
-    return(x)
-  })
-  
   database
 }
+database <- coreData.fx()
 ```
 
 # read_meta function
@@ -239,7 +226,7 @@ Reads data dictionary and file level metadata files
 
 ```{r read-dat}
 read_meta <- function (expName, verbose = TRUE, ...) {
-  
+
   vcat("\n", expName, "\n\n")
   
   # get site dir paths and variable directory names
@@ -324,6 +311,7 @@ read_meta <- function (expName, verbose = TRUE, ...) {
     dat.ls.colNms <- lapply(
       setNames(dat.dir.ls, nm = basename(dat.dir.ls)), getCSVnms) 
     for (i in seq_along(dat.ls.colNms)) {
+      
       if (any(!(dat.ls.colNms[[i]] %in% dd[[i]][["colName"]]))) {
         miss <- dat.ls.colNms[[i]][which(!(dat.ls.colNms[[i]] %in% dd[[i]][["colName"]]))]
         vcat("Data dictionary file '", basename(dd.ls[i]), "' missing column/s: ", miss, "\n")
@@ -697,7 +685,7 @@ getFLMD_DD <- function(exp_names = NULL) {
     exp_names <- list.files(path.expand("~/eco-warm/data/experiments")) 
   }
   flmd_dd.ls <- lapply(
-    lapply(exp_names, read_meta), function(x) {
+    lapply(exp_names, read_meta, verbose = TRUE), function(x) {
       if (length(x$flmd) == 0) {
         NULL
       } else {
@@ -713,8 +701,6 @@ inputDat.fx("185ExperimentStation", "/Users/jeff/eco-warm/data/experiments/185Ex
 ```
 
 # Sites
-
-Do we want to include MERIT & SMARTX? I guess they would serve as good end members for the analysis, i.e., demonstrating something about heating efficacy/variability as a function of soil moisture.
 
 ## [185ExperimentalStation]
 - new candidate site in China
@@ -758,6 +744,8 @@ temp_C$T1_Temp5 <- as.numeric(temp_C$T1_Temp5)
 temp_G <- read.csv("/Users/jeff/eco-warm/data/experiments/ACBB/input_data/soil_temp_grassland.csv")
 moist_C <- read.csv("/Users/jeff/eco-warm/data/experiments/ACBB/input_data/soil_water_cropland.csv")
 moist_G <- read.csv("/Users/jeff/eco-warm/data/experiments/ACBB/input_data/soil_water_grassland.csv")
+
+moist_C <- read_excel("/Users/jeff/eco-warm/data/experiments/ACBB/raw/Temp_moisture/Water/soil_water_cropland.xlsx")
 
 ACBB_dat.ls <- list(temp_C = temp_C, temp_G = temp_G, moist_C = moist_C, moist_G = moist_G)
 ACBB_dat_rnm.ls <- setNames(lapply(seq_along(ACBB_dat.ls), function(i) {
@@ -803,6 +791,13 @@ lapply(seq_along(dat.dir.ls[c(14:15, 21:22)]), function(i)
       append = TRUE, 
       write_out = TRUE, Jeff = TRUE)
   )
+flmd_helper(
+      expName = "ACBB",
+      dataFileName = "SOC_2022",
+      dateColName = "Year",
+      orders = "y",
+      append = TRUE, 
+      write_out = TRUE, Jeff = TRUE)
 ```
 
 ## Achenkirch
@@ -1592,8 +1587,6 @@ test_temp <- lapply(seq_along(flmd_dd.ls), function(i) {
   }))
 })
 names(test_temp) <- names(flmd_dd.ls)
-
-test <- flmd_dd.ls$ACBB$dd
 ```
 
 ### stringdist
@@ -1624,8 +1617,8 @@ expName.ls <- list.files("/Users/jeff/eco-warm/data/experiments")
 
 moist.ls <- setNames(vector(mode = "list", length = length(expName.ls)), nm = expName.ls)
 
-chkNms <- function(expName) {
-  lapply(moist.ls[[expName]], function(x) unique(x$plt_name) %in% database[[expName]]$plot$plt_name)
+chkNms <- function(expName, ls) {
+  lapply(ls[[expName]], function(x) unique(x$plt_name) %in% database[[expName]]$plot$plt_name)
 }
 
 # 185Exp
@@ -1645,67 +1638,603 @@ moist.ls$B4WarmED <- list()
 # Blodgett
 moist.ls$Blodgett <- list(read.csv("/Users/jeff/eco-warm/data/experiments/Blodgett/input_data/20240125_processed Blodgett soil moisture.csv"))
 
-# remove data from plots 7 / ambient and select relevant columns
-moist.ls$Blodgett[[1]] <- moist.ls$Blodgett[[1]][-which(moist.ls$Blodgett[[1]][["PP"]] == "ambient" | moist.ls$Blodgett[[1]][["PP"]] == "7"), c("TIMESTAMP", "PP", "moisture", "depth", "trt")]
+# fix mislabeling of plot 7 "trt
+moist.ls$Blodgett[[1]][moist.ls$Blodgett[[1]][["PP"]] == 7, "trt"] <- "C" 
+
+# add plt_name to link to plot table
 moist.ls$Blodgett[[1]][["plt_name"]] <- paste0(ifelse(moist.ls$Blodgett[[1]][["trt"]] == "H", "treatment", "control"), "_",  moist.ls$Blodgett[[1]][["PP"]])
 
-# check for matches w/ plt_name and plt_name
-# "X"         "TIMESTAMP" "PP"        "variable"  "moisture"  "date"      "depth"    "trt"
+# remove data from plot 'ambient' and select relevant columns
+moist.ls$Blodgett[[1]] <- moist.ls$Blodgett[[1]][-which(moist.ls$Blodgett[[1]][["PP"]] == "ambient"), c("TIMESTAMP", "plt_name", "moisture", "depth")] %>%
+  rename(date = TIMESTAMP)
 
-lapply(moist.ls, function(x) lapply(x, names))
+# check for matches w/ plt_name and plt_name
+chkNms("Blodgett", moist.ls)
+
+# convert dates and select allowable cols
+moist.ls$Blodgett[[1]][["date"]] <- parse_date_time(moist.ls$Blodgett[[1]][["date"]], orders = "%y-%m-%d %H:%M:%S")
+
 
 # CiPEHR
 moist.ls$CiPEHR <- list(
   read.csv("/Users/jeff/eco-warm/data/experiments/CiPEHR/input_data/flux_hh.csv"))
 moist.ls$CiPEHR[[1]] <- moist.ls$CiPEHR[[1]] %>%
-  select(block, fence, plot, ts, vwc)
-
-# block, fence, plot, ts, vwc)
+  filter(!is.na(vwc)) %>%
+  mutate(
+    depth_upper = 0,
+    depth_lower = 15,
+    plt_name = paste0(
+      ifelse(treatment == "Air Warming", "control_summerWarm",
+             ifelse(treatment == "Control", "control_",
+                    ifelse(treatment == "Soil Warming", "treatment_", "treatment_summerWarm"))), "_", block, "_", fence, "_", plot)) %>%
+  select(ts, plt_name, depth_upper, depth_lower, vwc) %>%
+  rename(date = ts)
 
 # Harvard Forest
 moist.ls$HarvardForest <- list(read.csv("/Users/jeff/eco-warm/data/experiments/HarvardForest/input_data/hf005-07-soil-moisture_PH.csv"))
 
-# "date"   "p1_sm"  "p2_sm"  "p3_sm"  "p4_sm"  "p5_sm"  "p6_sm"  "p7_sm"  "p8_sm" "p9_sm"  "p10_sm" "p11_sm" "p12_sm" "p13_sm" "p14_sm" "p15_sm" "p16_sm" "p17_sm" "p18_sm"
+# pivot longer, add depths, and select cols
+moist.ls$HarvardForest[[1]] <- moist.ls$HarvardForest[[1]] %>%
+  pivot_longer(cols = 2:19, names_to = "plot", values_to = "vwc") %>%
+  mutate(
+    depth_upper = 0, 
+    depth_lower = 30, 
+    plt_name = sapply(strsplit(plot, "_"), "[[", 1)) %>%
+  select("date", "plt_name", "depth_upper", "depth_lower", "vwc")
 
 
-# KAEFS
-moist.ls$KAEFS <- list(read.csv("/Users/jeff/eco-warm/data/experiments/KAEFS/input_data/SoilMoisture2018-2023_reshapeLong.csv"))
-
-# "Timestamp" "plotID"    "depth"     "vwc_pct" 
+# KAEFS (rename cols)
+moist.ls$KAEFS <- lapply(list(read.csv("/Users/jeff/eco-warm/data/experiments/KAEFS/input_data/SoilMoisture2018-2023_reshapeLong.csv")), function(x) x %>%
+  rename(date = Timestamp, plt_name = plotID))
 
 
 # SPRUCE
-moist.ls$SPRUCE <- lapply(list.files("/Users/jeff/eco-warm/data/experiments/SPRUCE/input_data", full.names = TRUE)[1:7], read.csv)
-names(moist.ls$SPRUCE) <- paste0("soil_", seq(2016, 2022))
+moist.ls$SPRUCE <- lapply(list.files("/Users/jeff/eco-warm/data/experiments/SPRUCE/input_data", full.names = TRUE)[2:7], read.csv)
+names(moist.ls$SPRUCE) <- paste0("soil_", seq(2017, 2022))
 
-# Note: VWC missing from "soil_2016"; VERT
+# Notes: 1) VWC missing from "soil_2016"; 2) these files also contain a "treatment status" column, as well as temp, H2O table, air T, rel. humid, and precip; 3) depth is relative to mean hollow elevation, so challenging to compare to other systems...
+
+# pivot longer & remove missing data
+moist.ls$SPRUCE <- lapply(moist.ls$SPRUCE, function(x) {
+  x <- x %>%
+    select(Timestamp, Plot, 34:39)
+  names(x)[3:8] <- c("A_1", "A_2", "B_1", "B_2", "C_1", "C_2")
+  x %>%
+    pivot_longer(cols = 3:8, names_sep = "_", names_to = c("rep", "depth"), values_to = "vwc") %>%
+    filter(vwc != -9999) %>%
+    rename(replicates = rep, plt_name = Plot, date = Timestamp)
+})
 
 
 # SWELTR
 moist.ls$SWELTR <- list(read.csv("/Users/jeff/eco-warm/data/experiments/SWELTR/input_data/SWELTR_to2020_T_H2O.csv"))
+moist.ls$SWELTR[[1]] <- moist.ls$SWELTR[[1]] %>% mutate(plt_name = paste0(PLOT, "_", TREAT)) %>%
+  rename(depth = DEPTH, date = TIME) %>%
+  select(date, plt_name, depth, H2O)
 
-# "TIME"  "DEPTH" "T"     "H2O"   "PLOT"  "TREAT"
+# note this file contains temp data as well
 
 
 # TEAM
 moist.ls$TEAM <- list(read.csv("/Users/jeff/eco-warm/data/experiments/TEAM/input_data/moist.csv"))
-
-# "depth" "time"  "plot"  "moist"
+moist.ls$TEAM[[1]] <- moist.ls$TEAM[[1]] %>%
+  rename(plt_name = plot, date = time)
 
 
 # TeRaCON
-moist.ls$TeRaCON <- list(read.csv("/Users/jeff/eco-warm/data/experiments/TeRaCON/raw/Biocon_hourly_warmingseason_2012-2018vprimary1.csv"))
+# moist.ls$TeRaCON <- list(
+#   # 2012-2018
+#   TDR_1 = read.csv("/Users/jeff/eco-warm/data/experiments/TeRaCON/raw/Biocon_hourly_2012-2018vprimary1.csv"),
+#   # 2019-2023
+#   sentek = read.csv("/Users/jeff/eco-warm/data/experiments/TeRaCON/input_data/sentek2019_2023 data for distribution.csv"),
+#   TDR_2 = read.csv("/Users/jeff/eco-warm/data/experiments/TeRaCON/raw/TDR 2019-2023 data for distribution.csv"))
 
+# exlude TDR data for now (need to confirm sensor depth; plus Sentek data is depth resolved)
+moist.ls$TeRaCON <- list(
+  sentek = read.csv("/Users/jeff/eco-warm/data/experiments/TeRaCON/input_data/sentek2019_2023 data for distribution.csv", na.strings = "NAN"))
 
+# get plot name key
+sentek_key <- read.csv("/Users/jeff/eco-warm/data/experiments/TeRaCON/raw/sentek_key.csv")
+sentek_key$ringProbe <- paste0(sentek_key$Ring, sentek_key$Probe.Letter)
+
+# add plot name and reshape data
+moist.ls$TeRaCON$sentek <- moist.ls$TeRaCON$sentek %>%
+  select(TIMESTAMP, STATNAME, starts_with("VWC"))
+names(moist.ls$TeRaCON$sentek)[3:ncol(moist.ls$TeRaCON$sentek)] <- substr(gsub("VWC_", "", names(moist.ls$TeRaCON$sentek)[3:ncol(moist.ls$TeRaCON$sentek)]), 1, 3)
+moist.ls$TeRaCON$sentek <- moist.ls$TeRaCON$sentek %>%
+  filter(!if_all(3:ncol(moist.ls$TeRaCON$sentek), is.na)) %>%
+  pivot_longer(cols = 3:ncol(moist.ls$TeRaCON$sentek), names_to = c("Probe", "depth"), names_sep = "\\.", values_to = "vwc") %>%
+  filter(!is.na(vwc)) %>%
+  mutate(ring = substr(STATNAME, 6, 6))
+moist.ls$TeRaCON$sentek$plt_name <- sentek_key$Plot[match(paste0(moist.ls$TeRaCON$sentek$ring, moist.ls$TeRaCON$sentek$Probe), sentek_key$ringProbe)]
+moist.ls$TeRaCON$sentek <- moist.ls$TeRaCON$sentek %>%
+  rename(date = TIMESTAMP) %>%
+  select(date, plt_name, depth, vwc)
 
 # TRACE
 moist.ls$TRACE <- list(
-  surface = read.csv("/Users/jeff/eco-warm/data/experiments/TRACE/meta/TRACE_SurfaceSoil_2015-2018_dd.csv"),
-  deep = read.csv("/Users/jeff/eco-warm/data/experiments/TRACE/meta/TRACE_DeepSoil_2016-2018_dd.csv"))
+  surface = read.csv("/Users/jeff/eco-warm/data/experiments/TRACE/input_data/TRACE_SurfaceSoil_2015-2018.csv"),
+  deep = read.csv("/Users/jeff/eco-warm/data/experiments/TRACE/input_data/TRACE_DeepSoil_2016-2018.csv"))
 
 # "colName"         "description"     "unit"            "dataType" "siteName"        "plotName"        "sensorMakeModel" "methodName"     "methodNotes"     "methodDOI"       "depthTopM"       "depthBottomM"   "depthHeight"     "zeroRef"
 
 # remove NULL
 moist.ls <- Filter(Negate(is.null), moist.ls)
 
+```
+
+```{r moist-sum-plt-fx}
+## parse date, add treatment col
+filPltTbl.fx <- function(ls, expName, heat_only = TRUE, orders = NULL, plt_cols = NULL, ...) {
+  
+  # check for database object
+  if (!exists("database")) {
+    database <- tryCatch(coreData.fx(verbose = FALSE))
+  }
+  
+  # get plot table and remove empty cols
+  pltTbl <- database[[expName]]$plot %>%
+    select_if(~!(all(is.na(.))))
+  
+  # check for orders and parse date/time
+  if (is.null(orders)) {
+    cat("\nDate/time orders missing...\n\n")
+    orders <- vector(mode = "list", length = length(ls[[expName]]))
+    for (i in seq_along(orders)) {
+      cat("The first 3 entries of", expName, "file '", names(ls[[expName]][i]), "' are:\n\n") 
+      print(ls[[expName]][[i]]$date[1:3])
+      if (i > 1) {
+        ix <- menu(c("yes", "no"), title = "\nDo date/time orders differ from previous entries?\n")
+      } else {
+        ix <- 1
+      }
+      if (ix == 1) {
+        cat("Please provide the date-time format/s in the proper order, e.g., 'ymd', 'dmy', 'mdy HM', etc. (see lubridate::parse_date_time() for list of accepted formatting characters as needed)\n")
+        orders[[i]] <- readline("orders: ")
+      } else {
+        orders[[i]] <- orders[[i-1]]
+      }
+    }
+  } else if (length(orders) == 1) {
+    orders <- rep(list(orders), length(ls[[expName]]))
+  } else if (length(orders) != length(ls[[expName]])) {
+  warning("Length of supplied 'orders' not equal to number of datafiles\n")
+  }
+
+  lapply(seq_along(ls[[expName]]), function(i) {
+  
+    # rename object
+    x <- ls[[expName]][[i]]
+    
+    # get plot table indices and fill plot table cols
+    ix <- match(x$plt_name, pltTbl$plt_name)
+    
+    # check plt_cols
+    if (is.null(plt_cols)) {
+      plt_cols <- c("plt_rep")
+    }
+    
+    if (any(!plt_cols %in% names(pltTbl))) {
+      warning(paste0("plt_col names not found in ", expName, " plot table. Missing cols: ", plt_cols[which(!plt_cols %in% names(pltTbl))], "\n"))
+    }
+    
+    # add heating level to 'plt_treat_heat'
+    pltTbl$plt_treat_heat <- ifelse(pltTbl$plt_heat_level == 0, "control", paste0("treatment", pltTbl$plt_heat_level))
+    
+    # check for additional treatments
+    if (any(grepl("plt_treat_add_name", names(pltTbl)))) {
+      
+      # fill blank 'plt_treat_add_name' w/ NA
+      pltTbl$plt_treat_add_name <- ifelse(pltTbl$plt_treat_add_name == "", NA, pltTbl$plt_treat_add_name)
+      
+      # Split any semicolon-separated values
+      split_values <- strsplit(
+        as.character(pltTbl$plt_treat_add_name), 
+        ";", 
+        fixed = TRUE)
+      split_values_lvl <- strsplit(
+        as.character(pltTbl$plt_treat_add_level), 
+        ";", 
+        fixed = TRUE)
+  
+      # Determine the maximum number of values
+      max_splits <- max(sapply(split_values, length))
+      
+      # get indices of base treatment/control pairs (heat_only)
+      ix.base <- vector(mode = "list", length = max_splits)
+        
+      # Create additional columns for each split value
+      for (j in seq_len(max_splits)) {
+        pltTbl[[paste0("plt_treat_add_name_", j)]] <- sapply(split_values, function(v) ifelse(length(v) >= j, v[j], NA))
+        pltTbl[[paste0("plt_treat_add_level_", j)]] <- sapply(split_values_lvl, function(v) ifelse(length(v) >= j, v[j], NA))
+        pltTbl[[paste0("plt_treat_add_name_", j)]] <- ifelse(
+          is.na(pltTbl[[paste0("plt_treat_add_name_", j)]]), NA, 
+          paste0(pltTbl[[paste0("plt_treat_add_name_", j)]], "_", pltTbl[[paste0("plt_treat_add_level_", j)]]))
+        ix.base[[j]] <- which(pltTbl[[paste0("plt_treat_add_level_", j)]] == 0 | is.na(pltTbl[[paste0("plt_treat_add_level_", j)]]))
+        pltTbl$plt_treat_add_name <- NULL
+      }
+      
+      # simplify data if only heat treatment of interest
+      if (heat_only) {
+        pltTbl<- pltTbl[Reduce(intersect, ix.base), ]
+        x <- x[x$plt_name %in% pltTbl$plt_name, ]
+        ix <- match(x$plt_name, pltTbl$plt_name)
+        pltTbl$plt_treat <- pltTbl$plt_treat_heat
+      } else {
+      interaction_cols <- c("plt_treat_heat", names(pltTbl)[grep("plt_treat_add_name", names(pltTbl))])
+      pltTbl$plt_treat <- apply(
+        pltTbl[, interaction_cols, drop = TRUE], 1, function(row) paste(na.omit(row), collapse = "."))
+      }
+    } else {
+      names(pltTbl)[which(names(pltTbl) == "plt_treat_heat")] <- "plt_treat"
+    }
+        
+    # filling
+    plt_cols <- c(plt_cols, "plt_treat")
+    for (j in seq_along(plt_cols)) {
+      x[[plt_cols[j]]] <- pltTbl[[plt_cols[j]]][ix]
+    }
+    
+    # parse date/time
+    x$date <- parse_date_time(x$date, orders = orders[[i]])
+    
+    x
+    })
+}
+
+## summarize fx
+difSum.ts.fx <- function(dat_in, id_col_nms = "plt_rep", dat_col_nm) {
+  
+  dpt_col_nms <- names(dat_in)[grep("depth", names(dat_in))]
+  
+  # function for calculating differences
+  ctl.dif.fx <- function(df) {
+      id.n <- sum(length(id_col_nms), length(dpt_col_nms), 1)
+      ix.t <- seq(id.n + 1, ncol(df))
+      dif.mat <- combn(ix.t, 2)
+      dif <- df[dif.mat[1,]] - df[dif.mat[2,]]
+      names(dif) <- paste0(names(df)[dif.mat[1,]], " - ", names(df)[dif.mat[2,]])
+      cbind(df, dif)
+  }
+  
+    dat <- dat_in %>%
+      select(date, plt_treat, matches(id_col_nms), contains("depth"), matches(dat_col_nm)) %>%
+      filter(!is.na(!! sym(dat_col_nm))) %>%
+      pivot_wider(
+        id_cols = c(date, names(dat_in)[match(id_col_nms, names(dat_in))], names(dat_in)[grep("depth", names(dat_in))]), 
+        names_from = plt_treat,
+        names_sort = TRUE,
+        values_from = dat_col_nm,
+        values_fn = mean) %>%
+      ctl.dif.fx
+    
+    id.n <- sum(length(id_col_nms), length(grep("depth", names(dat))), 1, length(unique(dat_in$plt_treat)))
+    ix.t <- seq(id.n + 1, ncol(dat)) 
+    
+    sum <- dat %>%
+      mutate(dateDay = date(date)) %>%
+      group_by(dateDay, pick(all_of(dpt_col_nms))) %>%
+      summarize(
+        across(.cols = names(dat)[ix.t], .fns = list(mean = ~ mean(.x, na.rm = T), sd = ~ sd(.x, na.rm = T))), .groups = "drop") %>%
+      pivot_longer(
+        cols = matches("_mean") | matches("_sd"), 
+        names_to = "dif", 
+        values_to = "data") %>%
+        mutate(
+          stat = case_when(
+            str_detect(dif, "_mean$") ~ "mean",
+            str_detect(dif, "_sd$") ~ "sd",
+            TRUE ~ NA_character_)) %>%
+        mutate(dif = str_remove(dif, "_mean$"),
+               dif = str_remove(dif, "_sd$"))
+        
+     plt_sum <- dat %>%
+       mutate(dateDay = date(date)) %>%
+       group_by(dateDay, pick(dpt_col_nms), pick(id_col_nms)) %>%
+       summarize(
+         across(.cols = names(dat)[ix.t], .fns = list(mean = ~ mean(.x, na.rm = T), sd = ~ sd(.x, na.rm = T))), .groups = "drop") %>%
+       pivot_longer(
+          cols = matches("_mean") | matches("_sd"), 
+          names_to = "dif", 
+          values_to = "data") %>%
+        mutate(
+          stat = case_when(
+            str_detect(dif, "_mean$") ~ "mean",
+            str_detect(dif, "_sd$") ~ "sd",
+            TRUE ~ NA_character_)) %>%
+        mutate(dif = str_remove(dif, "_mean$"),
+               dif = str_remove(dif, "_sd$"))
+     list(subDaily = dat, daily = sum, dailyPlt = plt_sum)
+}
+
+plt.fx <- function(expName, sum.ls, dat_bks, dat_lbs, DIF = "all", show_plots = TRUE, subtitle = NULL, facet_col = "dif", units = "pct") {
+  
+  dayMean <- sum.ls$daily %>%
+    filter(stat == "mean") %>%
+    mutate(col = ifelse(data < 0, "#b5651d", "#1db565"))
+  
+  pltMean <- sum.ls$dailyPlt %>%
+    filter(stat == "mean") %>%
+    mutate(col = ifelse(data < 0, "#b5651d", "#1db565"))
+  
+  if (DIF != "all") {
+    dayMean <- dayMean %>% slice(grep(DIF, dayMean$dif))
+    pltMean <- pltMean %>% slice(grep(DIF, pltMean$dif))
+  }
+  
+  if (length(grep("depth", names(dayMean))) == 2) {
+    dayMean <- dayMean %>% mutate(depth = mean(c(depth_upper, depth_lower)))
+    pltMean <- pltMean %>% mutate(depth = mean(c(depth_upper, depth_lower)))
+  }
+  
+  if (units != "pct") {
+    dayMean <- dayMean %>%
+      filter(dayMean$data < 1) %>%
+      mutate(data = data * 100)
+    pltMean <- pltMean %>%
+      filter(pltMean$data < 1) %>%
+      mutate(data = data * 100)
+  } else {
+    dayMean <- dayMean %>%
+      filter(dayMean$data < 100)
+    pltMean <- pltMean %>%
+      filter(pltMean$data < 100)
+  }
+  
+  if (show_plots) {
+    p <- pltMean %>%
+      filter(!is.na(data)) %>%
+      ggplot(., aes(dateDay, data)) +
+      geom_path(aes(group = plt_rep, color = col), alpha = .2) +
+      geom_point(
+        data = dayMean,
+        aes(dateDay, data, color = col), size = .1) +
+      scale_color_manual(
+        name = "",
+        values = c("#1db565", "#b5651d"),
+        labels = c("#1db565" = "> 0", "#b5651d" = "< 0")) +
+      scale_x_date(breaks = dat_bks, date_labels = dat_lbs) +
+      labs(
+        y = "VWC (ctl - trt)",
+        title = paste0(expName, ": soil moisture")) +
+      facet_grid(rows = vars(depth), cols = vars(!! sym(facet_col))) +
+      theme_bw() +
+      theme(panel.grid = element_blank(),
+            axis.title.x = element_blank(),
+            text = element_text(size = 18))
+    if (!is.null(subtitle)) {
+      p + labs(subtitle = subtitle)
+    } else {
+      p
+    }
+  } else {
+    p <- dayMean %>%
+      filter(!is.na(data)) %>%
+      ggplot(., aes(dateDay, data, color = col)) +
+      geom_point(aes(color = col), size = .1) +
+      scale_color_manual(
+        name = "",
+        values = c("#1db565", "#b5651d"),
+        labels = c("#1db565" = "> 0", "#b5651d" = "< 0")) +
+      scale_x_date(breaks = dat_bks, date_labels = dat_lbs) +
+      labs(
+        y = "VWC (ctl - trt)",
+        title = paste0(expName, ": soil moisture")) +
+      facet_grid(rows = vars(depth), cols = vars(!! sym(facet_col))) +
+      theme_bw() +
+      theme(panel.grid = element_blank(),
+            axis.title.x = element_blank(),
+            text = element_text(size = 18))
+    if (!is.null(subtitle)) {
+      p + labs(subtitle = subtitle)
+    } else {
+      p
+    }
+  }
+}
+```
+
+```{r moist-ts-prep}
+# 185ExperimentStation
+e185.sm.ls <- filPltTbl.fx(moist.ls, "185ExperimentStation")
+# fix NA values and convert to numeric
+e185.sm.ls[[1]][["soil.moisture"]] <- as.numeric(ifelse(e185.sm.ls[[1]][["soil.moisture"]] == "#N/A", NA, e185.sm.ls[[1]][["soil.moisture"]]))
+# remove values > 1 [assuming soil moisture is expressed as a proportion?]
+e185.sm.ls[[1]] <- e185.sm.ls[[1]][which(e185.sm.ls[[1]][["soil.moisture"]] < 1), ]
+e185.sm.sum.ls <- difSum.ts.fx(
+  e185.sm.ls[[1]],
+  dat_col_nm = "soil.moisture")
+
+# ACBB
+ACBB.sm.ls <- filPltTbl.fx(moist.ls, "ACBB", orders = "mdy HM")
+ACBB.sm.sum.ls <- setNames(lapply(ACBB.sm.ls, function(x) {
+  difSum.ts.fx(x, dat_col_nm = "data")
+}), nm = names(moist.ls$ACBB))
+ACBB.sm.sum.ls2 <- setNames(
+  lapply(names(ACBB.sm.sum.ls[[1]]), function(name) {
+    # Extract the elements corresponding to 'name' from all sublists in ACBB.sm.sum.ls
+    elements <- lapply(seq_along(ACBB.sm.sum.ls), function(i) {
+      element <- ACBB.sm.sum.ls[[i]][[name]]
+      # Add the sit_name column with the name of the current sublist
+      element$sit_name <- names(ACBB.sm.sum.ls)[i]
+      element
+    })
+    
+    # Combine all elements by row
+    do.call(rbind, elements)
+  }), nm = names(ACBB.sm.sum.ls[[1]])) 
+
+# Blodgett
+Bldg.sm.ls <- filPltTbl.fx(moist.ls, "Blodgett")
+Bldg.sm.sum.ls <- difSum.ts.fx(
+  Bldg.sm.ls[[1]],
+  dat_col_nm = "moisture")
+
+# CiPEHR
+# remove "Z" at end of date strings
+moist.ls$CiPEHR[[1]][["date"]] <- substr(moist.ls$CiPEHR[[1]][["date"]], 1, nchar(moist.ls$CiPEHR[[1]][["date"]])-1)
+CPHR.sm.ls <- filPltTbl.fx(moist.ls, "CiPEHR", plt_cols = c("plt_block", "plt_subBlock", "plt_rep"))
+CPHR.sm.sum.ls <- difSum.ts.fx(
+  CPHR.sm.ls[[1]],
+  id_col_nms = c("plt_block", "plt_subBlock", "plt_rep"),
+  dat_col_nm = "vwc")
+ 
+# Harvard Forest
+HRVF.sm.ls <- filPltTbl.fx(moist.ls, "HarvardForest", plt_cols = c("plt_rep", "plt_block"))
+HRVF.sm.sum.ls <- difSum.ts.fx(
+  HRVF.sm.ls[[1]],
+  id_col_nms = c("plt_block", "plt_rep"),
+  dat_col_nm = "vwc")
+
+# KAEFS
+KAEF.sm.ls <- filPltTbl.fx(moist.ls, "KAEFS", plt_cols = c("plt_block", "plt_rep"))
+KAEF.sm.sum.ls <- difSum.ts.fx(
+  KAEF.sm.ls[[1]],
+  id_col_nms = c("plt_block", "plt_rep"),
+  dat_col_nm = "vwc_pct")
+plt.fx("KAEFS", KAEF.sm.sum.ls, "1 year", "%Y", DIF = "control - treatment3")
+plt.fx("KAEFS", KAEF.sm.sum.ls, "1 year", "%Y", DIF = "control - treatment3", show_plots = FALSE)
+
+
+# SPRUCE
+SPRC.sm.ls <- filPltTbl.fx(moist.ls, "SPRUCE")
+SPRC.sm.sum.ls <- lapply(SWTR.sm.ls, function(x) {
+  difSum.ts.fx(x, dat_col_nm = "H2O")
+})
+SPRC.sm.sum.ls2 <- do.call(Map, c(rbind, SPRC.sm.sum.ls))
+plt.fx("SPRUCE", SPRC.sm.sum.ls2, "1 year", "%Y", DIF = "control - treatment")
+
+# SWELTR
+SWTR.sm.ls <- filPltTbl.fx(moist.ls, "SWELTR")
+SWTR.sm.sum.ls <- difSum.ts.fx(
+  SWTR.sm.ls[[1]],
+  dat_col_nm = "H2O")
+plt.fx("SWELTR", SWTR.sm.sum.ls, "4 months", "%b-%y")
+plt.fx("SWELTR", SWTR.sm.sum.ls, "1 year", "%Y", show_plots = FALSE)
+
+# TEAM
+TEAM.sm.ls <- filPltTbl.fx(moist.ls, "TEAM")
+TEAM.sm.sum.ls <- difSum.ts.fx(
+  TEAM.sm.ls[[1]],
+  dat_col_nm = "moist")
+plt.fx("TEAM", TEAM.sm.sum.ls, "1 year", "%Y")
+plt.fx("TEAM", TEAM.sm.sum.ls, "1 year", "%Y", show_plots = FALSE)
+
+# TeRaCON
+TRCN.sm.ls <- filPltTbl.fx(moist.ls, "TeRaCON")
+TRCN.sm.sum.ls <- difSum.ts.fx(
+  TRCN.sm.ls[[1]],
+  dat_col_nm = "vwc")
+plt.fx("TeRaCON", TRCN.sm.sum.ls, "1 year", "%Y")
+plt.fx("TeRaCON", TRCN.sm.sum.ls, "1 year", "%Y", show_plots = FALSE)
+
+# TRACE
+TRCE.sm.ls <- filPltTbl.fx(moist.ls, "TRACE")
+TRCE.sm.sum.ls <- difSum.ts.fx(
+  TRCE.sm.ls[[1]],
+  dat_col_nm = "moist")
+plt.fx("TRACE", TRCE.sm.sum.ls, "1 year", "%Y")
+
+moist.clean.ls <- list(
+  one85ExperimentStation = e185.sm.sum.ls,
+  ACBB = ACBB.sm.sum.ls,
+  Blodgett = Bldg.sm.sum.ls,
+  CiPEHR = CPHR.sm.sum.ls,
+  HarvardForest = HRVF.sm.sum.ls,
+  KAEFS = KAEF.sm.sum.ls,
+  SPRUCE = SPRC.sm.sum.ls2,
+  SWELTR = SWTR.sm.sum.ls,
+  TEAM = TEAM.sm.sum.ls,
+  TeRaCON = TRCN.sm.sum.ls
+)
+```
+
+```{r moist-ts-prep}
+p.save <- function(expName, p) {
+  dir <- "../docs/AGU24"
+  fnm <- file.path(dir, paste0(expName, "_sm.png"))
+  if (file.exists(fnm)) {
+    fnm <- file.path(dir, paste0(expName, "_sm1.png"))
+  }
+  ggsave(
+    filename = fnm,
+    plot = p,
+    height = 5.3, 
+    width = 8.5, 
+    units = "in")
+}
+
+p.save(expName = "185ExperimentStation", plt.fx("185ExperimentStation", e185.sm.sum.ls, "1 year", "%Y", units = "ppn"))
+
+p.save(expName = "ACBB", plt.fx("ACBB", ACBB.sm.sum.ls2, "3 months", "%b", facet_col = "sit_name"))
+
+p.save(expName = "Blodgett", plt.fx("Blodgett", Bldg.sm.sum.ls, "1 year", "%Y", units = "ppn"))
+
+p.save(expName = "CiPEHR", plt.fx("CiPEHR", CPHR.sm.sum.ls, "1 year", "%y", DIF = "control - treatment", facet_col = "plt_subBlock"))
+
+p.save(expName = "CiPEHR", plt.fx("CiPEHR", CPHR.sm.sum.ls, "1 year", "%y", DIF = "control - treatment", show_plots = FALSE))
+
+p.save(expName = "Harvard Forest", plt.fx("Harvard Forest", HRVF.sm.sum.ls, "1 year", "%Y", DIF = "control - treatment", units = "ppn"))
+
+p.save(expName = "Harvard Forest", plt.fx("Harvard Forest", HRVF.sm.sum.ls, "1 year", "%Y", DIF = "control - treatment", show_plots = FALSE, units = "ppn"))
+
+p.save(expName = "KAEFS", plt.fx("KAEFS", KAEF.sm.sum.ls, "1 year", "%Y", DIF = "control - treatment"))
+
+p.save(expName = "KAEFS", plt.fx("KAEFS", KAEF.sm.sum.ls, "1 year", "%Y", DIF = "control - treatment", show_plots = FALSE))
+
+p.save(expName = "SPRUCE", plt.fx("SPRUCE", SPRC.sm.sum.ls2, "1 year", "%Y", DIF = "control - treatment", units = "ppn"))
+
+p.save(expName = "SWELTR", plt.fx("SWELTR", SWTR.sm.sum.ls, "4 months", "%b-%y", units = "ppn"))
+
+p.save(expName = "SWELTR", plt.fx("SWELTR", SWTR.sm.sum.ls, "1 year", "%Y", show_plots = FALSE, units = "ppn"))
+
+p.save(expName = "TEAM", plt.fx("TEAM", TEAM.sm.sum.ls, "1 year", "%Y", units = "ppn"))
+
+p.save(expName = "TEAM", plt.fx("TEAM", TEAM.sm.sum.ls, "1 year", "%Y", show_plots = FALSE, units = "ppn"))
+
+p.save(expName = "TeRaCON", plt.fx("TeRaCON", TRCN.sm.sum.ls, "1 year", "%Y"))
+       
+p.save(expName = "TeRaCON", plt.fx("TeRaCON", TRCN.sm.sum.ls, "1 year", "%Y", show_plots = FALSE))
+```
+
+```{r sum-stats-sm}
+dpts <- lapply(moist.clean.ls, function(x) {
+  if (any(grepl("daily", names(x)))) {
+    unlist(unique(x$daily[, grep("depth", names(x$daily))]))
+  } else {
+    unique(unlist(lapply(x, function(y) y$daily[, grep("depth", names(y$daily))])))
+  }
+})
+units.ls <- list(
+  one85ExperimentStation = "ppn",
+  ACBB = "pct",
+  Blodgett = "ppn",
+  CiPEHR = "pct",
+  HarvardForest = "ppn",
+  KAEFS = "pct",
+  SPRUCE = "ppn",
+  SWELTR = "ppn",
+  TEAM = "ppn",
+  TeRaCON = "pct"
+)
+dat.rng <- lapply(seq_along(moist.clean.ls), function(i) {
+  x <- moist.clean.ls[[i]]
+  if (any(grepl("daily", names(x)))) {
+    df <- data.frame(max = max(x$daily$data, na.rm = T),
+               min = min(x$daily$data, na.rm = T))
+  } else {
+    df <- bind_rows(lapply(x, function(y)
+      data.frame(max = max(y$daily$data, na.rm = T),
+                 min = min(y$daily$data, na.rm = T)) 
+      )) %>%
+      summarize(max = max(max, na.rm = T), min = min(min, na.rm = T))
+  }
+  if (units.ls[[i]] != "pct") {
+    df * 100
+  } else {
+    df
+  }
+})
+max(unlist(sapply(dat.rng, "[[", 1)))
+min(unlist(sapply(dat.rng, "[[", 2)))
 ```

@@ -1,3 +1,0 @@
-ACBB meta directory contains the following non-standard files that will be ignored:
- aboveGroundProductivity_dd.csv ACBB_flmd.csv belowGroundProductivity_dd.csv initialBulkSoilProperties_dd.csv SOC_bulkDensity_initial_dd.csv SOERE-ACBB_Soil-Vegetation-dataset  copy.xlsx soil_temp_cropland_dd.csv soil_temp_grassland_dd.csv 
- 
