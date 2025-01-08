@@ -1408,9 +1408,6 @@ Start with overall trends, i.e., simplify data to assess data on daily time step
 - hydraulic conductivity (?)
 - matric potential (?)
 
-
-## Visualize core data
-
 # Visualize core data
 
 ```{r plots}
@@ -1436,10 +1433,25 @@ names(lg.ch) <- lg$pro_KG_present_short
 levels(kg) <- lvls
 
 # heat levels
-exp_hlvls <- separate_longer_delim(database$experiment, "heat_levels", ";")
-exp_hlvls$heat_levels <- as.numeric(exp_hlvls$heat_levels)
-plot_hlvl.df <- exp_hlvls[exp_hlvls$heat_levels != 0, ]
-hist(plot_hlvl.df$heat_levels, breaks = length(unique(exp_hlvls$heat_levels)))
+database2 <- Filter(Negate(is.null), database)
+hlvls <- as.numeric(unique(unlist(lapply(lapply(database2, function(x) separate_longer_delim(x$experiment, "heat_levels", ";")), "[[", "heat_levels"))))
+plot_hlvls <- data.frame(htlvls = hlvls[hlvls != 0 & !is.na(hlvls)])
+p <- ggplot(plot_hlvls, aes(htlvls)) +
+  geom_histogram(binwidth = 1) +
+  labs(
+    x = "Heated - Control (°C)",
+    y = "count") +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        text = element_text(size = 24))
+
+ggsave(
+    filename = "/Users/jeff/eco-warm/docs/AGU24/hlvls.png",
+    plot = p,
+    height = 12.49, 
+    width = 21.48, 
+    dpi = 300,
+    units = "cm")
 
 # heat mtd BG
 exp_hmtdB <- separate_longer_delim(database$experiment, "heat_mtd_belowGround", ";")
@@ -1527,16 +1539,17 @@ ggplot() +
 latlon.v <- vect(latlon, geom = c("sit_long", "sit_lat"), crs = "+proj=longlat +datum=WGS84")
 plot(tifRaster, plg = list(loc = "right")); plot(latlon.v, add = T, pch = 21, col = "white", bg = "black")
 
+test<-bind_rows(lapply(database, function(x) lapply(x$experiment, as.character)))
 # parse dates
-BG_i <- parse_date_time(exp.site$heat_BG_date_i, orders = c("%Y", "%m/%d/%y", "%m/%d/%Y", "%b-%y", "%d-%b"))
-AG_i <-  parse_date_time(exp.site$heat_AG_date_i, orders = c("%Y", "%m/%d/%y", "%m/%d/%Y", "%b-%y", "%d-%b"))
+BG_i <- parse_date_time(test$heat_BG_date_i, orders = c("%Y", "%m/%d/%y", "%m/%d/%Y", "%b-%y", "%d-%b"))
+AG_i <- parse_date_time(test$heat_AG_date_i, orders = c("%Y", "%m/%d/%y", "%m/%d/%Y", "%b-%y", "%d-%b"))
 dur.BG <- time_length(interval(BG_i, today()), "year")
 dur.AG <- time_length(interval(AG_i, today()), "year")
 
-exp.site$belowground <- dur.BG
-exp.site$aboveground <- dur.AG
+test$belowground <- dur.BG
+test$aboveground <- dur.AG
 
-exp.site %>%
+p <- test %>%
   pivot_longer(cols = c(belowground, aboveground), 
                names_to = "heating", 
                values_to = "duration") %>%
@@ -1546,7 +1559,22 @@ exp.site %>%
   geom_point(aes(shape = heating), size = 4) +
   scale_shape_manual(values = c("belowground" = 6, "aboveground" = 2)) +
   theme_bw() +
-  theme(panel.grid = element_blank()) 
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(size = 24),
+        axis.text.y = element_text(size = 20),
+        axis.title.y = element_blank(),
+        axis.title.x = element_text(size = 24),
+        legend.text = element_text(size = 24),
+        legend.title = element_text(size = 24),
+        legend.position = c(.7, .8)) 
+
+ggsave(
+    filename = "/Users/jeff/eco-warm/docs/AGU24/dur.png",
+    plot = p,
+    height = 12.49, 
+    width = 21.48, 
+    dpi = 300,
+    units = "cm")
 ```
 
 
@@ -1632,8 +1660,18 @@ moist.ls$ACBB <- list(
 
 
 # B4W
-moist.ls$B4WarmED <- list()
-
+moist.ls$B4WarmED <- list(
+  read.csv("/Users/jeff/eco-warm/data/experiments/B4WarmED/raw/B4WarmED_2009-2023_SoilMoisture.csv")
+)
+# filter to: non NA, closed canopy, water = ambient
+moist.ls$B4WarmED[[1]] <- moist.ls$B4WarmED[[1]] %>%
+  filter(!is.na(soil_moisture__cm.3H2Oxcm..3soil)) %>%
+  filter(water_treatment == "ambient") %>%
+  filter(canopy == "closed") %>%
+  mutate(site = ifelse(site == "cfc", "Cloquet", "Ely")) %>%
+  rename(sit_name = site, vwc = soil_moisture__cm.3H2Oxcm..3soil)
+moist.ls$B4WarmED[[1]]$timeStamp_AmericaRegina <- substr(moist.ls$B4WarmED[[1]]$timeStamp_AmericaRegina, 1, nchar(moist.ls$B4WarmED[[1]]$timeStamp_AmericaRegina) - 1)
+  
 
 # Blodgett
 moist.ls$Blodgett <- list(read.csv("/Users/jeff/eco-warm/data/experiments/Blodgett/input_data/20240125_processed Blodgett soil moisture.csv"))
@@ -1689,19 +1727,22 @@ moist.ls$KAEFS <- lapply(list(read.csv("/Users/jeff/eco-warm/data/experiments/KA
 
 
 # SPRUCE
-moist.ls$SPRUCE <- lapply(list.files("/Users/jeff/eco-warm/data/experiments/SPRUCE/input_data", full.names = TRUE)[2:7], read.csv)
-names(moist.ls$SPRUCE) <- paste0("soil_", seq(2017, 2022))
+moist.ls$SPRUCE <- lapply(list.files("/Users/jeff/eco-warm/data/experiments/SPRUCE/input_data", pattern = "l.csv", full.names = TRUE)[2:8], read.csv)
+names(moist.ls$SPRUCE) <- paste0("soil_", seq(2017, 2023))
 
 # Notes: 1) VWC missing from "soil_2016"; 2) these files also contain a "treatment status" column, as well as temp, H2O table, air T, rel. humid, and precip; 3) depth is relative to mean hollow elevation, so challenging to compare to other systems...
 
 # pivot longer & remove missing data
 moist.ls$SPRUCE <- lapply(moist.ls$SPRUCE, function(x) {
   x <- x %>%
-    select(Timestamp, Plot, 34:39)
-  names(x)[3:8] <- c("A_1", "A_2", "B_1", "B_2", "C_1", "C_2")
+    select(Timestamp, Plot, contains("VWC"))
+  ix.dif <- which(grepl("VWC", names(x)))
+  names(x)[ix.dif] <- sapply(
+    lapply(strsplit(names(x)[ix.dif], "_"), "[[", 2), function(x) paste0(substr(x, 1, 1), "_", substr(x, 2, 2)))
   x %>%
     pivot_longer(cols = 3:8, names_sep = "_", names_to = c("rep", "depth"), values_to = "vwc") %>%
     filter(vwc != -9999) %>%
+    mutate(depth = ifelse(depth == "1", 8, 20)) %>%
     rename(replicates = rep, plt_name = Plot, date = Timestamp)
 })
 
@@ -1733,7 +1774,7 @@ moist.ls$TEAM[[1]] <- moist.ls$TEAM[[1]] %>%
 moist.ls$TeRaCON <- list(
   sentek = read.csv("/Users/jeff/eco-warm/data/experiments/TeRaCON/input_data/sentek2019_2023 data for distribution.csv", na.strings = "NAN"))
 
-# get plot name key
+ # get plot name key
 sentek_key <- read.csv("/Users/jeff/eco-warm/data/experiments/TeRaCON/raw/sentek_key.csv")
 sentek_key$ringProbe <- paste0(sentek_key$Ring, sentek_key$Probe.Letter)
 
@@ -1749,7 +1790,7 @@ moist.ls$TeRaCON$sentek <- moist.ls$TeRaCON$sentek %>%
 moist.ls$TeRaCON$sentek$plt_name <- sentek_key$Plot[match(paste0(moist.ls$TeRaCON$sentek$ring, moist.ls$TeRaCON$sentek$Probe), sentek_key$ringProbe)]
 moist.ls$TeRaCON$sentek <- moist.ls$TeRaCON$sentek %>%
   rename(date = TIMESTAMP) %>%
-  select(date, plt_name, depth, vwc)
+  select(date, plt_name, depth, vwc) 
 
 # TRACE
 moist.ls$TRACE <- list(
@@ -1765,7 +1806,7 @@ moist.ls <- Filter(Negate(is.null), moist.ls)
 
 ```{r moist-sum-plt-fx}
 ## parse date, add treatment col
-filPltTbl.fx <- function(ls, expName, heat_only = TRUE, orders = NULL, plt_cols = NULL, ...) {
+filPltTbl.fx <- function(ls, expName, heat_only = TRUE, orders = NULL, plt_cols = NULL, dateName = "date", ...) {
   
   # check for database object
   if (!exists("database")) {
@@ -1876,127 +1917,176 @@ filPltTbl.fx <- function(ls, expName, heat_only = TRUE, orders = NULL, plt_cols 
     }
     
     # parse date/time
-    x$date <- parse_date_time(x$date, orders = orders[[i]])
+    x$date <- parse_date_time(x[[dateName]], orders = orders[[i]])
     
     x
     })
 }
 
 ## summarize fx
-difSum.ts.fx <- function(dat_in, id_col_nms = "plt_rep", dat_col_nm) {
+difSum.ts.fx <- function(dat_in, id_col_nms = "plt_rep", dat_col_nm, paired = FALSE) {
   
   dpt_col_nms <- names(dat_in)[grep("depth", names(dat_in))]
   
   # function for calculating differences
   ctl.dif.fx <- function(df) {
-      id.n <- sum(length(id_col_nms), length(dpt_col_nms), 1)
-      ix.t <- seq(id.n + 1, ncol(df))
-      dif.mat <- combn(ix.t, 2)
-      dif <- df[dif.mat[1,]] - df[dif.mat[2,]]
-      names(dif) <- paste0(names(df)[dif.mat[1,]], " - ", names(df)[dif.mat[2,]])
-      cbind(df, dif)
+    nc <- ncol(df)
+    ix.ctl <- grep("control", names(df))
+    ix.trt <- grep("treatment", names(df))
+    dif <- lapply(ix.trt, function(ix) df[, ix] - df[, ix.ctl])
+    for (i in seq_along(dif)) {
+      df <- cbind(df, dif[i])
+    }
+    names(df)[(nc + 1):ncol(df)] <- paste0(names(df)[ix.trt], " - control")
+    df
   }
-  
-    dat <- dat_in %>%
-      select(date, plt_treat, matches(id_col_nms), contains("depth"), matches(dat_col_nm)) %>%
-      filter(!is.na(!! sym(dat_col_nm))) %>%
-      pivot_wider(
-        id_cols = c(date, names(dat_in)[match(id_col_nms, names(dat_in))], names(dat_in)[grep("depth", names(dat_in))]), 
-        names_from = plt_treat,
-        names_sort = TRUE,
-        values_from = dat_col_nm,
-        values_fn = mean) %>%
-      ctl.dif.fx
-    
-    id.n <- sum(length(id_col_nms), length(grep("depth", names(dat))), 1, length(unique(dat_in$plt_treat)))
-    ix.t <- seq(id.n + 1, ncol(dat)) 
-    
-    sum <- dat %>%
-      mutate(dateDay = date(date)) %>%
-      group_by(dateDay, pick(all_of(dpt_col_nms))) %>%
-      summarize(
-        across(.cols = names(dat)[ix.t], .fns = list(mean = ~ mean(.x, na.rm = T), sd = ~ sd(.x, na.rm = T))), .groups = "drop") %>%
-      pivot_longer(
+
+  # est. trt-ctl difs by plot pairs & summarize
+  if (paired) {
+   dat <- dat_in %>%
+    select(date, plt_treat, matches(id_col_nms), contains("depth"), matches(dat_col_nm)) %>%
+    filter(!is.na(!! sym(dat_col_nm)))%>%
+    pivot_wider(
+      id_cols = c(date, names(dat_in)[match(id_col_nms, names(dat_in))], names(dat_in)[grep("depth", names(dat_in))]), 
+      names_from = plt_treat,
+      names_sort = TRUE,
+      values_from = dat_col_nm,
+      values_fn = mean) %>%
+    ctl.dif.fx()
+   
+   # index dif. cols
+   ix.dif <- grep("- control", names(dat))
+   
+   # summarize trt-ctl dif. by paired plot, depth, day
+   plt_sum <- dat %>%
+     mutate(dateDay = date(date)) %>%
+     group_by(dateDay, pick(dpt_col_nms), pick(id_col_nms)) %>%
+     summarize(
+       across(.cols = names(dat)[ix.dif], .fns = list(mean = ~ mean(.x, na.rm = T), sd = ~ sd(.x, na.rm = T))), .groups = "drop") %>%
+     pivot_longer(
         cols = matches("_mean") | matches("_sd"), 
         names_to = "dif", 
         values_to = "data") %>%
-        mutate(
-          stat = case_when(
-            str_detect(dif, "_mean$") ~ "mean",
-            str_detect(dif, "_sd$") ~ "sd",
-            TRUE ~ NA_character_)) %>%
-        mutate(dif = str_remove(dif, "_mean$"),
-               dif = str_remove(dif, "_sd$"))
-        
-     plt_sum <- dat %>%
-       mutate(dateDay = date(date)) %>%
-       group_by(dateDay, pick(dpt_col_nms), pick(id_col_nms)) %>%
-       summarize(
-         across(.cols = names(dat)[ix.t], .fns = list(mean = ~ mean(.x, na.rm = T), sd = ~ sd(.x, na.rm = T))), .groups = "drop") %>%
-       pivot_longer(
-          cols = matches("_mean") | matches("_sd"), 
-          names_to = "dif", 
-          values_to = "data") %>%
-        mutate(
-          stat = case_when(
-            str_detect(dif, "_mean$") ~ "mean",
-            str_detect(dif, "_sd$") ~ "sd",
-            TRUE ~ NA_character_)) %>%
-        mutate(dif = str_remove(dif, "_mean$"),
-               dif = str_remove(dif, "_sd$"))
-     list(subDaily = dat, daily = sum, dailyPlt = plt_sum)
+      mutate(
+        stat = case_when(
+          str_detect(dif, "_mean$") ~ "mean",
+          str_detect(dif, "_sd$") ~ "sd",
+          TRUE ~ NA_character_)) %>%
+      mutate(dif = str_remove(dif, "_mean$"),
+             dif = str_remove(dif, "_sd$")) 
+   
+   # summarize trt-ctl dif. by day, depth 
+   sit_sum <- dat %>%
+    mutate(dateDay = date(date)) %>%
+    group_by(dateDay, pick(all_of(dpt_col_nms))) %>%
+    summarize(
+      across(.cols = names(dat)[ix.dif], .fns = list(mean = ~ mean(.x, na.rm = T), sd = ~ sd(.x, na.rm = T))), .groups = "drop") %>%
+    pivot_longer(
+      cols = matches("_mean") | matches("_sd"), 
+      names_to = "dif", 
+      values_to = "data") %>%
+      mutate(
+        stat = case_when(
+          str_detect(dif, "_mean$") ~ "mean",
+          str_detect(dif, "_sd$") ~ "sd",
+          TRUE ~ NA_character_)) %>%
+      mutate(dif = str_remove(dif, "_mean$"),
+             dif = str_remove(dif, "_sd$"))
+   
+  } else {
+    
+    # est. trt-ctl difs by site & summarize
+    dat <- dat_in %>%
+      group_by(date, pick(all_of(dpt_col_nms)), plt_treat) %>%
+      summarize(
+        across(
+          .cols = names(dat_in)[grep(dat_col_nm, names(dat_in))],
+          .fns = ~ mean(.x, na.rm = TRUE)), .groups = "drop") %>%
+      pivot_wider(
+        names_from = plt_treat,
+        values_from = dat_col_nm) %>%
+      ctl.dif.fx
+    
+    # index dif. cols
+    ix.dif <- grep("- control", names(dat))
+    
+    # summarize site mean trt-ctl dif. by day 
+    sit_sum <- dat %>% 
+      mutate(dateDay = date(date)) %>%
+      group_by(dateDay, pick(all_of(dpt_col_nms))) %>%
+      summarize(
+        across(
+          .cols = names(dat)[ix.dif],
+          .fns = list(mean = ~ mean(.x, na.rm = TRUE), 
+                      sd = ~ sd(.x, na.rm = TRUE), 
+                      n = ~ n()), 
+          .names = "{.col}_{.fn}"), .groups = "drop") %>%
+      rowwise() %>%
+      mutate(
+        across(
+          ends_with("_sd"),
+          ~ . / sqrt(get(sub("_sd$", "_n", cur_column()))),
+          .names = "{sub('_sd$', '', .col)}_se"),
+        across(
+          ends_with("_mean"),
+          ~ . - qt(1 - (0.05 / 2), df = get(sub("_mean$", "_n", cur_column()))) * get(sub("_mean$", "_se", cur_column())),
+          .names = "{sub('_mean$', '', .col)}_ci.05"),
+        across(
+          ends_with("_mean"),
+          ~ . + qt(1 - (0.05 / 2), df = get(sub("_mean$", "_n", cur_column()))) * get(sub("_mean$", "_se", cur_column())),
+          .names = "{sub('_mean$', '', .col)}_ci.95")) %>%
+      ungroup() %>%
+      select(dateDay, contains("depth"), contains("_mean"), contains("_ci.")) %>%
+      pivot_longer(
+        cols = contains("- control"),
+        names_to = c("dif", ".value"),
+        names_pattern = "^(.*)_(.*)$")
+    plt_sum <- NULL
+  }
+  
+  list(subDaily = dat, dailyPlt = plt_sum, dailySit = sit_sum)
 }
 
-plt.fx <- function(expName, sum.ls, dat_bks, dat_lbs, DIF = "all", show_plots = TRUE, subtitle = NULL, facet_col = "dif", units = "pct") {
+plt.fx <- function(expName, sum.ls, dat_bks, dat_lbs, DIF = "all", subtitle = NULL, facet_col = "dif", units = "pct", VAR = "VWC", datType = "soil moisture") {
   
-  dayMean <- sum.ls$daily %>%
-    filter(stat == "mean") %>%
-    mutate(col = ifelse(data < 0, "#b5651d", "#1db565"))
-  
-  pltMean <- sum.ls$dailyPlt %>%
-    filter(stat == "mean") %>%
-    mutate(col = ifelse(data < 0, "#b5651d", "#1db565"))
-  
-  if (DIF != "all") {
-    dayMean <- dayMean %>% slice(grep(DIF, dayMean$dif))
-    pltMean <- pltMean %>% slice(grep(DIF, pltMean$dif))
+  arg.fx <- function(x, ...) {
+    if (DIF != "all") {
+      x <- x %>% slice(grep(DIF, x$dif))
+    }
+    if (length(grep("depth", names(x))) == 2) {
+      x <- x %>% mutate(depth = mean(c(depth_upper, depth_lower)))
+    }
+    if (units != "pct") {
+      x <- x %>%
+        filter(x$mean < 1 & x$mean) %>%
+        mutate(across(c(mean, contains("ci.")), .fns = ~ .x * 100))
+    } else {
+      x <- x %>%
+        filter(x$mean < 100)
+    }
   }
   
-  if (length(grep("depth", names(dayMean))) == 2) {
-    dayMean <- dayMean %>% mutate(depth = mean(c(depth_upper, depth_lower)))
-    pltMean <- pltMean %>% mutate(depth = mean(c(depth_upper, depth_lower)))
-  }
+  dayMean <- arg.fx(sum.ls$dailySit) %>%
+    filter(!is.na(mean))
   
-  if (units != "pct") {
-    dayMean <- dayMean %>%
-      filter(dayMean$data < 1) %>%
-      mutate(data = data * 100)
-    pltMean <- pltMean %>%
-      filter(pltMean$data < 1) %>%
-      mutate(data = data * 100)
-  } else {
-    dayMean <- dayMean %>%
-      filter(dayMean$data < 100)
-    pltMean <- pltMean %>%
-      filter(pltMean$data < 100)
-  }
-  
-  if (show_plots) {
-    p <- pltMean %>%
-      filter(!is.na(data)) %>%
-      ggplot(., aes(dateDay, data)) +
-      geom_path(aes(group = plt_rep, color = col), alpha = .2) +
-      geom_point(
-        data = dayMean,
-        aes(dateDay, data, color = col), size = .1) +
+  if (is.null(sum.ls$dailyPlt)) {
+    min.mean <- min(dayMean$mean, na.rm = T)
+    max.mean <- max(dayMean$mean, na.rm = T)
+    p <- dayMean %>%
+      mutate(col = ifelse(mean > 0, "#1db565", "#b5651d")) %>%
+      ggplot(., aes(dateDay, mean)) +
+      geom_hline(aes(yintercept = 0), linetype = "dotted") +
+      geom_ribbon(aes(ymin = ci.05, ymax = ci.95), alpha = .2) +
+      geom_point(aes(color = col), size = .1) +
       scale_color_manual(
         name = "",
         values = c("#1db565", "#b5651d"),
         labels = c("#1db565" = "> 0", "#b5651d" = "< 0")) +
       scale_x_date(breaks = dat_bks, date_labels = dat_lbs) +
+      coord_cartesian(ylim = c(min.mean + .1 * min.mean, max.mean + .1 * max.mean)) +
       labs(
-        y = "VWC (ctl - trt)",
-        title = paste0(expName, ": soil moisture")) +
+        y = paste0(VAR, " (trt - ctl)"),
+        title = paste0(expName, ": ", datType)) +
       facet_grid(rows = vars(depth), cols = vars(!! sym(facet_col))) +
       theme_bw() +
       theme(panel.grid = element_blank(),
@@ -2008,18 +2098,23 @@ plt.fx <- function(expName, sum.ls, dat_bks, dat_lbs, DIF = "all", show_plots = 
       p
     }
   } else {
-    p <- dayMean %>%
+    p <- arg.fx(sum.ls$dailyPlt) %>%
+      filter(stat == "mean") %>%
       filter(!is.na(data)) %>%
-      ggplot(., aes(dateDay, data, color = col)) +
-      geom_point(aes(color = col), size = .1) +
+      mutate(col = ifelse(data < 0, "#b5651d", "#1db565")) %>%
+      ggplot(., aes(dateDay, data)) +
+      geom_path(aes(group = plt_rep, color = col), alpha = .2) +
+      geom_point(
+        data = dayMean,
+        aes(dateDay, data), size = .1) +
       scale_color_manual(
         name = "",
         values = c("#1db565", "#b5651d"),
         labels = c("#1db565" = "> 0", "#b5651d" = "< 0")) +
       scale_x_date(breaks = dat_bks, date_labels = dat_lbs) +
       labs(
-        y = "VWC (ctl - trt)",
-        title = paste0(expName, ": soil moisture")) +
+        y = paste0(VAR, " (trt - ctl)"),
+        title = paste0(expName, ": ", datType)) +
       facet_grid(rows = vars(depth), cols = vars(!! sym(facet_col))) +
       theme_bw() +
       theme(panel.grid = element_blank(),
@@ -2036,7 +2131,7 @@ plt.fx <- function(expName, sum.ls, dat_bks, dat_lbs, DIF = "all", show_plots = 
 
 ```{r moist-ts-prep}
 # 185ExperimentStation
-e185.sm.ls <- filPltTbl.fx(moist.ls, "185ExperimentStation")
+e185.sm.ls <- filPltTbl.fx(moist.ls, "185ExperimentStation", orders = "mdy HM")
 # fix NA values and convert to numeric
 e185.sm.ls[[1]][["soil.moisture"]] <- as.numeric(ifelse(e185.sm.ls[[1]][["soil.moisture"]] == "#N/A", NA, e185.sm.ls[[1]][["soil.moisture"]]))
 # remove values > 1 [assuming soil moisture is expressed as a proportion?]
@@ -2056,8 +2151,12 @@ ACBB.sm.sum.ls2 <- setNames(
     elements <- lapply(seq_along(ACBB.sm.sum.ls), function(i) {
       element <- ACBB.sm.sum.ls[[i]][[name]]
       # Add the sit_name column with the name of the current sublist
-      element$sit_name <- names(ACBB.sm.sum.ls)[i]
-      element
+      if (!is.null(element)) {
+        element$sit_name <- names(ACBB.sm.sum.ls)[i]
+        element 
+      } else {
+        NULL
+      }
     })
     
     # Combine all elements by row
@@ -2065,79 +2164,77 @@ ACBB.sm.sum.ls2 <- setNames(
   }), nm = names(ACBB.sm.sum.ls[[1]])) 
 
 # Blodgett
-Bldg.sm.ls <- filPltTbl.fx(moist.ls, "Blodgett")
+Bldg.sm.ls <- filPltTbl.fx(moist.ls, "Blodgett", orders = "ymd HMS")
 Bldg.sm.sum.ls <- difSum.ts.fx(
   Bldg.sm.ls[[1]],
   dat_col_nm = "moisture")
+# plt.fx("Blodgett", Bldg.sm.sum.ls, "1 year", "%Y", units = "ppn")
 
 # CiPEHR
 # remove "Z" at end of date strings
 moist.ls$CiPEHR[[1]][["date"]] <- substr(moist.ls$CiPEHR[[1]][["date"]], 1, nchar(moist.ls$CiPEHR[[1]][["date"]])-1)
-CPHR.sm.ls <- filPltTbl.fx(moist.ls, "CiPEHR", plt_cols = c("plt_block", "plt_subBlock", "plt_rep"))
+CPHR.sm.ls <- filPltTbl.fx(moist.ls, "CiPEHR", plt_cols = c("plt_block", "plt_subBlock", "plt_rep"), orders = "ymd HMS")
 CPHR.sm.sum.ls <- difSum.ts.fx(
   CPHR.sm.ls[[1]],
   id_col_nms = c("plt_block", "plt_subBlock", "plt_rep"),
   dat_col_nm = "vwc")
+# plt.fx("CiPEHR", CPHR.sm.sum.ls, "1 year", "%Y")
  
 # Harvard Forest
-HRVF.sm.ls <- filPltTbl.fx(moist.ls, "HarvardForest", plt_cols = c("plt_rep", "plt_block"))
+HRVF.sm.ls <- filPltTbl.fx(moist.ls, "HarvardForest", plt_cols = c("plt_rep", "plt_block"), orders = "ymd")
 HRVF.sm.sum.ls <- difSum.ts.fx(
   HRVF.sm.ls[[1]],
   id_col_nms = c("plt_block", "plt_rep"),
   dat_col_nm = "vwc")
+# plt.fx("Harvard Forest", HRVF.sm.sum.ls, "1 year", "%Y", units = "ppn")
 
 # KAEFS
-KAEF.sm.ls <- filPltTbl.fx(moist.ls, "KAEFS", plt_cols = c("plt_block", "plt_rep"))
+KAEF.sm.ls <- filPltTbl.fx(moist.ls, "KAEFS", plt_cols = c("plt_block", "plt_rep"), orders = "mdy")
 KAEF.sm.sum.ls <- difSum.ts.fx(
   KAEF.sm.ls[[1]],
   id_col_nms = c("plt_block", "plt_rep"),
   dat_col_nm = "vwc_pct")
-plt.fx("KAEFS", KAEF.sm.sum.ls, "1 year", "%Y", DIF = "control - treatment3")
-plt.fx("KAEFS", KAEF.sm.sum.ls, "1 year", "%Y", DIF = "control - treatment3", show_plots = FALSE)
-
+# plt.fx("KAEFS", KAEF.sm.sum.ls, "1 year", "%Y")
 
 # SPRUCE
-SPRC.sm.ls <- filPltTbl.fx(moist.ls, "SPRUCE")
-SPRC.sm.sum.ls <- lapply(SWTR.sm.ls, function(x) {
-  difSum.ts.fx(x, dat_col_nm = "H2O")
+SPRC.sm.ls <- lapply(filPltTbl.fx(moist.ls, "SPRUCE", orders = rep("ymd HM", length(moist.ls$SPRUCE)))
+SPRC.sm.sum.ls <- lapply(SPRC.sm.ls, function(x) {
+  difSum.ts.fx(x, dat_col_nm = "vwc")
 })
 SPRC.sm.sum.ls2 <- do.call(Map, c(rbind, SPRC.sm.sum.ls))
-plt.fx("SPRUCE", SPRC.sm.sum.ls2, "1 year", "%Y", DIF = "control - treatment")
+# plt.fx("SPRUCE", SPRC.sm.sum.ls2, "1 year", "%Y")
 
 # SWELTR
-SWTR.sm.ls <- filPltTbl.fx(moist.ls, "SWELTR")
+SWTR.sm.ls <- filPltTbl.fx(moist.ls, "SWELTR", orders = "dmy HM")
 SWTR.sm.sum.ls <- difSum.ts.fx(
   SWTR.sm.ls[[1]],
   dat_col_nm = "H2O")
-plt.fx("SWELTR", SWTR.sm.sum.ls, "4 months", "%b-%y")
-plt.fx("SWELTR", SWTR.sm.sum.ls, "1 year", "%Y", show_plots = FALSE)
+# plt.fx("SWELTR", SWTR.sm.sum.ls, "4 months", "%b-%y", units = "ppn")
 
 # TEAM
-TEAM.sm.ls <- filPltTbl.fx(moist.ls, "TEAM")
+TEAM.sm.ls <- filPltTbl.fx(moist.ls, "TEAM", orders = "ymd")
 TEAM.sm.sum.ls <- difSum.ts.fx(
   TEAM.sm.ls[[1]],
   dat_col_nm = "moist")
-plt.fx("TEAM", TEAM.sm.sum.ls, "1 year", "%Y")
-plt.fx("TEAM", TEAM.sm.sum.ls, "1 year", "%Y", show_plots = FALSE)
+# plt.fx("TEAM", TEAM.sm.sum.ls, "1 year", "%Y", units = "ppn")
 
 # TeRaCON
-TRCN.sm.ls <- filPltTbl.fx(moist.ls, "TeRaCON")
+TRCN.sm.ls <- filPltTbl.fx(moist.ls, "TeRaCON", orders = "mdy HM")
 TRCN.sm.sum.ls <- difSum.ts.fx(
   TRCN.sm.ls[[1]],
   dat_col_nm = "vwc")
-plt.fx("TeRaCON", TRCN.sm.sum.ls, "1 year", "%Y")
-plt.fx("TeRaCON", TRCN.sm.sum.ls, "1 year", "%Y", show_plots = FALSE)
+# plt.fx("TeRaCON", TRCN.sm.sum.ls, "1 year", "%Y")
 
-# TRACE
-TRCE.sm.ls <- filPltTbl.fx(moist.ls, "TRACE")
-TRCE.sm.sum.ls <- difSum.ts.fx(
-  TRCE.sm.ls[[1]],
-  dat_col_nm = "moist")
-plt.fx("TRACE", TRCE.sm.sum.ls, "1 year", "%Y")
+# # TRACE
+# TRCE.sm.ls <- filPltTbl.fx(moist.ls, "TRACE")
+# TRCE.sm.sum.ls <- difSum.ts.fx(
+#   TRCE.sm.ls[[1]],
+#   dat_col_nm = "moist")
+# plt.fx("TRACE", TRCE.sm.sum.ls, "1 year", "%Y")
 
 moist.clean.ls <- list(
   one85ExperimentStation = e185.sm.sum.ls,
-  ACBB = ACBB.sm.sum.ls,
+  ACBB = ACBB.sm.sum.ls2,
   Blodgett = Bldg.sm.sum.ls,
   CiPEHR = CPHR.sm.sum.ls,
   HarvardForest = HRVF.sm.sum.ls,
@@ -2149,12 +2246,63 @@ moist.clean.ls <- list(
 )
 ```
 
+```{r monthly-mean-moist-dif-depth}
+moist.clean.m.ls <- setNames(lapply(seq_along(moist.clean.ls), function(i) {
+  y <- moist.clean.ls[[i]]$subDaily
+    y$month <- month(y$date)
+    if (any("sit_name" %in% names(y))) {
+      y
+    } else {
+      y$sit_name <- names(moist.clean.ls)[i]
+    }
+    if (length(which(grepl("depth", names(y)))) > 1) {
+      y$depth <- mean(c(y$depth_upper, y$depth_lower))
+      y <- y %>% select(-c(depth_lower, depth_upper))
+    }
+    y %>%
+      group_by(month, sit_name, depth) %>%
+        summarize(
+          across(
+            .cols = contains(" - control"),
+            .fns = list(mean = ~ mean(.x, na.rm = TRUE), 
+                        sd = ~ sd(.x, na.rm = TRUE), 
+                        n = ~ n()),
+            .names = "{.col}_{.fn}"), .groups = "drop") %>%
+      rowwise() %>%
+      mutate(
+        across(
+          ends_with("_sd"),
+          ~ . / sqrt(get(sub("_sd$", "_n", cur_column()))),
+          .names = "{sub('_sd$', '', .col)}_se"),
+        across(
+          ends_with("_mean"),
+          ~ . - qt(1 - (0.05 / 2), df = get(sub("_mean$", "_n", cur_column()))) * get(sub("_mean$", "_se", cur_column())),
+          .names = "{sub('_mean$', '', .col)}_ci.05"),
+        across(
+          ends_with("_mean"),
+          ~ . + qt(1 - (0.05 / 2), df = get(sub("_mean$", "_n", cur_column()))) * get(sub("_mean$", "_se", cur_column())),
+          .names = "{sub('_mean$', '', .col)}_ci.95")) %>%
+  })
+}), nm = names(moist.clean.ls))
+
+ggplot(moist.clean.m.ls$ACBB, aes(month, `treatment4 - control_mean`, color = sit_name)) +
+  geom_hline(yintercept = 0) +
+  geom_point() +
+  geom_errorbar(
+    aes(ymin = `treatment4 - control_ci.05`, ymax = `treatment4 - control_ci.95`),
+    width = .2) +
+  scale_x_continuous(breaks = 1:12, labels = month.abb) +
+  facet_grid(rows = vars(depth)) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+```
+
 ```{r moist-ts-prep}
-p.save <- function(expName, p) {
+p.save <- function(expName, p, pName = "sm") {
   dir <- "../docs/AGU24"
-  fnm <- file.path(dir, paste0(expName, "_sm.png"))
+  fnm <- file.path(dir, paste0(expName, "_", pName, ".png"))
   if (file.exists(fnm)) {
-    fnm <- file.path(dir, paste0(expName, "_sm1.png"))
+    fnm <- file.path(dir, paste0(expName, "_", pName, "1.png"))
   }
   ggsave(
     filename = fnm,
@@ -2170,31 +2318,30 @@ p.save(expName = "ACBB", plt.fx("ACBB", ACBB.sm.sum.ls2, "3 months", "%b", facet
 
 p.save(expName = "Blodgett", plt.fx("Blodgett", Bldg.sm.sum.ls, "1 year", "%Y", units = "ppn"))
 
-p.save(expName = "CiPEHR", plt.fx("CiPEHR", CPHR.sm.sum.ls, "1 year", "%y", DIF = "control - treatment", facet_col = "plt_subBlock"))
+p.save(expName = "CiPEHR", plt.fx("CiPEHR", CPHR.sm.sum.ls, "1 year", "%y"))
 
-p.save(expName = "CiPEHR", plt.fx("CiPEHR", CPHR.sm.sum.ls, "1 year", "%y", DIF = "control - treatment", show_plots = FALSE))
+p.save(expName = "Harvard Forest", plt.fx("Harvard Forest", HRVF.sm.sum.ls, "1 year", "%Y", units = "ppn"))
 
-p.save(expName = "Harvard Forest", plt.fx("Harvard Forest", HRVF.sm.sum.ls, "1 year", "%Y", DIF = "control - treatment", units = "ppn"))
+p.save(expName = "KAEFS", plt.fx("KAEFS", KAEF.sm.sum.ls, "1 year", "%Y"))
 
-p.save(expName = "Harvard Forest", plt.fx("Harvard Forest", HRVF.sm.sum.ls, "1 year", "%Y", DIF = "control - treatment", show_plots = FALSE, units = "ppn"))
-
-p.save(expName = "KAEFS", plt.fx("KAEFS", KAEF.sm.sum.ls, "1 year", "%Y", DIF = "control - treatment"))
-
-p.save(expName = "KAEFS", plt.fx("KAEFS", KAEF.sm.sum.ls, "1 year", "%Y", DIF = "control - treatment", show_plots = FALSE))
-
-p.save(expName = "SPRUCE", plt.fx("SPRUCE", SPRC.sm.sum.ls2, "1 year", "%Y", DIF = "control - treatment", units = "ppn"))
+p.save(expName = "SPRUCE", plt.fx("SPRUCE", SPRC.sm.sum.ls2, "1 year", "%Y", units = "ppn"))
 
 p.save(expName = "SWELTR", plt.fx("SWELTR", SWTR.sm.sum.ls, "4 months", "%b-%y", units = "ppn"))
 
-p.save(expName = "SWELTR", plt.fx("SWELTR", SWTR.sm.sum.ls, "1 year", "%Y", show_plots = FALSE, units = "ppn"))
+lapply(seq_along(TEAM.sm.sum.ls), function(i) {
+  if (i == 2) {
+    TEAM.sm.sum.ls[[i]] <- TEAM.sm.sum.ls[[i]][TEAM.sm.sum.ls[[i]][["mean"]] < .4, ]
+    TEAM.sm.sum.ls[[i]]
+  } else {
+    TEAM.sm.sum.ls[[i]]
+  }
+})
+test <- TEAM.sm.sum.ls
+test$dailySit <- test$dailySit[which(test$dailySit$mean < .4 & test$dailySit$mean > -.4), ]
 
-p.save(expName = "TEAM", plt.fx("TEAM", TEAM.sm.sum.ls, "1 year", "%Y", units = "ppn"))
-
-p.save(expName = "TEAM", plt.fx("TEAM", TEAM.sm.sum.ls, "1 year", "%Y", show_plots = FALSE, units = "ppn"))
+p.save(expName = "TEAM", plt.fx("TEAM", test, "1 year", "%Y"))
 
 p.save(expName = "TeRaCON", plt.fx("TeRaCON", TRCN.sm.sum.ls, "1 year", "%Y"))
-       
-p.save(expName = "TeRaCON", plt.fx("TeRaCON", TRCN.sm.sum.ls, "1 year", "%Y", show_plots = FALSE))
 ```
 
 ```{r sum-stats-sm}
@@ -2214,21 +2361,31 @@ units.ls <- list(
   KAEFS = "pct",
   SPRUCE = "ppn",
   SWELTR = "ppn",
-  TEAM = "ppn",
+  TEAM = "pct",
   TeRaCON = "pct"
 )
+eco.df <- data.frame(
+  sit_name = c("one85ExperimentStation", "ACBB_cropland", "ACBB_grassland", "Blodgett", "CiPEHR", "HarvardForest", "KAEFS", "SPRUCE", "SWELTR", "TEAM", "TeRaCON"),
+  eco = c("cropland", "cropland", "grassland", "temperate forest", "permafrost", "temperate forest", "grassland", "boreal forest", "tropical forest", "grassland", "grassland")
+) %>%
+  mutate(biome = ifelse(grepl("forest", eco), "forest", "grassland"))
+wrm.df <- data.frame(
+  sit_name = c("one85ExperimentStation", "ACBB_cropland", "ACBB_grassland", "Blodgett", "CiPEHR", "HarvardForest", "KAEFS", "SPRUCE", "SWELTR", "TEAM", "TeRaCON"),
+  wrm = c("above", "below", "below", "below", "above", "below", "above", "above/below", "below", "below", "above/below")
+)
+clm.df <- bind_rows(lapply(database, function(x) {
+  x$site[ , c("sit_long", "sit_lat")]
+}), .id = "expName")
+gai.list <- list.files(
+  path = "/Users/jeff/Seafile/ISRaD_geospatial_data/Global-AI_v3_monthly", 
+  pattern = "\\.tif$", full.names = TRUE)
+gai <- lapply(gai.list, function(x) rast(x))
+names(gai) <- str_extract(basename(gai.list), "(?<=ai_v3_)\\d+(?=\\.tif)")
+
 dat.rng <- lapply(seq_along(moist.clean.ls), function(i) {
   x <- moist.clean.ls[[i]]
-  if (any(grepl("daily", names(x)))) {
-    df <- data.frame(max = max(x$daily$data, na.rm = T),
-               min = min(x$daily$data, na.rm = T))
-  } else {
-    df <- bind_rows(lapply(x, function(y)
-      data.frame(max = max(y$daily$data, na.rm = T),
-                 min = min(y$daily$data, na.rm = T)) 
-      )) %>%
-      summarize(max = max(max, na.rm = T), min = min(min, na.rm = T))
-  }
+    df <- data.frame(max = max(x$dailySit$mean, na.rm = T),
+                     min = min(x$dailySit$mean, na.rm = T))
   if (units.ls[[i]] != "pct") {
     df * 100
   } else {
@@ -2237,4 +2394,526 @@ dat.rng <- lapply(seq_along(moist.clean.ls), function(i) {
 })
 max(unlist(sapply(dat.rng, "[[", 1)))
 min(unlist(sapply(dat.rng, "[[", 2)))
+
+moist.clean.ls$TeRaCON$subDaily$depth <- as.numeric(moist.clean.ls$TeRaCON$subDaily$depth) * 10
+moist.clean.ls$SPRUCE$subDaily$depth <- as.numeric(ifelse(moist.clean.ls$SPRUCE$subDaily$depth == 1, 4, 20))
+
+sm.mean.ls <- setNames(lapply(seq_along(moist.clean.ls), function(i) {
+  df <- moist.clean.ls[[i]][["subDaily"]]
+  ix.dif <- grep("- control", names(df))
+  if (units.ls[[i]] == "ppn") {
+    for (j in seq_along(ix.dif)) {
+      df[[ix.dif[j]]] <- df[[ix.dif[j]]] * 100  
+    }
+  }
+  if (length(grep("depth", names(df))) == 2) {
+    df$depth <- mean(c(as.numeric(df$depth_upper), as.numeric(df$depth_lower)))
+  }
+  if (any(grepl("sit_name", names(df)))) {
+    df$sit_name <- paste0(names(moist.clean.ls[i]), "_", df$sit_name)
+  } else {
+    df$sit_name <- names(moist.clean.ls[i])
+  }
+  df %>%
+    mutate(depth = as.numeric(depth)) %>%
+    mutate(depth = as.numeric(depth),
+           depth_cat = cut(depth, breaks = c(0, 10, 30, 51, Inf))) %>%
+    group_by(sit_name, depth_cat) %>%
+    summarize(
+      across(
+        .cols = contains("- control"),
+        .fns = list(mean = ~ mean(.x, na.rm = TRUE),
+                    sd = ~ sd(.x, na.rm = TRUE),
+                    n = ~ n())),
+      .groups = "drop") %>%
+   rowwise() %>%
+      mutate(
+        across(
+          ends_with("_sd"),
+          ~ . / sqrt(get(sub("_sd$", "_n", cur_column()))),
+          .names = "{sub('_sd$', '', .col)}_se"),
+        across(
+          ends_with("_mean"),
+          ~ . - qt(1 - (0.05 / 2), df = get(sub("_mean$", "_n", cur_column()))) * get(sub("_mean$", "_se", cur_column())),
+          .names = "{sub('_mean$', '', .col)}_ci.05"),
+        across(
+          ends_with("_mean"),
+          ~ . + qt(1 - (0.05 / 2), df = get(sub("_mean$", "_n", cur_column()))) * get(sub("_mean$", "_se", cur_column())),
+          .names = "{sub('_mean$', '', .col)}_ci.95")) %>%
+      ungroup() %>%
+      select(sit_name, depth_cat, contains("_mean"), contains("_ci.")) %>%
+      pivot_longer(
+        cols = contains("- control"),
+        names_to = c("dif", ".value"),
+        names_pattern = "^(.*)_(.*)$")
+  }), nm = names(moist.clean.ls))
+sm.mean.df <- bind_rows(sm.mean.ls)
+sm.mean.df$eco <- eco.df[match(sm.mean.df$sit_name, eco.df$sit_name), "eco"]
+sm.mean.df$wrm <- wrm.df[match(sm.mean.df$sit_name, wrm.df$sit_name), "wrm"]
+sm.mean.df$biome <- eco.df[match(sm.mean.df$sit_name, eco.df$sit_name), "biome"]
+# %>%
+#   mutate(dth = scales::rescale(depth, to = c(.1, .7)))
+p <- sm.mean.df %>%
+  mutate(tDif = as.numeric(str_extract(dif, "\\d+\\.*\\d*"))) %>%
+  ggplot(., aes(mean, sit_name, color = eco)) +
+  geom_vline(xintercept = 0) +
+  geom_errorbarh(
+    aes(xmin = ci.05, xmax = ci.95), 
+    position = position_dodge(width = 0.5), 
+    alpha = .5) +
+  geom_point(
+    aes(size = tDif, shape = wrm), 
+    position = position_dodge(width = 0.5),
+    stroke = 2) +
+  scale_size_continuous(name = "", range = c(1, 9), breaks = c(2, 4, 6, 8)) +
+  scale_shape_manual(
+    name = "",
+    values = c("above" = 2, "below" = 6, "above/below" = 11)) +
+  scale_color_brewer(name = "", palette = "Paired") +
+  guides(color = guide_legend(override.aes = list(size = 5)),
+         shape = guide_legend(override.aes = list(size = 5))) +
+  facet_grid(rows = vars(depth_cat)) +
+  labs(x = "mean (trt - ctl), %VWC") +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        axis.title.y = element_blank(),
+        # Adjusting legend text size
+        legend.text = element_text(size = 32),
+        # Adjusting x-axis text size
+        axis.text.x = element_text(size = 24),
+        # Adjusting x-axis title size
+        axis.title.x = element_text(size = 24),
+        # Adjusting y-axis text size
+        axis.text.y = element_text(size = 14),
+        # Adjusting strip text size
+        strip.text = element_text(size = 24))
+  
+ggsave(
+    filename = "/Users/jeff/eco-warm/docs/AGU24/mean_difSM.png",
+    plot = p,
+    height = 23.62, 
+    width = 37.94, 
+    dpi = 300,
+    units = "cm")
+```
+
+```{r sm-mo}
+sm.mean.m.ls <- setNames(lapply(seq_along(moist.clean.ls), function(i) {
+  df <- moist.clean.ls[[i]][["subDaily"]]
+  ix.dif <- grep("- control", names(df))
+  if (units.ls[[i]] == "ppn") {
+    for (j in seq_along(ix.dif)) {
+      df[[ix.dif[j]]] <- df[[ix.dif[j]]] * 100  
+    }
+  }
+  if (length(grep("depth", names(df))) == 2) {
+    df$depth <- mean(c(as.numeric(df$depth_upper), as.numeric(df$depth_lower)))
+  }
+  if (any(grepl("sit_name", names(df)))) {
+    df$sit_name <- paste0(names(moist.clean.ls[i]), "_", df$sit_name)
+  } else {
+    df$sit_name <- names(moist.clean.ls[i])
+  }
+  df %>%
+    mutate(depth = as.numeric(depth)) %>%
+    mutate(depth = as.numeric(depth),
+           depth_cat = cut(depth, breaks = c(0, 10, 30, 51, Inf)),
+           month = month(date)) %>%
+    group_by(sit_name, depth_cat, month) %>%
+    summarize(
+      across(
+        .cols = contains("- control"),
+        .fns = list(mean = ~ mean(.x, na.rm = TRUE),
+                    sd = ~ sd(.x, na.rm = TRUE),
+                    n = ~ n())),
+      .groups = "drop") %>%
+   rowwise() %>%
+      mutate(
+        across(
+          ends_with("_sd"),
+          ~ . / sqrt(get(sub("_sd$", "_n", cur_column()))),
+          .names = "{sub('_sd$', '', .col)}_se"),
+        across(
+          ends_with("_mean"),
+          ~ . - qt(1 - (0.05 / 2), df = get(sub("_mean$", "_n", cur_column()))) * get(sub("_mean$", "_se", cur_column())),
+          .names = "{sub('_mean$', '', .col)}_ci.05"),
+        across(
+          ends_with("_mean"),
+          ~ . + qt(1 - (0.05 / 2), df = get(sub("_mean$", "_n", cur_column()))) * get(sub("_mean$", "_se", cur_column())),
+          .names = "{sub('_mean$', '', .col)}_ci.95")) %>%
+      ungroup() %>%
+      select(sit_name, month, depth_cat, contains("_mean"), contains("_ci.")) %>%
+      pivot_longer(
+        cols = contains("- control"),
+        names_to = c("dif", ".value"),
+        names_pattern = "^(.*)_(.*)$")
+  }), nm = names(moist.clean.ls))
+sm.mean.m.df <- bind_rows(sm.mean.m.ls)
+sm.mean.m.df$eco <- eco.df[match(sm.mean.m.df$sit_name, eco.df$sit_name), "eco"]
+sm.mean.m.df$wrm <- wrm.df[match(sm.mean.m.df$sit_name, wrm.df$sit_name), "wrm"]
+sm.mean.m.df$biome <- eco.df[match(sm.mean.m.df$sit_name, eco.df$sit_name), "biome"]
+
+p <- sm.mean.m.df %>%
+  mutate(mean = ifelse(sit_name == "SPRUCE" & mean > .2, NA, mean)) %>%
+  filter(!is.na(month)) %>%
+  mutate(`temp. dif.` = as.numeric(str_extract(dif, "\\d+\\.*\\d*")),
+         jitter_offset = runif(n(), -0.2, 0.2),
+         group = paste0(sit_name, `temp. dif.`)) %>%
+  rename(`site name` = sit_name) %>%
+  ggplot(., aes(month, mean, color = `site name`, group = group)) +
+  geom_hline(yintercept = 0) +
+  geom_line() + 
+  # geom_errorbar(
+  #   aes(x = month + jitter_offset, ymin = ci.05, ymax = ci.95), 
+  #   alpha = .5, width = .2) +
+  geom_point(
+    aes(x = month + jitter_offset, mean, shape = biome, size = `temp. dif.`)) +
+  scale_size_continuous(range = c(1, 9), breaks = c(2, 4, 6, 8)) +
+  scale_shape_manual(
+    values = c("forest" = 7, "grassland" = 1)) +
+  # scale_colour_gradientn(colors = terrain.colors(5)) + 
+  scale_x_continuous(breaks = 1:12, labels = month.abb) +
+  facet_grid(rows = vars(depth_cat)) +
+  labs(y = "mean (trt - ctl), %VWC") +
+  guides(color = guide_legend(override.aes = list(size = 5)),
+         shape = guide_legend(override.aes = list(size = 5))) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        axis.title.x = element_blank(),
+        text = element_text(size = 24))
+
+ggsave(
+    filename = "/Users/jeff/eco-warm/docs/AGU24/month_meanSMdif.png",
+    plot = p,
+    height = 23.62, 
+    width = 37.94, 
+    dpi = 300,
+    units = "cm")
+
+
+sm.mean.m.df3 %>%
+  filter(!is.na(month)) %>%
+  mutate(`temp. dif.` = as.numeric(str_extract(dif, "\\d+\\.*\\d*")),
+         jitter_offset = runif(n(), -0.2, 0.2),
+         group = paste0(sit_name, `temp. dif.`),
+         ai = ai * .0001) %>%
+  rename(`site name` = sit_name) %>%
+  ggplot(., aes(month, mean, color = ai, group = group)) +
+  geom_hline(yintercept = 0) +
+  geom_line() + 
+  geom_point(
+    aes(x = month + jitter_offset, mean, shape = biome, size = `temp. dif.`)) +
+  scale_size_continuous(range = c(1, 9), breaks = c(2, 4, 6, 8)) +
+  scale_shape_manual(
+    values = c("forest" = 2, "grassland" = 1)) +
+  scale_colour_gradientn(colors = terrain.colors(5)) +
+  scale_x_continuous(breaks = 1:12, labels = month.abb) +
+  facet_grid(rows = vars(depth_cat)) +
+  labs(y = "mean (trt - ctl), %VWC") +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        axis.title.y = element_blank())
+
+
+long.lat <- bind_rows(
+      lapply(database, function(x) x$site[ , c("sit_long", "sit_lat")]), .id = "expName")
+sm.mean.m.df2 <- sm.mean.m.df %>%
+  mutate(
+    sit_name = ifelse(
+      sit_name == "one85ExperimentStation", "185ExperimentStation", sit_name),
+    expName = sapply(sit_name, function(sit) {
+      match <- x$expName[str_detect(sit, x$expName)]
+      if (length(match) > 0) match else NA
+    })) %>%
+  left_join(long.lat, by = "expName")
+sm.mean.m.ls <- split(sm.mean.m.df2, sm.mean.m.df2$month)
+sm.mean.m.df3 <- bind_rows(lapply(seq_along(sm.mean.m.ls), function(i) {
+  x <- sm.mean.m.ls[[i]]
+  ai <- terra::extract(gai[[i]], x[, c("sit_long", "sit_lat")])
+  names(ai)[2] <- "ai"
+  cbind(x, ai = ai[, "ai"])
+}))
+
+summary(lmer(mean ~ depth_cat + wrm + (1 | sit_name), sm.mean.df))
+
+library(forcats)
+p <- ggplot(sm.mean.df, aes(forcats::fct_infreq(eco), fill = eco)) +
+  geom_bar() +
+  scale_fill_brewer("", palette = "Paired") +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 20),
+        axis.text.y = element_text(size = 24),
+        axis.title.y = element_text(size = 24),
+        axis.title.x = element_blank(),
+        legend.position = "none") 
+
+ggsave(
+    filename = "/Users/jeff/eco-warm/docs/AGU24/eco.png",
+    plot = p,
+    height = 12.49, 
+    width = 21.48, 
+    dpi = 300,
+    units = "cm")
+
+```
+### temp dat 
+
+```{r temp-data-test}
+temp.ls <- setNames(vector(mode = "list", length = length(expName.ls)), nm = expName.ls)
+
+# 185Exp
+temp.ls$`185ExperimentStation` <- list(read.csv( "/Users/jeff/eco-warm/data/experiments/185ExperimentStation/input_data/datafile_soilW.csv"))
+
+
+# ACBB
+temp.ls$ACBB <- list(
+  cropland = read.csv("/Users/jeff/eco-warm/data/experiments/ACBB/input_data/temp_C.csv"),
+  grassland = read.csv("/Users/jeff/eco-warm/data/experiments/ACBB/input_data/temp_G.csv"))
+temp.ls$ACBB <- setNames(lapply(seq_along(temp.ls$ACBB), function(i) {
+  x <- temp.ls$ACBB[[i]]
+  x$plt_name <- paste0(
+    names(temp.ls$ACBB)[i], "_", ifelse(x$treat == "T", 4, 0), "_", x$plot)
+  x
+}), nm = c("cropland", "grassland"))
+
+ACBB.st.ls <- filPltTbl.fx(temp.ls, "ACBB", orders = "mdy HM", dateName = "TIMESTAMP")
+ACBB.st.sum.ls <- setNames(lapply(ACBB.st.ls, function(x) {
+  difSum.ts.fx(x, dat_col_nm = "data")
+}), nm = names(temp.ls$ACBB))
+ACBB.st.sum.ls2 <- setNames(
+  lapply(names(ACBB.st.sum.ls[[1]]), function(name) {
+    # Extract the elements corresponding to 'name' from all sublists in ACBB.sm.sum.ls
+    elements <- lapply(seq_along(ACBB.st.sum.ls), function(i) {
+      element <- ACBB.st.sum.ls[[i]][[name]]
+      # Add the sit_name column with the name of the current sublist
+      if (!is.null(element)) {
+        element$sit_name <- names(ACBB.st.sum.ls)[i]
+        element 
+      } else {
+        NULL
+      }
+    })
+    
+    # Combine all elements by row
+    do.call(rbind, elements)
+  }), nm = names(ACBB.st.sum.ls[[1]])) 
+p.save(expName = "ACBB", plt.fx("ACBB", ACBB.st.sum.ls2, "3 months", "%b", facet_col = "sit_name", VAR = "deg C", datType = "soil temperature"))
+
+ACBB.sm.st.day.df <- merge(
+  ACBB.st.sum.ls2$dailySit, 
+  ACBB.sm.sum.ls2$dailySit,
+  by = c("dateDay", "depth", "dif", "sit_name"),
+  suffixes = c("_tempr", "_moist"))
+
+sp.fx <- function(x, y, method, depths) {
+  sp <- spline(x, y, method = method)
+  sp.ss <- smooth.spline(sp) # convert to class "spline" with smooth.spline fxn
+  spp <- predict(sp.ss, depths) 
+  data.frame(spp)
+}
+
+ACBB.st.df <- rbind(ACBB.st.ls[[1]], ACBB.st.ls[[2]])
+ACBB.sm.ls2 <- lapply(ACBB.sm.ls, function(x)
+  bind_rows(lapply(split(x, x$date), function(y) 
+    bind_rows(lapply(split(y, y$plt_name), function(z)
+      sp.fx(z$depth, z$data, method = "natural", depths = c(5, 15, 30, 50, 75, 100))
+      ), .id = "plt_name")), .id = "date"))
+ACBB.sm.df <- rbind(ACBB.sm.ls2[[1]], ACBB.sm.ls2[[2]]) %>%
+  rename(depth = x, data = y)
+ACBB.st.sm.df <- merge(
+  ACBB.st.df[ , names(ACBB.st.df) %in% names(ACBB.sm.df)],
+  ACBB.sm.df,
+  by = c("depth", "plt_name", "date"),
+  suffixes = c("_st", "_sm")
+)
+ACBB.st.sm.df$month <- month(ACBB.st.sm.df$date)
+ACBB.st.sm.df$plt_treat <- ifelse(grepl(0, ACBB.st.sm.df$plt_name), "control", "treatment")
+ACBB.st.sm.df$plt_rep <- substr(ACBB.st.sm.df$plt_name, nchar(ACBB.st.sm.df$plt_name), nchar(ACBB.st.sm.df$plt_name))
+ACBB.st.sm.df$sit_name <- ifelse(grepl("crop", ACBB.st.sm.df$plt_name), "cropland", "grassland")
+ACBB.st.sm.df %>%
+  mutate(month = month(date)) %>%
+  filter(month > 3 & month < 9) %>%
+  ggplot(., aes(data_st, data_sm, color = plt_treat)) + 
+  geom_smooth(method = "lm", se = F) +
+  geom_point(aes(shape = as.character(plt_rep)), alpha = .01) +
+  facet_grid(cols = vars(sit_name), rows = vars(depth), scales = "free") +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+
+test <- lapply(split(ACBB.st.sm.df, ACBB.st.sm.df$sit_name), function(x) {
+    lmer(data_sm ~ data_st + plt_treat * depth + (1 | plt_rep), x)
+})
+test2 <- lapply(split(ACBB.st.sm.df, ACBB.st.sm.df$sit_name), function(x) 
+  lmer(data_sm ~ data_st * plt_treat * depth + as.factor(month) + (1 | plt_rep), x))
+test3 <- 
+  lmer(data_sm ~ data_st + plt_treat * depth + sit_name + (sit_name|plt_rep), ACBB.st.sm.df)
+
+# look for the mean differences by month at each site, then look at the relationship between temperature and soil moisture * depth, with site as random factor
+
+
+# B4W
+st.B4WarmED.in <- list.files("/Users/jeff/eco-warm/data/experiments/B4WarmED/input_data", full.names = TRUE)
+moist.ls$B4WarmED <- lapply(st.B4WarmED.in, read.csv)
+
+# Blodgett
+temp.ls$Blodgett <- list(read.csv("/Users/jeff/eco-warm/data/experiments/Blodgett/input_data/20240125_processed Blodgett soil temperature.csv"))
+
+# fix mislabeling of plot 7 "trt
+moist.ls$Blodgett[[1]][moist.ls$Blodgett[[1]][["PP"]] == 7, "trt"] <- "C" 
+
+# add plt_name to link to plot table
+moist.ls$Blodgett[[1]][["plt_name"]] <- paste0(ifelse(moist.ls$Blodgett[[1]][["trt"]] == "H", "treatment", "control"), "_",  moist.ls$Blodgett[[1]][["PP"]])
+
+# remove data from plot 'ambient' and select relevant columns
+moist.ls$Blodgett[[1]] <- moist.ls$Blodgett[[1]][-which(moist.ls$Blodgett[[1]][["PP"]] == "ambient"), c("TIMESTAMP", "plt_name", "moisture", "depth")] %>%
+  rename(date = TIMESTAMP)
+
+# check for matches w/ plt_name and plt_name
+chkNms("Blodgett", moist.ls)
+
+# convert dates and select allowable cols
+moist.ls$Blodgett[[1]][["date"]] <- parse_date_time(moist.ls$Blodgett[[1]][["date"]], orders = "%y-%m-%d %H:%M:%S")
+
+BLDG.st.ls <- filPltTbl.fx(temp.ls, "Blodgett", orders = "%y-%m-%d %H:%M:%S", dateName = "TIMESTAMP")
+ACBB.st.sum.ls <- setNames(lapply(ACBB.st.ls, function(x) {
+  difSum.ts.fx(x, dat_col_nm = "data")
+}), nm = names(temp.ls$ACBB))
+
+# CiPEHR
+moist.ls$CiPEHR <- list(
+  read.csv("/Users/jeff/eco-warm/data/experiments/CiPEHR/input_data/flux_hh.csv"))
+moist.ls$CiPEHR[[1]] <- moist.ls$CiPEHR[[1]] %>%
+  filter(!is.na(vwc)) %>%
+  mutate(
+    depth_upper = 0,
+    depth_lower = 15,
+    plt_name = paste0(
+      ifelse(treatment == "Air Warming", "control_summerWarm",
+             ifelse(treatment == "Control", "control_",
+                    ifelse(treatment == "Soil Warming", "treatment_", "treatment_summerWarm"))), "_", block, "_", fence, "_", plot)) %>%
+  select(ts, plt_name, depth_upper, depth_lower, vwc) %>%
+  rename(date = ts)
+
+# Harvard Forest
+moist.ls$HarvardForest <- list(read.csv("/Users/jeff/eco-warm/data/experiments/HarvardForest/input_data/hf005-07-soil-moisture_PH.csv"))
+
+# pivot longer, add depths, and select cols
+moist.ls$HarvardForest[[1]] <- moist.ls$HarvardForest[[1]] %>%
+  pivot_longer(cols = 2:19, names_to = "plot", values_to = "vwc") %>%
+  mutate(
+    depth_upper = 0, 
+    depth_lower = 30, 
+    plt_name = sapply(strsplit(plot, "_"), "[[", 1)) %>%
+  select("date", "plt_name", "depth_upper", "depth_lower", "vwc")
+
+
+# KAEFS (rename cols)
+moist.ls$KAEFS <- lapply(list(read.csv("/Users/jeff/eco-warm/data/experiments/KAEFS/input_data/SoilMoisture2018-2023_reshapeLong.csv")), function(x) x %>%
+  rename(date = Timestamp, plt_name = plotID))
+
+
+# SPRUCE
+moist.ls$SPRUCE <- lapply(list.files("/Users/jeff/eco-warm/data/experiments/SPRUCE/input_data", full.names = TRUE)[2:7], read.csv)
+names(moist.ls$SPRUCE) <- paste0("soil_", seq(2017, 2022))
+
+# Notes: 1) VWC missing from "soil_2016"; 2) these files also contain a "treatment status" column, as well as temp, H2O table, air T, rel. humid, and precip; 3) depth is relative to mean hollow elevation, so challenging to compare to other systems...
+
+# pivot longer & remove missing data
+moist.ls$SPRUCE <- lapply(moist.ls$SPRUCE, function(x) {
+  x <- x %>%
+    select(Timestamp, Plot, 34:39)
+  names(x)[3:8] <- c("A_1", "A_2", "B_1", "B_2", "C_1", "C_2")
+  x %>%
+    pivot_longer(cols = 3:8, names_sep = "_", names_to = c("rep", "depth"), values_to = "vwc") %>%
+    filter(vwc != -9999) %>%
+    rename(replicates = rep, plt_name = Plot, date = Timestamp)
+})
+
+
+# SWELTR
+moist.ls$SWELTR <- list(read.csv("/Users/jeff/eco-warm/data/experiments/SWELTR/input_data/SWELTR_to2020_T_H2O.csv"))
+moist.ls$SWELTR[[1]] <- moist.ls$SWELTR[[1]] %>% mutate(plt_name = paste0(PLOT, "_", TREAT)) %>%
+  rename(depth = DEPTH, date = TIME) %>%
+  select(date, plt_name, depth, H2O)
+
+# note this file contains temp data as well
+
+
+# TEAM
+moist.ls$TEAM <- list(read.csv("/Users/jeff/eco-warm/data/experiments/TEAM/input_data/moist.csv"))
+moist.ls$TEAM[[1]] <- moist.ls$TEAM[[1]] %>%
+  rename(plt_name = plot, date = time)
+
+
+# TeRaCON
+# moist.ls$TeRaCON <- list(
+#   # 2012-2018
+#   TDR_1 = read.csv("/Users/jeff/eco-warm/data/experiments/TeRaCON/raw/Biocon_hourly_2012-2018vprimary1.csv"),
+#   # 2019-2023
+#   sentek = read.csv("/Users/jeff/eco-warm/data/experiments/TeRaCON/input_data/sentek2019_2023 data for distribution.csv"),
+#   TDR_2 = read.csv("/Users/jeff/eco-warm/data/experiments/TeRaCON/raw/TDR 2019-2023 data for distribution.csv"))
+
+# exlude TDR data for now (need to confirm sensor depth; plus Sentek data is depth resolved)
+moist.ls$TeRaCON <- list(
+  sentek = read.csv("/Users/jeff/eco-warm/data/experiments/TeRaCON/input_data/sentek2019_2023 data for distribution.csv", na.strings = "NAN"))
+
+# get plot name key
+sentek_key <- read.csv("/Users/jeff/eco-warm/data/experiments/TeRaCON/raw/sentek_key.csv")
+sentek_key$ringProbe <- paste0(sentek_key$Ring, sentek_key$Probe.Letter)
+
+# add plot name and reshape data
+moist.ls$TeRaCON$sentek <- moist.ls$TeRaCON$sentek %>%
+  select(TIMESTAMP, STATNAME, starts_with("VWC"))
+names(moist.ls$TeRaCON$sentek)[3:ncol(moist.ls$TeRaCON$sentek)] <- substr(gsub("VWC_", "", names(moist.ls$TeRaCON$sentek)[3:ncol(moist.ls$TeRaCON$sentek)]), 1, 3)
+moist.ls$TeRaCON$sentek <- moist.ls$TeRaCON$sentek %>%
+  filter(!if_all(3:ncol(moist.ls$TeRaCON$sentek), is.na)) %>%
+  pivot_longer(cols = 3:ncol(moist.ls$TeRaCON$sentek), names_to = c("Probe", "depth"), names_sep = "\\.", values_to = "vwc") %>%
+  filter(!is.na(vwc)) %>%
+  mutate(ring = substr(STATNAME, 6, 6))
+moist.ls$TeRaCON$sentek$plt_name <- sentek_key$Plot[match(paste0(moist.ls$TeRaCON$sentek$ring, moist.ls$TeRaCON$sentek$Probe), sentek_key$ringProbe)]
+moist.ls$TeRaCON$sentek <- moist.ls$TeRaCON$sentek %>%
+  rename(date = TIMESTAMP) %>%
+  select(date, plt_name, depth, vwc)
+
+# TRACE
+moist.ls$TRACE <- list(
+  surface = read.csv("/Users/jeff/eco-warm/data/experiments/TRACE/input_data/TRACE_SurfaceSoil_2015-2018.csv"),
+  deep = read.csv("/Users/jeff/eco-warm/data/experiments/TRACE/input_data/TRACE_DeepSoil_2016-2018.csv"))
+
+# "colName"         "description"     "unit"            "dataType" "siteName"        "plotName"        "sensorMakeModel" "methodName"     "methodNotes"     "methodDOI"       "depthTopM"       "depthBottomM"   "depthHeight"     "zeroRef"
+
+# remove NULL
+temp.ls <- Filter(Negate(is.null), temp.ls)
+
+```
+
+### texture
+
+Compare mean sand content by depth w/ mean soil moisture difference (trt-ctl)
+
+Would also be good to account for MAP
+
+```{r texture}
+ACBB.sand <- read.csv("/Users/jeff/eco-warm/data/experiments/ACBB/input_data/Sand.csv")
+ACBB.sand.sp <- mpspline(ACBB.sand[ , c("Date", "depth_upper", "depth_lower", "Sand")], d = c(5, 15, 30, 50, 75, 100))
+
+```
+
+```{r local-clim}
+map <- worldclim
+mat 
+pet
+
+geo.paths <- 
+nms <- basename(geo.paths)
+df <- data.frame(matrix(nrow))
+for (x in geo.paths) {
+  tifRaster <- rast(x)
+  terra::crs(tifRaster) <- CRS
+  ext <- extract(tifRaster, cbind(database$site$sit_long, database$site$sit_lat))
+}
+
+sit.df <- bind_rows(lapply(database, function(x) x$site[ , c("sit_name", "sit_lat", "sit_long")]), .id = "expName")
+
 ```
