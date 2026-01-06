@@ -6,6 +6,11 @@
 .RData*
 .Ruserdata
 .Rapp.history
+##ignore large R data files
+.RDS
+.rds
+##ignore pptx
+.pptx
 ##ignore excel temp files
 ~$*
 # Folders

@@ -9,12 +9,29 @@ Files:
     - "hf045-03-soil-temp.csv"
     - "hf045-03-soil-temp_dd.csv"
     - "hf045-03-soil-temp_flmd.csv"
-Source: Serita Frey <serita.frey@unh.edu>
+    - "hf005-01-trace-gas.csv"
+    - "hf018-01-trace-gas.csv"
+    -
+Source:
+  - Serita Frey <serita.frey@unh.edu>
+  - Mel Knorr <mknorr@usnh.edu>
 Curator: J. Beem-Miller
-Date: 24-Sep-2024
+Date: 10-Sep-2025
 Contents:
   - soil temperature and moisture data from Harvard Forest
+  - soil CO2 flux data
 Notes:
+  - currently (10-Sep-2025) we only have the Prospect Hill tract data in SWEDDIE, but would be good to add the other data as they are easily accessible from the Harvard Forest data repository
+  - MK sent links to gas flux data to JBM on 14-Jul-2025, but JBM still needs to enter it as of 10-Sep-2025
+  - hf005-01-trace-gas.csv:
+    - Prospect Hill tract CO2 fluxes (plus other trace gases?)
+    - link <https://harvardforest1.fas.harvard.edu/exist/apps/datasets/showData.html?id=HF005>
+  - hf018-01-trace-gas.csv:
+    - Barre Woods trace gas/CO2 flux data
+    - link <https://harvardforest1.fas.harvard.edu/exist/apps/datasets/showData.html?id=HF018>
+  - hf045-01-soil-resp-3.csv:
+    - SWANN trace soil resp data
+    - link <https://harvardforest1.fas.harvard.edu/exist/apps/datasets/showData.html?id=HF045>
   - data dictionary and file level metadata updated 24 Sep. 2024
   - additional information provided by S. Frey and M. Knorr via email in July 2024
   - retrieved from Harvard Forest archive (web repository) by J. Beem-Miller on 25-Jun-2024

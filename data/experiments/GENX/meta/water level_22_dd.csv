@@ -1,0 +1,11 @@
+"colName","description","units","dataType","sensorMakeModel","methodName","methodNotes","methodDOI","depthTopM","depthBottomM","depthHeight","zeroRef","notes"
+"timestamp","time that the measurement was taken (EST)",NA,"date",NA,NA,NA,NA,NA,NA,NA,NA,""
+"plt_name","the location of the plot. The letter indicates the transect number and the number indicates the heating zone",NA,"character",NA,NA,NA,NA,NA,NA,NA,NA,""
+"water_level","The water level in the plot","cm","numeric","Aquatroll 200",NA,NA,NA,0.278,NA,"height","atmosphere-soil","atmosphere-soil interface from NAD83 projection"
+
+
+
+
+
+
+

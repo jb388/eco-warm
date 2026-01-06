@@ -1,9 +1,0 @@
-email,name,dataContactName,dataContactEmail,fileName,sit_name,varName,description,UTC_offset,fileVersionNumber,startDate,endDate,missingValCodes,notes
-jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Wenxu Dong,dongwx@sjziam.ac.cn,datafile_airT.csv,"Luancheng District, Shijiazhuang City, Hebei province",air temperature,site air temperature,8,NA,2/1/21,9/30/24,#N/A,NA
-jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Wenxu Dong,dongwx@sjziam.ac.cn,datafile_BD.csv,"Luancheng District, Shijiazhuang City, Hebei province",bulk density,soil bulk density for 0-10; 10-20; 20-30 cm,8,NA,1/1/24,1/1/24,,NA
-jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Wenxu Dong,dongwx@sjziam.ac.cn,datafile_humidity.csv,"Luancheng District, Shijiazhuang City, Hebei province",air humidity,site air humidity,8,NA,2/1/21,9/30/24,,NA
-jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Wenxu Dong,dongwx@sjziam.ac.cn,datafile_precip.csv,"Luancheng District, Shijiazhuang City, Hebei province",precipitation,daily precipitation for site,8,NA,2/1/21,9/30/24,,NA
-jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Wenxu Dong,dongwx@sjziam.ac.cn,datafile_soilT.csv,"Luancheng District, Shijiazhuang City, Hebei province",soil temperature,soil temperature sensor data from 2021-2024,8,NA,5/9/21 10:00,4/7/24 17:00,#N/A,NA
-jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Wenxu Dong,dongwx@sjziam.ac.cn,datafile_soilW.csv,"Luancheng District, Shijiazhuang City, Hebei province",soil moisture,soil moisture sensor data from 2021-2024,8,NA,5/9/21 10:00,4/7/24 17:00,#N/A,NA
-jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Wenxu Dong,dongwx@sjziam.ac.cn,datafile_SOM.csv,"Luancheng District, Shijiazhuang City, Hebei province",soil organic matter,Soil organic matter content from 2020-2024,8,NA,6/4/21,6/5/24,#N/A,NA
-jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Wenxu Dong,dongwx@sjziam.ac.cn,datafile_YIELD.csv,"Luancheng District, Shijiazhuang City, Hebei province",grain yield,Wheat season yield from 2020-2024 [assume this is grain yield],8,NA,6/4/21,6/5/24,#N/A,NA

@@ -4,12 +4,14 @@ Files:
   - data
 Source: Heidi Rodenhizer <hrodenhizer@woodwellclimate.org>
 Curator: J. Beem-Miller
-Date: 26-Sep-2024
+Date: 10-Sep-2025
 Contents:
   - soil temperature and moisture data from CiPEHR site
+  - soil respiration data
 Notes:
+  - soil CO2 flux data needs to be disaggreated and checked as of 10-Sep-2025, but was sent in Apr. 2024 with other data files
   - data sent to J. Beem-Miller <jbeemmiller@lbl.gov> by email (google drive link) on 16-Apr-2024
-  - updated files w/ plot & treatment info sent on April 24
+  - updated files w/ plot & treatment info sent on April 24 
   - Experiment notes from Mauritz et al., 2017:
     - "Soil warming was initiated in the winter of 2008/2009, air warming in April 2009, and water table manipulation in June 2011. Briefly, soil warming was achieved using snow fences (1.5 m high × 8 m long) that trap snow down-wind and insulate the soil in the winter; air warming was achieved using polycarbonate open top chambers (cubicle OTCs of 0.36 m2 × 0.5 m) and drying was controlled by metal sheets  installed 0.6 m into the ground (2.5 m × 1.5 m) w/ pumps used to lower the water table. Each April, the excess snowpack is manually removed to match the ambient snowpack and to avoid artifacts such as increased water input and delayed phenology"
   - Sensor data in "experiment" table

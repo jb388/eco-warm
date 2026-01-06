@@ -1,0 +1,62 @@
+	 plot table names do not match template 
+		Column names missing: plt_subBlock, plt_notes 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock, plt_notes, plt_treat_heat 
+	 site table names do not match template 
+		Column names missing: biome 
+		Column names extra: landCover 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock, plt_notes 
+	 experiment table names do not match template 
+		Column names missing: treatment_add_units, heat_AG_date_f 
+		Column names extra: heat_BG_date_f.1 
+	 site table names do not match template 
+		Column names missing: country, MAT_refPeriod, MAP_refPeriod, aspect, soil_texture_class, site_notes, permafrost, soil_depth 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 experiment table names do not match template 
+		Column names missing: treatment_add_units, heat_AG_date_f 
+		Column names extra: heat_BG_date_f.1 
+	 site table names do not match template 
+		Column names missing: country, MAT_refPeriod, MAP_refPeriod, aspect, soil_texture_class, site_notes, permafrost, soil_depth 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock, plt_notes 
+	 site table names do not match template 
+		Column names missing: country, MAT_refPeriod, MAP_refPeriod, aspect, soil_texture_class, site_notes, permafrost, soil_depth 
+	 experiment table names do not match template 
+		Column names missing: treatment_add_units, heat_AG_date_f 
+		Column names extra: heat_BG_date_f.1 
+	 plot table names do not match template 
+		Column names extra: X, X.1, X.2, X.3 
+	 site table names do not match template 
+		Column names missing: country, MAT_refPeriod, MAP_refPeriod, aspect, soil_texture_class, site_notes, permafrost, soil_depth 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 

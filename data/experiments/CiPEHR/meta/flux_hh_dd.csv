@@ -7,6 +7,7 @@ doy,day of year,,numeric,,,,,,,,
 block,block ID,,,,,,,,,,
 fence,fence ID (suBlock),,,,,,,,,,
 plot,plot ID,,,,,,,,,,
+treatment,plot treatment,,string,,,,,,,,
 t5,temperature at 5 cm,deg C,numeric,,,,,0,5,depth,atmosphere-soil interface
 t10,temperature at 10 cm,deg C,numeric,,,,,5,10,depth,atmosphere-soil interface
 t20,temperature at 20 cm,deg C,numeric,,,,,10,20,depth,atmosphere-soil interface
@@ -17,3 +18,8 @@ t20f,gap filled temperature at 20 cm,deg C,numeric,,,,,10,20,depth,atmosphere-so
 t40f,gap filled temperature at 40 cm,deg C,numeric,,,,,20,40,depth,atmosphere-soil interface
 vwc,volumetric water content,proportion,numeric,Campbell CS616,water content reflectance probes,site calibrated,,0,15,depth,atmosphere-soil interface
 gwc,gravimetric water content,proportion,numeric,,DC half bridge resistance,site calibrated,,0,15,depth,atmosphere-soil interface
+
+
+
+
+

@@ -1,0 +1,105 @@
+"expName","sitName","fileName","varName","description","UTC_offset","fileVersionNumber","startDate","endDate","missingValCodes","notes"
+"185ExperimentStation","Luancheng District, Shijiazhuang City, Hebei province","datafile_airT.csv","air temperature","site air temperature","8",NA,"2/1/21","9/30/24","#N/A",NA
+"185ExperimentStation","Luancheng District, Shijiazhuang City, Hebei province","datafile_BD.csv","bulk density","soil bulk density for 0-10; 10-20; 20-30 cm","8",NA,"1/1/24","1/1/24","",NA
+"185ExperimentStation","Luancheng District, Shijiazhuang City, Hebei province","datafile_humidity.csv","air humidity","site air humidity","8",NA,"2/1/21","9/30/24","",NA
+"185ExperimentStation","Luancheng District, Shijiazhuang City, Hebei province","datafile_precip.csv","precipitation","daily precipitation for site","8",NA,"2/1/21","9/30/24","",NA
+"185ExperimentStation","Luancheng District, Shijiazhuang City, Hebei province","datafile_soilT.csv","soil temperature","soil temperature sensor data from 2021-2024","8",NA,"5/9/21 10:00","4/7/24 17:00","#N/A",NA
+"185ExperimentStation","Luancheng District, Shijiazhuang City, Hebei province","datafile_soilW.csv","soil moisture","soil moisture sensor data from 2021-2024","8",NA,"5/9/21 10:00","4/7/24 17:00","#N/A",NA
+"185ExperimentStation","Luancheng District, Shijiazhuang City, Hebei province","datafile_SOM.csv","soil organic matter","Soil organic matter content from 2020-2024","8",NA,"6/4/21","6/5/24","#N/A",NA
+"185ExperimentStation","Luancheng District, Shijiazhuang City, Hebei province","datafile_YIELD.csv","grain yield","Wheat season yield from 2020-2024 [assume this is grain yield]","8",NA,"6/4/21","6/5/24","#N/A",NA
+"ACBB","Lusignan","belowGroundProductivity.csv","root biomass","root density","1",NA,"1/1/21","1/1/21",NA,NA
+"ACBB","Lusignan","bulkDensity_2022.csv","bulk density","soil bulk density","1",NA,"1/1/22","1/1/22",NA,NA
+"ACBB","Lusignan","grainYield.csv","grain yield","grain yield for cropland plots","1",NA,"1/1/22","1/1/22",NA,NA
+"ACBB","Lusignan","LAI.csv","leaf area index","leaf area index measured during period March to June (2022) by scanning leaves with LI-2000 (Li-Cor, Lincoln, Nebraska, USA)","1",NA,"1/1/22","1/1/22",NA,NA
+"ACBB","Lusignan","strawYield.csv","straw yield","straw yield","1",NA,"1/1/22","1/1/22",NA,NA
+"ACBB","Lusignan","Horizons.csv","soil horizon","soil horizon designation","1",NA,"1/1/07","1/1/07",NA,NA
+"ACBB","Lusignan","Bulk density.csv","bulk density","soil bulk density from initial site characterization in 2007","1",NA,"1/1/07","1/1/07",NA,NA
+"ACBB","Lusignan","pH_H2O.csv","soil pH","soil pH measured in 1:1 water","1",NA,"1/1/07","1/1/07",NA,NA
+"ACBB","Lusignan","Sand.csv","sand content","percent sand content of soil following Gee & Bauder 1986","1",NA,"1/1/07","1/1/07",NA,NA
+"ACBB","Lusignan","Silt.csv","silt content","percent sand content of soil following Gee & Bauder 1986","1",NA,"1/1/07","1/1/07",NA,NA
+"ACBB","Lusignan","Clay.csv","clay","percent clay content of soil following Gee & Bauder 1986","1",NA,"1/1/07","1/1/07",NA,NA
+"ACBB","Lusignan","CEC.csv","cation exchange capacity","cation exchange capacity as determined via cobalt hexamine trichloride following Ciesielski and Sterckeman (1997)","1",NA,"1/1/07","1/1/07",NA,NA
+"ACBB","Lusignan","Base saturation.csv","base saturation","base saturation as determined via cobalt hexamine trichloride following Ciesielski and Sterckeman (1997)","1",NA,"1/1/07","1/1/07",NA,NA
+"ACBB","Lusignan","Alo.csv","oxalate extractable aluminum","oxalate extractable aluminum from ground < 2 mm soil fraction","1",NA,"1/1/07","1/1/07",NA,NA
+"ACBB","Lusignan","Feo.csv","oxalate extractable iron","oxalate extractable iron from ground < 2 mm soil fraction","1",NA,"1/1/07","1/1/07",NA,NA
+"ACBB","Lusignan","Fed.csv","dithionite extractable iron","iron extracted with sodium-citrate dithionite","1",NA,"1/1/07","1/1/07",NA,NA
+"ACBB","Lusignan","Ald.csv","dithionite extractable aluminum","aluminum extracted with sodium-citrate dithionite","1",NA,"1/1/07","1/1/07",NA,NA
+"ACBB","Lusignan","moist_C.csv","soil moisture","sensor measured soil moisture from cropland plots","1",NA,"7/1/21","6/20/22 7:00",NA,NA
+"ACBB","Lusignan","moist_G.csv","soil moisture","sensor measured soil moisture from grassland plots","1",NA,"7/1/21","6/20/22 6:30",NA,NA
+"ACBB","Lusignan","temp_C.csv","soil temperature","sensor measured soil temperature from cropland plots","1",NA,"7/1/21","6/30/22 23:54",NA,NA
+"ACBB","Lusignan","temp_G.csv","soil temperature","sensor measured soil temperature for grassland plots","1",NA,"7/1/21","6/30/22 23:50",NA,NA
+"ACBB","Lusignan","SOC_2022.csv","soil organic C","soil organic C content","1",NA,"2022-01-01","2022-01-01",NA,NA
+"Achenkirch","montane forest","air_temp...C..csv","air temperature","site level air temperature","1",1,"2005-01-01","2022-12-31",NA,NA
+"Achenkirch","montane forest","CO2.flux.µmol.m2.sec.csv","soil CO2 flux","soil CO2 flux measured by chamber","1",1,"2005-01-01","2022-12-31",NA,NA
+"Achenkirch","montane forest","heating.on.off.csv","heating status","flag for whether heating is on or off","1",1,"2005-01-01","2022-12-31",NA,NA
+"Achenkirch","montane forest","precipitation..mm..csv","precipitation","site level precipitation","1",1,"2005-01-01","2022-12-31",NA,NA
+"Achenkirch","montane forest","rel_humidity.....csv","bulk density","relative air humidity measured for site","1",1,"2005-01-01","2022-12-31",NA,NA
+"Achenkirch","montane forest","soil_moist_manual..Vol...csv","soil moisture","manual volumetric soil moisture measurements made with TDR sensor between 0 and 7.5 cm in depth","1",1,"2005-01-01","2022-12-31",NA,NA
+"Achenkirch","montane forest","soil.temp.manual.5cm...C..csv","soil temperature","soil temperature measured manually at 5 cm depth","1",1,"2005-01-01","2022-12-31",NA,NA
+"Achenkirch","montane forest","soilTemp.csv","soil temperature","soil temperature measured via sensor at 5 and 15 cm depths","1",1,"2005-01-01","2022-12-31",NA,NA
+"Blodgett",NA,"20240125_processed Blodgett soil temperature.csv",NA,"soil temperature sensor data from Blodgett Forest","-8",NA,"12/31/13 16:00","1/18/24 8:00",NA,NA
+"Blodgett",NA,"20240125_processed Blodgett soil moisture.csv",NA,"soil moisture sensor data from Blodgett Forest","-8",NA,"10/24/13 11:00","1/18/24 8:00",NA,NA
+"CiPEHR",NA,"flux_hh.csv",NA,"soil temperature and moisture data, resolved by depth, 30 min frequency","-9",NA,"10/1/08 0:00","9/30/22 0:00",NA,NA
+"CiPEHR",NA,"EML_AK_CiPEHR_SoilProperties_2009-2017_Data_reform.csv",NA,"C, N, 13C, 15N, soil moisture, and bulk density","-9",NA,"2009","2017",NA,NA
+"FutureClim","Aqueduct","EC.csv","soil electrical conductivity","soil electrical conductivity measured by sensor in dS/M","10",1,"2001-01-20 23:00","2031-12-20 23:23",NA,NA
+"FutureClim","Aqueduct","Temp.csv","soil temperature","soil temperature measured by sensor","10",1,"2001-01-20 23:00","2031-12-20 23:23",NA,NA
+"FutureClim","Aqueduct","VWC.csv","soil moisture","volumetric soil moisture measured by sensor","10",1,"2001-01-20 23:00","2031-12-20 23:23",NA,NA
+"GENX","genx","soil temperature_22.csv","soil temperature","mean of soil temperature at 0.15 m from all pins in plot","-5",NA,"2022-01-18 11:15","2022-12-31 23:45",NA,"2022 data"
+"GENX","genx","soil temperature_23.csv","soil temperature","mean of soil temperature at 0.15 m from all pins in plot","-5",NA,"2023-01-01 00:15","2023-12-31 23:45",NA,"2023 data"
+"GENX","genx","water level_22.csv","water level","height of water above atmosphere-soil interface","-5",NA,"2022-01-18 11:15","2022-12-31 23:45",NA,"2022 data"
+"GENX","genx","water level_23.csv","water level","height of water above atmosphere-soil interface","-5",NA,"2023-01-01 00:15","2023-12-31 23:45",NA,"2023 data"
+"HarvardForest",NA,"hf005-04-soil-temp_PH.csv",NA,"soil temperature data from the Prospect Hill tract soil warming experiment at Harvard Forest","-5",NA,"7/1/91","12/31/21",NA,NA
+"HarvardForest",NA,"hf005-07-soil-moisture_PH.csv",NA,"soil moisture data from the Prospect Hill tract soil warming experiment at Harvard Forest","-5",NA,"9/9/15","12/31/21",NA,NA
+"HarvardForest",NA,"hf045-03-soil-temp.csv",NA,"","-5",NA,"7/6/06","12/31/21",NA,NA
+"KAEFS",NA,"temperature_200908_201802_daily_reshaped.csv",NA,"soil temperature data from cropland experiment at Oklahoma University","-6",NA,"8/23/09","2/15/18",NA,NA
+"KAEFS",NA,"ANPP_2009_2023_reshapedLong.csv",NA,"aboveground productivity data for 2009-2023, with separate values for C3 and C4 plants","-6",NA,"2009","2022",NA,NA
+"KAEFS",NA,"local_climate_data.csv",NA,"air temperature, precip, windspeed, relative humidity, solar radiation","-6",NA,"12/31/99 23:00","12/31/22 23:00","-999",NA
+"KAEFS",NA,"BNPP10-13_reshapedLong.csv",NA,"root biomass data","-6",NA,"2010","2013",NA,NA
+"KAEFS",NA,"SoilMoisture2018-2023_reshapeLong.csv",NA,"daily depth resolved volumetric water content","-6",NA,"2001-01-18","6/30/23",NA,NA
+"KAEFS",NA,"SoilTemperature2Depth_2018-2023_reshape_long.csv",NA,"soil temperature data from cropland experiment at Oklahoma University","-6",NA,"2018-01-01","2023-06-30",NA,NA
+"MERIT","MERIT","merit_airT.csv","air temperature","air temperature measured directly over plot","1",1,"2020-01-07 12:30","2022-10-04 11:00",NA,NA
+"MERIT","MERIT","merit_H2O_level.csv","water level","water level at time of measurement","1",1,"2020-01-07 12:30","2022-10-04 11:00",NA,NA
+"MERIT","MERIT","merit_soilT.csv","soil temperature","mean of pin 5 cm from heating rod and lag pin 32 cm from heating rod","1",1,"2020-01-07 12:30","2022-10-04 11:00",NA,"J. Beem-Miller averaged pin temp and lag temp from raw files sent by E. Westbrook"
+"SMARTX","SMARTX","airT.csv","air temperature","air temperature measured directly above plot","-5",NA,"2016-06-17 13:00:00","2023-12-31 23:00:00",NA,NA
+"SMARTX","SMARTX","climDat.csv","air humidity","relative humidity as well as wind speed and direction","-5",NA,"2016-06-17 13:00:00","2023-12-31 23:00:00",NA,NA
+"SMARTX","SMARTX","H2O_level.csv","water level","water level","-5",NA,"2016-06-17 13:00:00","2023-12-31 23:00:00",NA,NA
+"SMARTX","SMARTX","soilT.csv","soil temperature","soil temperature","-5",NA,"2016-06-17 13:00:00","2023-12-31 23:00:00",NA,NA
+"SPRUCE",NA,"ALLPLOTS_2016_DeepSoil.csv",NA,"Contains soil temperature, air temperatures, volumetric water content, relative humidity, water table evelvation, and precipitation measurements inside SPRUCE Experiment plots in 2016","6:00",1,"1/1/16","12/31/16","-9999",NA
+"SPRUCE",NA,"ALLPLOTS_2017_DeepSoil.csv",NA,"Contains soil temperature, air temperatures, volumetric water content, relative humidity, water table evelvation, and precipitation measurements inside SPRUCE Experiment plots in 2017","6:00",1,"1/1/17","12/31/17","-9999",NA
+"SPRUCE",NA,"ALLPLOTS_2018_DeepSoil.csv",NA,"Contains soil temperature, air temperatures, volumetric water content, relative humidity, water table evelvation, and precipitation measurements inside SPRUCE Experiment plots in 2018","6:00",1,"1/1/18","12/31/18","-9999",NA
+"SPRUCE",NA,"ALLPLOTS_2019_DeepSoil.csv",NA,"Contains soil temperature, air temperatures, volumetric water content, relative humidity, water table evelvation, and precipitation measurements inside SPRUCE Experiment plots in 2019","6:00",1,"1/1/19","12/31/19","-9999",NA
+"SPRUCE",NA,"ALLPLOTS_2020_DeepSoil.csv",NA,"Contains soil temperature, air temperatures, volumetric water content, relative humidity, water table evelvation, and precipitation measurements inside SPRUCE Experiment plots in 2020","6:00",1,"1/1/20","12/31/20","-9999",NA
+"SPRUCE",NA,"ALLPLOTS_2021_DeepSoil.csv",NA,"Contains soil temperature, air temperatures, volumetric water content, relative humidity, water table evelvation, and precipitation measurements inside SPRUCE Experiment plots in 2021","6:00",1,"1/1/21","12/31/21","-9999",NA
+"SPRUCE",NA,"ALLPLOTS_2022_DeepSoil.csv",NA,"Contains soil temperature, air temperatures, volumetric water content, relative humidity, water table evelvation, and precipitation measurements inside SPRUCE Experiment plots in 2022","6:00",1,"1/1/22","12/31/22","-9999",NA
+"SPRUCE",NA,"ALLPLOTS_2023_DeepSoil.csv",NA,"Contains soil temperature, air temperatures, volumetric water content, relative humidity, water table evelvation, and precipitation measurements inside SPRUCE Experiment plots in 2023","6:00",1,"1/1/23","12/31/23","-9999",NA
+"SPRUCE",NA,"SPRUCE_Bulk_Density_DeepSoil_2020.csv",NA,"Bulk density measurements from SPRUCE Experirment plots in 2020","6:00",1,"7/3/20","7/3/20",NA,NA
+"SWAMP","Altun-Qilian","airT.csv","air temperature","air temperature in deg C measured at site level","8",1,"2020-01-01","2022-12-31 23:30",NA,"measured at eddy flux tower"
+"SWAMP","Altun-Qilian","prcp.csv","precipitation","precipitation at site in m measured at site level","8",1,"2020-01-01","2022-12-31 23:30",NA,"measured at eddy flux tower"
+"SWAMP","Altun-Qilian","soilMoist.csv","soil moisture","volumetric soil moisture measured by sensor in percent","8",1,"2022-01-01","2022-12-31",NA,NA
+"SWAMP","Altun-Qilian","soilT.csv","soil temperature","soil temperature measured by sensor","8",1,"2022-01-01","2022-12-31",NA,NA
+"SWAMP","Altun-Qilian","airT_plt.csv","air temperature","air temperature measured by plot","8",1,"2022-01-01","2022-12-31",NA,"measured by plot"
+"SWAMP","Altun-Qilian","soilC.csv","soil organic carbon concentration","concentration of organic C","8",1,"2021-10-01","2021-10-01",NA,NA
+"SWAMP","Altun-Qilian","soilN.csv","soil total nitrogen concentration","concentration of total N","8",1,"2021-10-01","2021-10-01",NA,NA
+"SWELTR",NA,"SWELTR_to2020_T_H2O.csv",NA,"soil temperature and moisture data for first two years of heating (2016-2018); data measured at 30 min intervals (barring power cuts, etc.)","-5",NA,"12/13/16 14:00","10/29/18 11:30",NA,NA
+"TEAM",NA,"temp.csv",NA,"soil temperature data","8",NA,"6/17/18 0:00","9/25/23 0:00",NA,NA
+"TEAM",NA,"moist.csv",NA,"volumetric soil moisture data","8",NA,"6/17/18 0:00","9/25/23 0:00",NA,NA
+"TeRaCON",NA,"sentek_st_2019-2023.csv",NA,"soil temperature measured at 10 cm increments from 10 to 90 cm","-6",NA,"2019-11-05 13:30","2023-10-03 01:45",NA,"Additional T & moisture data available from other sensors (see other files)"
+"TeRaCON",NA,"sentek_vwc_2019-2023.csv",NA,"soil moisture measured at 10 cm increments from 10 to 90 cm","-6",NA,"2019-11-05 13:30","2023-10-03 01:45","NAN","Additional T & moisture data available from other sensors (see other files)"
+"TeRaCON",NA,"soilT_2012-2023.csv",NA,"soil temperarture","-6",NA,"2012-04-14","2023-09-28 07:45",NA,"Additional T & moisture data available from other sensors (see other files)"
+"TeRaCON",NA,"vwc_tdr_2012-2023.csv",NA,"soil moisture","-6",NA,"2012-04-14","2023-10-03 01:15",NA,"Additional T & moisture data available from other sensors (see other files)"
+"TRACE",NA,"Bisley_MET_2015.csv",NA,"daily precipitation totals from Bisley Tower","-4",NA,"2001-01-15","12/31/15",NA,NA
+"TRACE",NA,"Bisley_MET_2016.csv",NA,"daily precipitation totals from Bisley Tower","-4",NA,"2001-01-16","1/31/16",NA,NA
+"TRACE",NA,"Bisley_MET_2017.csv",NA,"daily precipitation totals from Bisley Tower","-4",NA,"2001-01-17","1/31/17",NA,NA
+"TRACE",NA,"Plot_1_TRACE_TairHumidity.csv",NA,"Air temperature and relative humidity measured in each plot at ~ 1 meter height using dataloggers (MX2391, Onset Computer Corp., Bourne, MA, United States)","-4",NA,"6/20/17 17:00","11/18/17 18:50",NA,NA
+"TRACE",NA,"Plot_2_TRACE_TairHumidity.csv",NA,"Air temperature and relative humidity measured in each plot at ~ 1 meter height using dataloggers (MX2391, Onset Computer Corp., Bourne, MA, United States)","-4",NA,"6/20/17 17:00","2001-04-18 08:30",NA,NA
+"TRACE",NA,"Plot_3_TRACE_TairHumidity.csv",NA,"Air temperature and relative humidity measured in each plot at ~ 1 meter height using dataloggers (MX2391, Onset Computer Corp., Bourne, MA, United States)","-4",NA,"6/20/17 17:00","12/16/17 20:50",NA,NA
+"TRACE",NA,"Plot_4_TRACE_TairHumidity.csv",NA,"Air temperature and relative humidity measured in each plot at ~ 1 meter height using dataloggers (MX2391, Onset Computer Corp., Bourne, MA, United States)","-4",NA,"6/20/17 17:00","2001-04-18 08:40",NA,NA
+"TRACE",NA,"Plot_5_TRACE_TairHumidity.csv",NA,"Air temperature and relative humidity measured in each plot at ~ 1 meter height using dataloggers (MX2391, Onset Computer Corp., Bourne, MA, United States)","-4",NA,"6/20/17 17:00","2001-04-18 08:40",NA,NA
+"TRACE",NA,"Plot_6_TRACE_TairHumidity.csv",NA,"Air temperature and relative humidity measured in each plot at ~ 1 meter height using dataloggers (MX2391, Onset Computer Corp., Bourne, MA, United States)","-4",NA,"6/20/17 17:00","2001-04-18 08:40",NA,NA
+"TRACE",NA,"Sabana_Rainfall2015-2017_Edit.csv",NA,"Rainfall was collected as daily sums from two rainfall gauges in close proximity to the experimental site. The Sabana rainfall gauge was located in an open canopy just outside of the experimental plots. A second rainfall measurement was collected at the Bisley tower weather station located approximately 2 kilometer (km) from the TRACE site. Rainfall was collected using a 10 cm plastic funnel draining into a 180 milliliter (ml) plastic bottle. More information on Sabana and Bisley MET station measurements are provided in González (2017)","-4",NA,"12/31/14","12/31/14",NA,NA
+"TRACE",NA,"TRACE_DeepSoil_2016-2018.csv",NA,"Environmental deep soil moisture data from TRACE plots 20-40 cm","-4",NA,"2004-07-16 15:00","5/18/18 11:00",NA,NA
+"TRACE",NA,"TRACE_SurfaceSoil_2015-2018.csv",NA,"Environmental surface soil moisture data from TRACE plots 0-10 cm","-4",NA,"8/21/15 15:00","5/18/18 11:00",NA,NA
+"TRACE",NA,"TRACE_WarmingData1_2015-2016.csv",NA,"Environmental infrared warming data from the TRACE plots","-4",NA,"2006-02-15 11:00","10/19/16 10:00",NA,NA
+"TRACE",NA,"TRACE_WarmingData2_2016-2018.csv",NA,"Environmental infrared warming data from the TRACE plots","-4",NA,"10/19/16 12:00","2003-09-18 16:00",NA,NA
+"TRACE",NA,"TRACE_VWC_2016-2018.csv",NA,"soil moisture","-4",NA,"2015-08-21 15:00:00","2018-05-18 11:00:00",NA,NA
+"TRACE",NA,"TRACE_soilT_2016-2018.csv",NA,"soil temperature","-4",NA,"2015-08-21 15:00:00","2018-05-18 11:00:00",NA,NA

@@ -1,0 +1,11 @@
+colName,description,units,dataType,varName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef,notes
+timestamp,timestamp of measurement,NA,character,NA,,,,NA,NA,NA,NA,NA,NA
+sit_name,site of the measurement (c3 or c4),NA,character,NA,,,,NA,NA,NA,NA,NA,NA
+plt_name,the plot ID number of the measurement,NA,character,NA,,,,NA,NA,NA,NA,NA,NA
+airtemp_avg,above ground temperature in air directly above the plot. ,degrees_C,numeric,,BME280,,,,NA,,,,NA
+
+
+
+
+
+

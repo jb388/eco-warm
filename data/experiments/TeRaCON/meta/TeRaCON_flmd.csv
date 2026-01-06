@@ -1,0 +1,9 @@
+emailAddress,name,Data.contact.name,Data.contact.email,fileName,siteName,dataType,description,UTC_offset,fileVersionNumber,startDate,endDate,missingValCodes,dataOrientation,notes
+jbeemmiler@lbl.gov,Jeff,Kally Worm,wormx004@umn.edu,sentek_st_2019-2023.csv,TeRaCON,soil temperature,soil temperature measured at 10 cm increments from 10 to 90 cm,-6,NA,2019-11-05 13:30,2023-10-03 01:45,NA,Columns (vertical),Additional T & moisture data available from other sensors (see other files)
+jbeemmiler@lbl.gov,Jeff,Kally Worm,wormx004@umn.edu,sentek_vwc_2019-2023.csv,TeRaCON,soil moisture,soil moisture measured at 10 cm increments from 10 to 90 cm,-6,NA,2019-11-05 13:30,2023-10-03 01:45,NAN,Columns (vertical),Additional T & moisture data available from other sensors (see other files)
+jbeemmiler@lbl.gov,Jeff,Kally Worm,wormx004@umn.edu,soilT_2012-2023.csv,TeRaCON,soil temperature,soil temperarture,-6,NA,2012-04-14,2023-09-28 07:45,NA,Columns (vertical),Additional T & moisture data available from other sensors (see other files)
+jbeemmiler@lbl.gov,Jeff,Kally Worm,wormx004@umn.edu,vwc_tdr_2012-2023.csv,TeRaCON,soil moisture,soil moisture,-6,NA,2012-04-14,2023-10-03 01:15,NA,Columns (vertical),Additional T & moisture data available from other sensors (see other files)
+
+
+
+

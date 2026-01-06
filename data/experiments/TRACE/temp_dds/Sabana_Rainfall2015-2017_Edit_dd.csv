@@ -1,0 +1,46 @@
+colName,description,unit,dataType,siteName,plotName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+TIMESTAMP,Time stamp,,date,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+RECORD,Recod number,,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Rain_mm_Tot,Daily rainfall sum,mm,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Notes,"Indicates when datalogger batter was disconnected, therefore measurements were not collected.",,string,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

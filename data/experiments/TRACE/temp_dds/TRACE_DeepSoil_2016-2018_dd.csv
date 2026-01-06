@@ -1,0 +1,119 @@
+colName,description,unit,dataType,siteName,plotName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+TIMESTAMP,Date-Time,Month/Date/Year Time,NA,NA,,NA,NA,NA,NA,NA,NA,NA,NA
+RECORD,Record Number,NA,NA,NA,,NA,NA,NA,NA,NA,NA,NA,NA
+DateTime.1.,Year,Year,NA,NA,,NA,NA,NA,NA,NA,NA,NA,NA
+DateTime.9.,Julian Day-of-Year,Day,NA,NA,,NA,NA,NA,NA,NA,NA,NA,NA
+DateTime.4.,Hour,Hour,NA,NA,,NA,NA,NA,NA,NA,NA,NA,NA
+DateTime.5.,Minute,Minute,NA,NA,,NA,NA,NA,NA,NA,NA,NA,NA
+WWC_C1cm20_Avg,Volumetric water content at 20 cm depth,m3/m3,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA
+EC_C1cm20_Avg,Bulk electrical conductivity (dS/m) at 20 cm depth,dS/m,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA
+Tsoil_C1cm20_Avg,Soil temperature in C at 20 cm depth,_,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA
+Perm_C1cm20_Avg,Dielectric permitivity at 20 cm depth,F/m,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA
+PerAvg_C1cm20_Avg,Period average in microseconds ,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA
+VoltR_C1cm20_Avg,Voltage ratio at 20 cm depth,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA
+WWC_C1cm40_Avg,Volumetric water content at 40 cm depth,m3/m3,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA
+EC_C1cm40_Avg,Bulk electrical conductivity (dS/m) at 40 cm depth,dS/m,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA
+Tsoil_C1cm40_Avg,Soil temperature in C at 40 cm depth,_,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA
+Perm_C1cm40_Avg,Dielectric permitivity at 40 cm depth,F/m,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA
+PerAvg_C1cm40_Avg,Period average in microseconds ,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA
+VoltR_C1cm40_Avg,Voltage ratio at 40 cm depth,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA
+WWC_H2cm20_Avg,Volumetric water content at 20 cm depth,m3/m3,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA
+EC_H2cm20_Avg,Bulk electrical conductivity (dS/m) at 20 cm depth,dS/m,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA
+Tsoil_H2cm20_Avg,Soil temperature in C at 20 cm depth,_,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA
+Perm_H2cm20_Avg,Dielectric permitivity at 20 cm depth,F/m,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA
+PerAvg_H2cm20_Avg,Period average in microseconds ,NA,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA
+VoltR_H2cm20_Avg,Voltage ratio at 20 cm depth,NA,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA
+WWC_H2cm40_Avg,Volumetric water content at 40 cm depth,m3/m3,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA
+EC_H2cm40_Avg,Bulk electrical conductivity (dS/m) at 40 cm depth,dS/m,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA
+Tsoil_H2cm40_Avg,Soil temperature in C at 40 cm depth,_,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA
+Perm_H2cm40_Avg,Dielectric permitivity at 40 cm depth,F/m,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA
+PerAvg_H2cm40_Avg,Period average in microseconds ,NA,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA
+VoltR_H2cm40_Avg,Voltage ratio at 40 cm depth,NA,NA,NA,2,NA,NA,NA,NA,NA,NA,NA,NA
+WWC_C3cm20_Avg,Volumetric water content at 20 cm depth,m3/m3,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA
+EC_C3cm20_Avg,Bulk electrical conductivity (dS/m) at 20 cm depth,dS/m,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA
+Tsoil_C3cm20_Avg,Soil temperature in C at 20 cm depth,_,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA
+Perm_C3cm20_Avg,Dielectric permitivity at 20 cm depth,F/m,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA
+PerAvg_C3cm20_Avg,Period average in microseconds ,NA,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA
+VoltR_C3cm20_Avg,Voltage ratio at 20 cm depth,NA,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA
+WWC_C3cm40_Avg,Volumetric water content at 40 cm depth,m3/m3,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA
+EC_C3cm40_Avg,Bulk electrical conductivity (dS/m) at 40 cm depth,dS/m,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA
+Tsoil_C3cm40_Avg,Soil temperature in C at 40 cm depth,_,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA
+Perm_C3cm40_Avg,Dielectric permitivity at 40 cm depth,F/m,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA
+PerAvg_C3cm40_Avg,Period average in microseconds ,NA,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA
+VoltR_C3cm40_Avg,Voltage ratio at 40 cm depth,NA,NA,NA,3,NA,NA,NA,NA,NA,NA,NA,NA
+WWC_H4cm20_Avg,Volumetric water content at 20 cm depth,m3/m3,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA
+EC_H4cm20_Avg,Bulk electrical conductivity (dS/m) at 20 cm depth,dS/m,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA
+Tsoil_H4cm20_Avg,Soil temperature in C at 20 cm depth,_,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA
+Perm_H4cm20_Avg,Dielectric permitivity at 20 cm depth,F/m,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA
+PerAvg_H4cm20_Avg,Period average in microseconds ,NA,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA
+VoltR_H4cm20_Avg,Voltage ratio at 20 cm depth,NA,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA
+WWC_H4cm40_Avg,Volumetric water content at 40 cm depth,m3/m3,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA
+EC_H4cm40_Avg,Bulk electrical conductivity (dS/m) at 40 cm depth,dS/m,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA
+Tsoil_H4cm40_Avg,Soil temperature in C at 40 cm depth,_,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA
+Perm_H4cm40_Avg,Dielectric permitivity at 40 cm depth,F/m,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA
+PerAvg_H4cm40_Avg,Period average in microseconds ,NA,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA
+VoltR_H4cm40_Avg,Voltage ratio at 40 cm depth,NA,NA,NA,4,NA,NA,NA,NA,NA,NA,NA,NA
+WWC_C5cm20_Avg,Volumetric water content at 20 cm depth,m3/m3,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA
+EC_C5cm20_Avg,Bulk electrical conductivity (dS/m) at 20 cm depth,dS/m,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA
+Tsoil_C5cm20_Avg,Soil temperature in C at 20 cm depth,_,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA
+Perm_C5cm20_Avg,Dielectric permitivity at 20 cm depth,F/m,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA
+PerAvg_C5cm20_Avg,Period average in microseconds ,NA,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA
+VoltR_C5cm20_Avg,Voltage ratio at 20 cm depth,NA,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA
+WWC_C5cm40_Avg,Volumetric water content at 40 cm depth,m3/m3,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA
+EC_C5cm40_Avg,Bulk electrical conductivity (dS/m) at 40 cm depth,dS/m,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA
+Tsoil_C5cm40_Avg,Soil temperature in C at 40 cm depth,_,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA
+Perm_C5cm40_Avg,Dielectric permitivity at 40 cm depth,F/m,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA
+PerAvg_C5cm40_Avg,Period average in microseconds ,NA,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA
+VoltR_C5cm40_Avg,Voltage ratio at 40 cm depth,NA,NA,NA,5,NA,NA,NA,NA,NA,NA,NA,NA
+WWC_H6cm20_Avg,Volumetric water content at 20 cm depth,m3/m3,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA
+EC_H6cm20_Avg,Bulk electrical conductivity (dS/m) at 20 cm depth,dS/m,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA
+Tsoil_H6cm20_Avg,Soil temperature in C at 20 cm depth,_,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA
+Perm_H6cm20_Avg,Dielectric permitivity at 20 cm depth,F/m,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA
+PerAvg_H6cm20_Avg,Period average in microseconds ,NA,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA
+VoltR_H6cm20_Avg,Voltage ratio at 20 cm depth,NA,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA
+WWC_H6cm40_Avg,Volumetric water content at 40 cm depth,m3/m3,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA
+EC_H6cm40_Avg,Bulk electrical conductivity (dS/m) at 40 cm depth,dS/m,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA
+Tsoil_H6cm40_Avg,Soil temperature in C at 40 cm depth,_,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA
+Perm_H6cm40_Avg,Dielectric permitivity at 40 cm depth,F/m,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA
+PerAvg_H6cm40_Avg,Period average in microseconds ,NA,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA
+VoltR_H6cm40_Avg,Voltage ratio at 40 cm depth,NA,NA,NA,6,NA,NA,NA,NA,NA,NA,NA,NA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

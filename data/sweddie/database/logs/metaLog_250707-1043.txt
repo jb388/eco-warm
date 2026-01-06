@@ -1,0 +1,145 @@
+SWEDDIE Metadata Log 
+ 
+ 2025-07-07 10:43:52.972747 
+ - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/185ExperimentStation 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/ACBB 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Data dictionary file ' moist_C_dd.csv ' missing column/s:  date plt_name 
+Data dictionary file ' moist_G_dd.csv ' missing column/s:  date plt_name 
+Data dictionary file ' SOC_2022_dd.csv ' missing column/s:  plt_name 
+
+
+Compiling metadata files in ../data/experiments/Achenkirch 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/B4WarmED 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	 meta directory contains the following non-standard files that will be ignored:
+ metadataFor_regularTop10cmSoilTempForJeffFor_2009-2023.txt 
+	The following input data files are missing data dictionaries and will not be ingested:
+ clq_soilMoisture_2012_2023.csv clq_soilMoisture_2012.2023.csv clq_soilTemp_2013_2022.csv clq_soilTemp_2013.2022.csv ely_soilMoisture_2012_2023.csv ely_soilMoisture_2012.2023.csv ely_soilTemp_2013_2022.csv ely_soilTemp_2013.2022.csv 
+Data dictionary file ' dat_B4W_2008-2010_15min_DeepSoilTemp_dd.csv ' missing column/s:  site canopy 
+Data dictionary file ' dat_B4W_2011_2012_30min_DeepSoilTemp_dd.csv ' missing column/s:  site canopy 
+Data dictionary file ' dat_B4W_2012_15min_DeepSoilTemp_dd.csv ' missing column/s:  site canopy 
+Data dictionary file ' dat_B4W_2013-2022_60min_DeepSoilTemp_dd.csv ' missing column/s:  site canopy 
+
+
+Compiling metadata files in ../data/experiments/Blodgett 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/CiPEHR 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Data dictionary file ' flux_hh_dd.csv ' missing column/s:  treatment 
+
+
+Compiling metadata files in ../data/experiments/DWFP 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/ForHot 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ ForHot 
+
+ No files found in  ../data/experiments/ForHot
+
+Compiling metadata files in ../data/experiments/FutureClim 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/GENX 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/HarvardForest 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/KAEFS 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	The following input data files are missing data dictionaries and will not be ingested:
+ SoilTemperature2Depth_2018-2023_reshape_long.csv 
+
+
+Compiling metadata files in ../data/experiments/LyonHI 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/MERIT 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/PtReyes 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ PtReyes 
+
+ No files found in  ../data/experiments/PtReyes
+
+Compiling metadata files in ../data/experiments/Sanming 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ Sanming 
+
+ No files found in  ../data/experiments/Sanming
+
+Compiling metadata files in ../data/experiments/SMARTX 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/SPRUCE 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Data dictionary file ' SPRUCE_Bulk_Density_DeepSoil_2020_dd.csv ' missing column/s:  Collection_date Temp_treatment Midpoint_depth Bulk_density Bulk_density_SD 
+
+
+Compiling metadata files in ../data/experiments/SWAMP 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Data dictionary file ' airT_dd.csv ' missing column/s:  plt_name airT 
+Data dictionary file ' airT_plt_dd.csv ' missing column/s:  Tair 
+Data dictionary file ' soilC_dd.csv ' missing column/s:  soil organic carbon 
+Data dictionary file ' soilN_dd.csv ' missing column/s:  soil total nitrogen 
+
+
+Compiling metadata files in ../data/experiments/SWELTR 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/TEAM 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/TeRaCON 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	The following data dictionary files are missing input data and will not be ingested:
+ Biocon_hourly_2012-2018vprimary1_dd.csv sentek2019_2023 data for distribution_dd.csv tdr_dd.csv 
+	The following input data files are missing data dictionaries and will not be ingested:
+ sentek_st_2019-2023.csv sentek_vwc_2019-2023.csv soilT_2012-2023.csv vwc_tdr_2012-2023.csv 
+The following input files are listed in the flmd file 'TeRaCON_flmd.csv', but cannot be found:
+sentek2019_2023 data for distribution.csv
+
+
+Compiling metadata files in ../data/experiments/TRACE 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	The following input data files are missing data dictionaries and will not be ingested:
+ TRACE_soilT_2016-2018.csv TRACE_VWC_2016-2018.csv 
+Data dictionary file ' Bisley_MET_2015_dd.csv ' missing column/s:  Precipitacion(mm) day month 
+Data dictionary file ' Bisley_MET_2016_dd.csv ' missing column/s:  Precipitacion(mm) day month 
+Data dictionary file ' Bisley_MET_2017_dd.csv ' missing column/s:  Precipitacion(mm) day month 
+Data dictionary file ' Plot_1_TRACE_TairHumidity_dd.csv ' missing column/s:  # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F 
+Data dictionary file ' Plot_2_TRACE_TairHumidity_dd.csv ' missing column/s:  # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F 
+Data dictionary file ' Plot_3_TRACE_TairHumidity_dd.csv ' missing column/s:  # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F 
+Data dictionary file ' Plot_4_TRACE_TairHumidity_dd.csv ' missing column/s:  # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F 
+Data dictionary file ' Plot_5_TRACE_TairHumidity_dd.csv ' missing column/s:  # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F 
+Data dictionary file ' Plot_6_TRACE_TairHumidity_dd.csv ' missing column/s:  # Date Time, GMT -0400 Temp, °F RH, % DewPt, °F 
+Data dictionary file ' TRACE_DeepSoil_2016-2018_dd.csv ' missing column/s:  DateTime(1) DateTime(9) DateTime(4) DateTime(5) 
+Data dictionary file ' TRACE_SurfaceSoil_2015-2018_dd.csv ' missing column/s:  DateTime(1) DateTime(9) DateTime(4) DateTime(5) 
+Data dictionary file ' TRACE_WarmingData1_2015-2016_dd.csv ' missing column/s:  DateTime(1) DateTime(9) DateTime(4) DateTime(5) WindDir_Hst(1) WindDir_Hst(2) WindDir_Hst(3) WindDir_Hst(4) WindDir_Hst(5) WindDir_Hst(6) WindDir_Hst(7) WindDir_Hst(8) Solar_Avg(1) Solar_Avg(2) AirTempRH_Avg(1) AirTempRH_Avg(2) mV_tpileR_Avg(1) mV_tpileR_Avg(2) mV_tpileR_Avg(3) mV_tpileH_Avg(1) mV_tpileH_Avg(2) mV_tpileH_Avg(3) TbodyRC_Avg(1) TbodyRC_Avg(2) TbodyRC_Avg(3) TbodyHC_Avg(1) TbodyHC_Avg(2) TbodyHC_Avg(3) TtarRC_Avg(1) TtarRC_Avg(2) TtarRC_Avg(3) TtarHC_Avg(1) TtarHC_Avg(2) TtarHC_Avg(3) TadjH_Avg(1) TadjH_Avg(2) TadjH_Avg(3) 
+Data dictionary file ' TRACE_WarmingData2_2016-2018_dd.csv ' missing column/s:  DateTime(1) DateTime(9) DateTime(4) DateTime(5) WindDir_Hst(1) WindDir_Hst(2) WindDir_Hst(3) WindDir_Hst(4) WindDir_Hst(5) WindDir_Hst(6) WindDir_Hst(7) WindDir_Hst(8) Solar_Avg(1) Solar_Avg(2) AirTempRH_Avg(1) AirTempRH_Avg(2) mV_tpileR_Avg(1) mV_tpileR_Avg(2) mV_tpileR_Avg(3) mV_tpileH_Avg(1) mV_tpileH_Avg(2) mV_tpileH_Avg(3) TbodyRC_Avg(1) TbodyRC_Avg(2) TbodyRC_Avg(3) TbodyHC_Avg(1) TbodyHC_Avg(2) TbodyHC_Avg(3) TtarRC_Avg(1) TtarRC_Avg(2) TtarRC_Avg(3) TtarHC_Avg(1) TtarHC_Avg(2) TtarHC_Avg(3) TadjH_Avg(1) TadjH_Avg(2) TadjH_Avg(3) T_Diffrns_Avg(1) T_Diffrns_Avg(2) T_Diffrns_Avg(3) PID_out_Avg(1) PID_out_Avg(2) PID_out_Avg(3) PID_lmt_Avg(1) PID_lmt_Avg(2) PID_lmt_Avg(3) ScldOut_Avg(1) ScldOut_Avg(2) ScldOut_Avg(3) 

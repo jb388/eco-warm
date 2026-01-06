@@ -1,0 +1,9 @@
+colName,description,units,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef,notes
+date,date,ymd HMS,date,,,,,,,,,
+plt_name,plot name,,string,,,,,,,,,
+depth,depth,decimeters,numeric,,,,,,,depth,,
+vwc,soil moisture in volumetric water content,percent,numeric,,,,,,,,,
+
+
+
+

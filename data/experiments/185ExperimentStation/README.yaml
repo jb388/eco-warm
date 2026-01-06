@@ -1,12 +1,23 @@
 Files:
-  -
+  - raw:
+    - fwreredeepsoil2100co2fluxdatarequest:
+      - "data_dictionary_file_CO2.csv"
+      - "datafile_CO2 flux.csv"
+      - "file_level_metadata_CO2.csv"
 Source: Wenxu Dong <dongwx@sjziam.ac.cn>
 Curator: J. Beem-Miller
-Date: 2-Dec-2024
+Date: 10-Sep-2025
 Contents:
   - soil temperature
   - soil moisture
+  - soil bulk density
+  - air temperature
+  - air humidity
+  - precipitation
+  - soil C
+  - above ground productivity (yield)
 Notes:
+  - soil CO2 flux data sent to JBM by email from WD on 31-Jul-2025; still need to be entered as of 10-Sep-2025
   - data sent from Wenxu Dong in July '24
   - noticed ca. 1/4 of data missing, mostly 2022, plus some erroneous values
   - follow-up file 'datafile-annotate.xlsx' sent with record of flagged values

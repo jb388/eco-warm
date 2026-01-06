@@ -1,15 +1,18 @@
 Files:
-  - raw
+  - raw:
+    - "df_2010_2015_RsforJeff.xlsx"
   - derived
   - data
 Source: Zheng Shi
 Curator: J. Beem-Miller
-Date: 24-Sep-2024
+Date: 10-Sep-2025
 Contents:
   - soil temperature data from KAEFS site
+  - soil moisture data
+  - soil respirations
 Notes:
-  - data provided by Z. Shi in July '24
-  - still missing moisture data as of 28 Sep. '24
+  - soil temp data provided by Z. Shi in July '24
+  - still missing moisture data as of 28 Sep. '24; data acquired as of 10-Sep-2025
   - formatting is a challenge for data entry
     - data entered vertically, but identifying information is provided above the data cells
     - created a derived version of the data with identifying information condensed into a "_" separated string
@@ -22,4 +25,9 @@ Notes:
   - BNPP provided as Numbers file, which I downloaded as a .csv into the derived directory
     - first row of numbers file specifies that depth increment is 0-90 cm
     - this information is now in the accompanying _dd file
+  - Soil CO2 data sent 27-Jul-2025
+  - CO2 submission email:
+      - "Attached please find our soil respiration data from 2010-2015. The meta data is on the second sheet of the file. There are a few missing data and also please consider outlier control for several large values."
+  - similar formatting issues as previously and will need to be reoriented from vertical to horizontal
+  - no data dictionary sent, but metadata included in exel file
 References:

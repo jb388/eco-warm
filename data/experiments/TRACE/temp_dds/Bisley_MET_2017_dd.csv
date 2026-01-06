@@ -1,0 +1,46 @@
+colName,description,unit,dataType,siteName,plotName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+Date,Date that samples were measured,dd/mm/yyyy,date,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Ano,Year that sames were measured,NA,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Dia,DOY that samples were measured,NA,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Precipitacion.mm.,Daily sum of precipitation,mm,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+flag,flag for malfunction of sensor,,string,,,,,,,,,,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+col_name,type,description,units,notes
+PlotID,string,Treatment name,,CK: control; W: only warming; N: N fertilizer; WN: Warming and N fertilizer
+replicate,num,Plot replicate ID,,
+plt_lat,string,Plot latitude,,
+plt_long,string,Plot longitude,,
+Date,string,Sampling time,day,
+CO2 flux,num,CO2 emission flux,¦Ìmol CO2 m-2  s-1,
+

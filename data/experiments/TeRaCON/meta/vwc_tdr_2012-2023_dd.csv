@@ -1,0 +1,9 @@
+colName,description,units,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef,notes
+plt_name,plot name,,string,NA,NA,NA,NA,NA,NA,NA,NA,NA
+date,date,ymd,date,NA,NA,NA,NA,NA,NA,NA,NA,NA
+depth,depth,cm,numeric,NA,NA,NA,NA,NA,NA,NA,depth,NA
+vwc,volumetric soil water content,percent,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA
+
+
+
+

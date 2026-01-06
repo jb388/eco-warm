@@ -1,0 +1,9 @@
+email,name,dataContactName,dataContactEmail,fileName,sit_name,varName,description,UTC_offset,fileVersionNumber,startDate,endDate,missingValCodes,notes
+jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Genevieve Noyce,NoyceG@si.edu,soil temperature_22.csv,genx,soil temperature,mean of soil temperature at 0.15 m from all pins in plot,-5,NA,2022-01-18 11:15,2022-12-31 23:45,NA,2022 data
+jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Genevieve Noyce,NoyceG@si.edu,soil temperature_23.csv,genx,soil temperature,mean of soil temperature at 0.15 m from all pins in plot,-5,NA,2023-01-01 00:15,2023-12-31 23:45,NA,2023 data
+jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Genevieve Noyce,NoyceG@si.edu,water level_22.csv,genx,water level,height of water above atmosphere-soil interface,-5,NA,2022-01-18 11:15,2022-12-31 23:45,NA,2022 data
+jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Genevieve Noyce,NoyceG@si.edu,water level_23.csv,genx,water level,height of water above atmosphere-soil interface,-5,NA,2023-01-01 00:15,2023-12-31 23:45,NA,2023 data
+
+
+
+

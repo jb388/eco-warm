@@ -1,0 +1,13 @@
+colName,description,units,dataType,varName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef,notes
+timestamp,timestamp of measurement,NA,character,NA,,,,NA,NA,NA,NA,NA,NA
+sit_name,site of the measurement (c3 or c4),NA,character,NA,,,,NA,NA,NA,NA,NA,NA
+plt_name,the plot ID number of the measurement,NA,character,NA,,,,NA,NA,NA,NA,NA,NA
+rh_avg,relative humidity in the air directly above the plot,percent,numeric,,BME280,,,,NA,,,NA,NA
+wind_speed_avg,wind speed in the air directly above the plot,m/s,numeric,,,,,,NA,,,NA,NA
+wind_direction_avg,wind direction in the air directly above the plot,degrees_north,numeric,,,,,,NA,,,NA,NA
+
+
+
+
+
+

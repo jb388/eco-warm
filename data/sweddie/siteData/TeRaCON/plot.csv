@@ -1,146 +1,52 @@
 exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_treat_heat,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
-TeRaCON,Cedar Creek,7,,1,,,treatment,2.5,eCO2;Nadd;drought,180;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,11,,1,,,control,0,eCO2;Nadd;drought,180;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,17,,1,,,control,0,eCO2;Nadd;drought,180;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,21,,1,,,treatment,2.5,eCO2;Nadd;drought,180;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,26,,1,,,treatment,2.5,eCO2;Nadd;drought,180;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,34,,1,,,control,0,eCO2;Nadd;drought,180;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,48,,1,,,control,0,eCO2;Nadd;drought,180;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,50,,1,,,treatment,2.5,eCO2;Nadd;drought,180;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,66,,1,,,treatment,2.5,eCO2;Nadd;drought,0;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,84,,1,,,control,0,eCO2;Nadd;drought,0;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,87,,1,,,treatment,2.5,eCO2;Nadd;drought,0;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,92,,1,,,control,0,eCO2;Nadd;drought,0;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,97,,1,,,treatment,2.5,eCO2;Nadd;drought,0;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,106,,1,,,treatment,2.5,eCO2;Nadd;drought,0;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,117,,1,,,control,0,eCO2;Nadd;drought,0;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,119,,1,,,control,0,eCO2;Nadd;drought,0;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,128,,2,,,control,0,eCO2;Nadd;drought,180;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,131,,2,,,treatment,2.5,eCO2;Nadd;drought,180;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,133,,2,,,treatment,2.5,eCO2;Nadd;drought,180;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,149,,2,,,control,0,eCO2;Nadd;drought,180;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,165,,2,,,treatment,2.5,eCO2;Nadd;drought,180;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,166,,2,,,control,0,eCO2;Nadd;drought,180;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,171,,2,,,treatment,2.5,eCO2;Nadd;drought,180;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,177,,2,,,control,0,eCO2;Nadd;drought,180;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,185,,2,,,treatment,2.5,eCO2;Nadd;drought,0;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,186,,2,,,control,0,eCO2;Nadd;drought,0;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,224,,2,,,control,0,eCO2;Nadd;drought,0;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,226,,2,,,control,0,eCO2;Nadd;drought,0;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,230,,2,,,treatment,2.5,eCO2;Nadd;drought,0;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,232,,2,,,treatment,2.5,eCO2;Nadd;drought,0;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,233,,2,,,treatment,2.5,eCO2;Nadd;drought,0;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,243,,2,,,control,0,eCO2;Nadd;drought,0;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,245,,3,,,treatment,2.5,eCO2;Nadd;drought,180;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,264,,3,,,treatment,2.5,eCO2;Nadd;drought,180;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,274,,3,,,control,0,eCO2;Nadd;drought,180;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,278,,3,,,control,0,eCO2;Nadd;drought,180;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,280,,3,,,control,0,eCO2;Nadd;drought,180;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,282,,3,,,treatment,2.5,eCO2;Nadd;drought,180;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,293,,3,,,control,0,eCO2;Nadd;drought,180;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,299,,3,,,treatment,2.5,eCO2;Nadd;drought,180;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,308,,3,,,control,0,eCO2;Nadd;drought,0;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,320,,3,,,control,0,eCO2;Nadd;drought,0;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,324,,3,,,control,0,eCO2;Nadd;drought,0;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,341,,3,,,treatment,2.5,eCO2;Nadd;drought,0;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,356,,3,,,treatment,2.5,eCO2;Nadd;drought,0;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,357,,3,,,treatment,2.5,eCO2;Nadd;drought,0;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,360,,3,,,control,0,eCO2;Nadd;drought,0;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
-TeRaCON,Cedar Creek,361,,3,,,treatment,2.5,eCO2;Nadd;drought,0;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+TeRaCON,Cedar Creek,7,,1,,,control,0,eCO2;Nadd;drought,180;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,11,,1,,,treatment,2.5,eCO2;Nadd;drought,180;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,17,,1,,,treatment,2.5,eCO2;Nadd;drought,180;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,21,,1,,,control,0,eCO2;Nadd;drought,180;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,26,,1,,,control,0,eCO2;Nadd;drought,180;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,34,,1,,,treatment,2.5,eCO2;Nadd;drought,180;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,48,,1,,,treatment,2.5,eCO2;Nadd;drought,180;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,50,,1,,,control,0,eCO2;Nadd;drought,180;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,66,,1,,,control,0,eCO2;Nadd;drought,0;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,84,,1,,,treatment,2.5,eCO2;Nadd;drought,0;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,87,,1,,,control,0,eCO2;Nadd;drought,0;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,92,,1,,,treatment,2.5,eCO2;Nadd;drought,0;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,97,,1,,,control,0,eCO2;Nadd;drought,0;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,106,,1,,,control,0,eCO2;Nadd;drought,0;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,117,,1,,,treatment,2.5,eCO2;Nadd;drought,0;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,119,,1,,,treatment,2.5,eCO2;Nadd;drought,0;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,128,,1,,,treatment,2.5,eCO2;Nadd;drought,180;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,131,,1,,,control,0,eCO2;Nadd;drought,180;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,133,,1,,,control,0,eCO2;Nadd;drought,180;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,149,,1,,,treatment,2.5,eCO2;Nadd;drought,180;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,165,,1,,,control,0,eCO2;Nadd;drought,180;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,166,,1,,,treatment,2.5,eCO2;Nadd;drought,180;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,171,,1,,,control,0,eCO2;Nadd;drought,180;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,177,,1,,,treatment,2.5,eCO2;Nadd;drought,180;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,185,,1,,,control,0,eCO2;Nadd;drought,0;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,186,,1,,,treatment,2.5,eCO2;Nadd;drought,0;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,224,,1,,,treatment,2.5,eCO2;Nadd;drought,0;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,226,,1,,,treatment,2.5,eCO2;Nadd;drought,0;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,230,,1,,,control,0,eCO2;Nadd;drought,0;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,232,,1,,,control,0,eCO2;Nadd;drought,0;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,233,,1,,,control,0,eCO2;Nadd;drought,0;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,243,,1,,,treatment,2.5,eCO2;Nadd;drought,0;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,245,,1,,,control,0,eCO2;Nadd;drought,180;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,264,,1,,,control,0,eCO2;Nadd;drought,180;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,274,,1,,,treatment,2.5,eCO2;Nadd;drought,180;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,278,,1,,,treatment,2.5,eCO2;Nadd;drought,180;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,280,,1,,,treatment,2.5,eCO2;Nadd;drought,180;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,282,,1,,,control,0,eCO2;Nadd;drought,180;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,293,,1,,,treatment,2.5,eCO2;Nadd;drought,180;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,299,,1,,,control,0,eCO2;Nadd;drought,180;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,308,,1,,,treatment,2.5,eCO2;Nadd;drought,0;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,320,,1,,,treatment,2.5,eCO2;Nadd;drought,0;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,324,,1,,,treatment,2.5,eCO2;Nadd;drought,0;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,341,,1,,,control,0,eCO2;Nadd;drought,0;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,356,,1,,,control,0,eCO2;Nadd;drought,0;0;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,357,,1,,,control,0,eCO2;Nadd;drought,0;4;0,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,360,,1,,,treatment,2.5,eCO2;Nadd;drought,0;4;60,ppm CO2 above ambient;g N m2;percent of normal precip,
+TeRaCON,Cedar Creek,361,,1,,,control,0,eCO2;Nadd;drought,0;0;0,ppm CO2 above ambient;g N m2;percent of normal precip,
 
 
 

@@ -1,156 +1,27 @@
-exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_treat_heat,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units,plt_notes
-TEAM,Chenda,CT_1,1,,,,control,0,,,,
-TEAM,Chenda,W_1,1,,,,treatment,5,,,,
-TEAM,Chenda,LN_1,1,,,,control,0,N add,40,kg N ha-1 y-1,
-TEAM,Chenda,WLN_1,1,,,,treatment,5,N add,40,kg N ha-1 y-1,
-TEAM,Chenda,HN_1,1,,,,control,0,N add,80,kg N ha-1 y-1,
-TEAM,Chenda,WHN_1,1,,,,treatment,5,N add,80,kg N ha-1 y-1,
-TEAM,Chenda,CT_2,2,,,,control,0,,,,
-TEAM,Chenda,W_2,2,,,,treatment,5,,,,
-TEAM,Chenda,LN_2,2,,,,control,0,N add,40,kg N ha-1 y-1,
-TEAM,Chenda,WLN_2,2,,,,treatment,5,N add,40,kg N ha-1 y-1,
-TEAM,Chenda,HN_2,2,,,,control,0,N add,80,kg N ha-1 y-1,
-TEAM,Chenda,WHN_2,2,,,,treatment,5,N add,80,kg N ha-1 y-1,
-TEAM,Chenda,CT_3,3,,,,control,0,,,,
-TEAM,Chenda,W_3,3,,,,treatment,5,,,,
-TEAM,Chenda,LN_3,3,,,,control,0,N add,40,kg N ha-1 y-1,
-TEAM,Chenda,WLN_3,3,,,,treatment,5,N add,40,kg N ha-1 y-1,
-TEAM,Chenda,HN_3,3,,,,control,0,N add,80,kg N ha-1 y-1,
-TEAM,Chenda,WHN_3,3,,,,treatment,5,N add,80,kg N ha-1 y-1,
-TEAM,Chenda,CT_4,4,,,,control,0,,,,
-TEAM,Chenda,W_4,4,,,,treatment,5,,,,
-TEAM,Chenda,LN_4,4,,,,control,0,N add,40,kg N ha-1 y-1,
-TEAM,Chenda,WLN_4,4,,,,treatment,5,N add,40,kg N ha-1 y-1,
-TEAM,Chenda,HN_4,4,,,,control,0,N add,80,kg N ha-1 y-1,
-TEAM,Chenda,WHN_4,4,,,,treatment,5,N add,80,kg N ha-1 y-1,
-TEAM,Chenda,CT_5,5,,,,control,0,,,,
-TEAM,Chenda,W_5,5,,,,treatment,5,,,,
-TEAM,Chenda,LN_5,5,,,,control,0,N add,40,kg N ha-1 y-1,
-TEAM,Chenda,WLN_5,5,,,,treatment,5,N add,40,kg N ha-1 y-1,
-TEAM,Chenda,HN_5,5,,,,control,0,N add,80,kg N ha-1 y-1,
-TEAM,Chenda,WHN_5,5,,,,treatment,5,N add,80,kg N ha-1 y-1,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+﻿exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_treat_heat,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),CT1,1,,,,control,0,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),WN1,1,,,,treatment,4,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),CT2,2,,,,control,0,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),WN2,2,,,,treatment,4,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),CT3,3,,,,control,0,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),WN3,3,,,,treatment,4,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),CT4,4,,,,control,0,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),WN4,4,,,,treatment,4,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),CT5,5,,,,control,0,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),WN5,5,,,,treatment,4,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),DC1,1,,,,control,0,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),DC2,2,,,,control,0,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),DC3,3,,,,control,0,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),N1,1,,,,control,0,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),WN1,1,,,,treatment,4,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),N2,2,,,,control,0,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),WN2,2,,,,treatment,4,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),N3,3,,,,control,0,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),WN3,3,,,,treatment,4,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),N4,4,,,,control,0,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),WN4,4,,,,treatment,4,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),N5,5,,,,control,0,,,
+Sanming,Sanming Forest Ecosystem National Observation and Research Station (SME),WN5,5,,,,treatment,4,,,
 
 
 

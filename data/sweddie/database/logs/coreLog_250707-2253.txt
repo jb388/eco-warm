@@ -1,0 +1,12 @@
+SWEDDIE Compilation Log 
+ 
+ 2025-07-07 22:53:46.374625 
+ - - - - - - - - - - - - - - - 
+
+
+Compiling data files in siteData 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Compiling and checking core data...
+
+
+ 185ExperimentStation 

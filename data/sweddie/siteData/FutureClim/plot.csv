@@ -1,0 +1,101 @@
+﻿exp_name,sit_name,plt_name,plt_block,plt_rep,plt_lat,plt_long,plt_treat_heat,plt_heat_level,plt_treat_add_name,plt_treat_add_level,plt_treat_add_units
+FutureClim,Aqueduct,1_0_,1,,,,control,0,,,
+FutureClim,Aqueduct,1_4_,1,,,,heated,4,,,
+FutureClim,Aqueduct,1_0_drought,1,,,,control,0,drought,80,% reduction
+FutureClim,Aqueduct,1_4_drought,1,,,,heated,4,drought,80,% reduction
+FutureClim,Aqueduct,2_0_,2,,,,control,0,,,
+FutureClim,Aqueduct,2_4_,2,,,,heated,4,,,
+FutureClim,Aqueduct,2_0_drought,2,,,,control,0,drought,80,% reduction
+FutureClim,Aqueduct,2_4_drought,2,,,,heated,4,drought,80,% reduction
+FutureClim,Aqueduct,3_0_,3,,,,control,0,,,
+FutureClim,Aqueduct,3_4_,3,,,,heated,4,,,
+FutureClim,Aqueduct,3_0_drought,3,,,,control,0,drought,80,% reduction
+FutureClim,Aqueduct,3_4_drought,3,,,,heated,4,drought,80,% reduction
+FutureClim,Aqueduct,4_0_,4,,,,control,0,,,
+FutureClim,Aqueduct,4_4_,4,,,,heated,4,,,
+FutureClim,Aqueduct,4_0_drought,4,,,,control,0,drought,80,% reduction
+FutureClim,Aqueduct,4_4_drought,4,,,,heated,4,drought,80,% reduction
+FutureClim,Aqueduct,5_0_,5,,,,control,0,,,
+FutureClim,Aqueduct,5_4_,5,,,,heated,4,,,
+FutureClim,Aqueduct,5_0_drought,5,,,,control,0,drought,80,% reduction
+FutureClim,Aqueduct,5_4_drought,5,,,,heated,4,drought,80,% reduction
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,11 @@
-colName,description,unit,dataType,siteName,plotName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
-X.,Indicates log number,,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Date.Time..GMT..0400,Date and Time Atlantic Time Zone,dd/mm/yyyy hh:mm:ss,date,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Temp...F,Air temperature,deg F,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-RH...,Relative humidity,percent,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-DewPt...F,Dew Point,def F,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"colName","description","units","dataType","sensorMakeModel","methodName","methodNotes","methodDOI","depthTopM","depthBottomM","depthHeight","zeroRef","notes"
+"#",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Date Time, GMT -0400",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Temp, °F",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"RH, %",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"DewPt, °F",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+
+
+
+
+

@@ -2,13 +2,17 @@ Files:
   - "20240125_processed Blodgett soil moisture.RData"
   - "20240125_processed Blodgett soil temperature.RData"
   - "Read me.xlsx"
-Source: Elaine Pegararo <ElainePegoraro@lbl.gov>
+Source:
+  - Elaine Pegararo <ElainePegoraro@lbl.gov>
+  - ESSDive
 Curator: J. Beem-Miller
-Date: 20-Nov-2024
+Date: 10-Sep-2025
 Contents:
   - temperature and moisture data from Blodgett
+  - soil CO2 flux
 Notes:
   - data initially sent on 5 Apr 2024 by email from E. Pegararo to J. Beem-Miller
   - files sent as .csv & .RData files, along with "Read me.xlsx"
-  -  
+  - soil CO2 flux data from Soong et al., 2021
+  - Soong et al., 2021 also contains C, N, BD, SOM fractions (density?), and gas well data
 References:

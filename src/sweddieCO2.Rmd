@@ -1,0 +1,296 @@
+---
+title: "sweddieCO2"
+author: "J. Beem-Miller"
+date: "2024-03-08"
+output: html_document
+---
+
+```{r global_options, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
+                      fig.align = 'center', dev = c('cairo_pdf', 'png'))
+options(scipen = 5)
+# load utils
+source("~/eco-warm/src/utilities/utils.R")
+```
+
+```{r setup, include = FALSE}
+library(ggplot2)
+library(cowplot)
+library(tidyr)
+library(SoilR)
+library(readxl)
+library(ISRaD)
+library(emmeans)
+library(scales)
+library(viridis)
+library(mpspline2)
+library(dplyr)
+library(lubridate)
+library(terra)
+library(tidyterra)
+```
+
+```{r load-core}
+database <- coreData.fx()
+```
+
+# Sites
+## o85ExperimentStation
+
+```{r 185e-dat}
+# readr::guess_encoding("../data/experiments/185ExperimentStation/raw/fwreredeepsoil2100co2fluxdatarequest/datafile_CO2_flux.csv") # as needed
+o85e.co2 <- read.csv("../data/experiments/185ExperimentStation/raw/fwreredeepsoil2100co2fluxdatarequest/datafile_CO2_flux.csv", fileEncoding = "ISO-8859-1")
+
+# adjust plot name
+o85e.co2$plt_name <- paste0(o85e.co2$PlotID, "_", o85e.co2$replicate)
+
+# filter
+o85e.co2.clean <- o85e.co2[ , c("plt_name", "Date", "CO2.flux")]
+
+write.csv(
+  o85e.co2.clean, 
+  file = "../data/experiments/185ExperimentStation/input_data/datafile_CO2_flux.csv",
+  row.names = FALSE)
+```
+
+```{r 185e-plt}
+o85e.co2.clean %>%
+  mutate(Date = as.Date(Date),
+         CO2.flux = as.numeric(CO2.flux)) %>%
+  filter(plt_name == "CK_1" | plt_name == "W_1") %>%
+  ggplot(aes(Date, CO2.flux, color = plt_name)) + 
+  geom_point() +
+  geom_line() +
+  scale_x_date(limits = c(as.Date("2017-11-22"), as.Date("2019-09-01"))) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+ts_freq(o85e.co2.clean)
+```
+
+## ACBB
+```{r acbb-dat}
+```
+
+## Achenkirch
+```{r achn-dat}
+achn.co2 <- read.csv("../data/experiments/Achenkirch/input_data/CO2.flux.µmol.m2.sec.csv")
+ts_freq(achn.co2[!is.na(achn.co2$CO2.flux.µmol.m2.sec), ], dateName = "date")
+achn.co2 %>%
+  mutate(date = as.Date(date),
+         CO2.flux.µmol.m2.sec = as.numeric(CO2.flux.µmol.m2.sec)) %>%
+  filter(!is.na(CO2.flux.µmol.m2.sec)) %>%
+  filter(plt_name == "control_6" | plt_name == "heated_2") %>%
+  ggplot(aes(date, CO2.flux.µmol.m2.sec, color = plt_name)) + 
+  geom_point() +
+  geom_line() +
+  scale_x_date(limits = c(as.Date("2017-11-22"), as.Date("2019-09-01"))) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+```
+
+## B4W
+
+## Blodgett
+```{r bldg-dat}
+bldg.co2 <- read.csv("../data/experiments/Blodgett/raw/Soong et al 2021/ess_dive_a1d627054a0dc0d_20230407T145942155943/data/ESSDive_5yr_SurfaceFlux.csv")
+bldg.co2$plt_name <- paste0(ifelse(bldg.co2$Treatment == "H", "treatment_", "control_"), bldg.co2$Plot)
+bldg.co2$date <- bldg.co2$DateTime.1
+bldg.co2 <- bldg.co2[!is.na(bldg.co2$gC.m2.hr), ]
+write.csv(bldg.co2, file = "../data/experiments/Blodgett/input_data/soilCO2_monthly_2014_2018.csv")
+
+ts_freq(bldg.co2, dateName = "date", repName = "Collar")
+
+bldg.co2 %>%
+  mutate(date = as.Date(bldg.co2$date, format = "%m/%d/%y")) %>%
+  group_by(date, plt_name) %>%
+  summarize(mean = mean(gC.m2.hr), sd = sd(gC.m2.hr)) %>%
+  ggplot(aes(date, mean, color = plt_name)) + 
+  geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) +
+  geom_point() +
+  geom_line() +
+  # scale_x_date(limits = c(as.Date("2017-11-22"), as.Date("2019-09-01"))) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+```
+
+## CiPEHR
+```{r cphr-dat}
+
+```
+
+## ForHot
+- note that data collected in gradient design
+- does not match plot layout in plot table
+- how to assess?
+- each plot could be a warming treatment, e.g.,
+> unique(fhot.co2$Warming)
+[1]  1.0  0.0  0.2  1.8  5.9  9.4 10.0  9.8
+
+```{r fhot-dat}
+readr::guess_encoding("../data/experiments/ForHot/raw/redeepsoil2100datarequest/FORHOT_SoilResp_Data.csv")
+fhot.co2 <- read.csv("../data/experiments/ForHot/raw/redeepsoil2100datarequest/FORHOT_SoilResp_Data.csv", fileEncoding = "ISO-8859-2")
+fhot.co2 %>% 
+  mutate(date = parse_date_time(Date, orders = "dmy")) %>% 
+  ggplot(aes(date, SR, color = Warming)) + 
+  geom_point() + 
+  theme_bw() + 
+  theme(panel.grid = element_blank())
+```
+
+## FutureClim
+
+
+## GENX
+
+
+## Harvard Forest
+- have data from multiple sites (tracts):
+  - SWAN [not sure about location...]
+  - Barre Woods
+  - Prospect Hill
+
+```{r hvdf-dat}
+hvdf.ph.dat <- read.csv("../data/experiments/HarvardForest/raw/hf005-01-trace-gas.csv")
+ts_freq(hvdf.ph.dat)
+hvdf.bw.dat <- read.csv("../data/experiments/HarvardForest/raw/hf018-01-trace-gas.csv")
+ts_freq(hvdf.bw.dat)
+hvdf.sw.dat <- read.csv("../data/experiments/HarvardForest/raw/hf045-01-soil-resp-3.csv") 
+```
+
+
+## KAEFS
+- need to match plot IDs to plot table
+- not sure why blocks do not align with current data
+
+```{r kaef-dat}
+kaef.co2 <- read_excel("../data/experiments/KAEFS/raw/df_2010_2015_RsforJeff.xlsx")
+kaef.co2.l <- kaef.co2 %>%
+  pivot_longer(cols = 7:ncol(kaef.co2), values_to = "flx_co2", names_to = "date") %>%
+  mutate(date = parse_date_time(date, orders = "ymd HMS"))
+kp <- database$KAEFS$plot %>%
+  mutate(Warming = ifelse(plt_heat_level == 0, "C", "H"),
+         Precipitation = ifelse(grepl("precip", plt_treat_add_name) & grepl("2", plt_treat_add_level), "D", 
+                                ifelse(grepl("precip", plt_treat_add_name) & grepl("0.5", plt_treat_add_level), "H", "C")),
+         Clipping = ifelse(grepl("clipping", plt_treat_add_name), "Clipped", "Unclipped"),
+         Plotid1 = as.numeric(str_extract(plt_name, "\\d+\\.*\\d*"))) %>%
+  right_join(kaef.co2.l, by = c("Clipping", "Warming", "Precipitation", "Plotid1")) %>%
+  filter(flx_co2 < 20) %>% # filter extreme values
+  select(date, plt_name, flx_co2)
+write.csv(kp, file = "../data/experiments/KAEFS/input_data/soilCO2_flx.csv")
+ts_freq(kp, dateName = "date")
+
+kaef.co2.l %>%
+  filter(flx_co2 < 20) %>%
+  mutate(trt = paste0(Warming, Precipitation, Clipping)) %>%
+  group_by(trt, date) %>%
+  summarize(mean = mean(flx_co2, na.rm = TRUE), sd = sd(flx_co2, na.rm = TRUE), .groups = "drop") %>%
+  ggplot(aes(date, mean, color = trt)) +
+  geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) +
+  geom_point() +
+  geom_line() +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+
+```
+
+
+## Lyon, HI
+
+
+
+## MERIT
+- only transparent chamber data available
+
+
+
+## Sanming
+- need to request data
+
+
+## SMARTX
+
+```{r smtx-dat}
+# load raw data
+smtx.co2 <- read.csv("../data/experiments/SMARTX/raw/rewed_aug_20th1700cestdeepsoil2100sweddiemeeti/dat_SMARTX_C_flux_2016-2025.csv")
+
+# check ts freq
+ts_freq(smtx.co2, pltName = "Plot_ID")
+
+# ensure plt_name present
+smtx.co2$plt_name <- smtx.co2$Plot_ID 
+
+# write CO2 file
+smtx.co2 %>%
+  select(Date, plt_name, CO2_flux) %>%
+  write.csv(., file = "../data/experiments/SMARTX/input_data/soilCO2_flux.csv", row.names = FALSE)
+
+# write CH4 file
+smtx.co2 %>%
+  select(Date, plt_name, CO2_flux) %>%
+  write.csv(., file = "../data/experiments/SMARTX/input_data/soilCH4_flux.csv", row.names = FALSE)
+```
+
+
+## SPRUCE
+- confirm source and get dd info (maybe just retrieved from web?)
+- no clue where this file came from; need to email SPRUCE contacts
+
+```{r sprc-dat}
+# load data
+sprc.co2 <- read.csv("../data/experiments/SPRUCE/raw/PLOT_04_CO2_H2O_Multiyear_20210112.csv")
+sprc.co2$Date <- date_decimal(sprc.co2$Yfrac)
+```
+
+
+## SWAMP
+- might be a challenge to get CO2 fluxes
+
+
+## SWELTR
+- what does "Code" mean? Clarify with Andrew that this is the same as "Type"---assuming S1 & S2 = root exclusion/ingrowth cores (not sure which is which), and C1 = collar
+
+```{r swtr-dat}
+swtr.co2 <- read.csv("../data/experiments/SWELTR/raw/redeepsoil2100co2fluxdatarequest/SWELTR_to2020_CO2_post_surface efflux.csv")
+swtr.co2$plt_name <- paste(swtr.co2$Plot, swtr.co2$Treat, sep = "_")
+ts_freq(swtr.co2, repName = "Code")
+```
+
+
+## TEAM
+
+```{r team-dat}
+team.co2 <- read.csv("../data/experiments/TEAM/raw/redeepsoil2100co2fluxdatarequest/CO2 2018-2021 Haibei.csv")
+team.co2$date <- paste(team.co2$Year, substr(team.co2$Date, 1, 1), substr(team.co2$Date, 3, 4), sep = "-")
+ts_freq(team.co2[team.co2$Respiration.type == "Total", ], pltName = "ID", dateName = "date")
+team.co2 <- team.co2 %>%
+  rename(plt_name = ID) %>%
+  select(date, plt_name, Respiration.type, Respiration.value)
+write.csv(
+  team.co2[team.co2$Respiration.type == "Total", ], 
+  file = "../data/experiments/TEAM/input_data/soilCO2_flux_total.csv", 
+  row.names = FALSE)
+write.csv(
+  team.co2[team.co2$Respiration.type == "H", ], 
+  file = "../data/experiments/TEAM/input_data/soilCO2_flux_hetero.csv", 
+  row.names = FALSE)
+write.csv(
+  team.co2[team.co2$Respiration.type == "A", ], 
+  file = "../data/experiments/TEAM/input_data/soilCO2_flux_auto.csv", 
+  row.names = FALSE)
+```
+
+
+## TeRaCON
+- soil temp measured simultaneously with flux
+
+```{r trcn-dat}
+trcn.co2 <- read.csv("../data/experiments/TeRaCON/raw/W2CON 2012-2023 SCF for Jeff_250828.csv")
+trcn.co2 %>%
+  rename(plt_name = Plot) %>%
+  select(Date, plt_name, SCF) %>%
+  write.csv(., file = "../data/experiments/TeRaCON/input_data/soilCO2_flux.csv", row.names = FALSE)
+```
+
+
+## TRACE
+- Tana indicated that it would be some time before data were available to share (confirm this)

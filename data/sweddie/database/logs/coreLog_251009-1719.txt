@@ -1,0 +1,147 @@
+SWEDDIE Compilation Log 
+ 
+ 2025-10-09 17:19:40.464134 
+ - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling data files in siteData 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+Compiling and checking core data...
+
+ 
+
+ 185ExperimentStation 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock, plt_notes 
+
+ ACBB 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ Achenkirch 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ B4WarmED 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ Blodgett 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ CiPEHR 
+ 
+
+ DWFP 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock, plt_notes, plt_treat_heat 
+	 site table names do not match template 
+		Column names missing: biome 
+		Column names extra: landCover 
+
+ ForHot 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ FutureClim 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock, plt_notes 
+
+ GENX 
+ 
+	 experiment table names do not match template 
+		Column names missing: treatment_add_units, heat_AG_date_f 
+		Column names extra: heat_BG_date_f.1 
+	 site table names do not match template 
+		Column names missing: country, MAT_refPeriod, MAP_refPeriod, aspect, soil_texture_class, site_notes, permafrost, soil_depth 
+
+ HarvardForest 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ KAEFS 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ LyonHI 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ MERIT 
+ 
+	 experiment table names do not match template 
+		Column names missing: treatment_add_units, heat_AG_date_f 
+		Column names extra: heat_BG_date_f.1 
+	 site table names do not match template 
+		Column names missing: country, MAT_refPeriod, MAP_refPeriod, aspect, soil_texture_class, site_notes, permafrost, soil_depth 
+
+ PtReyes 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ Sanming 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock, plt_notes 
+	 site table names do not match template 
+		Column names missing: country, MAT_refPeriod, MAP_refPeriod, aspect, soil_texture_class, site_notes, permafrost, soil_depth 
+
+ SMARTX 
+ 
+	 experiment table names do not match template 
+		Column names missing: treatment_add_units, heat_AG_date_f 
+		Column names extra: heat_BG_date_f.1 
+	 plot table names do not match template 
+		Column names extra: X, X.1, X.2, X.3 
+	 site table names do not match template 
+		Column names missing: country, MAT_refPeriod, MAP_refPeriod, aspect, soil_texture_class, site_notes, permafrost, soil_depth 
+
+ SPRUCE 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ Stillberg 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ SWAMP 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ SWELTR 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ TEAM 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ TeRaCON 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 
+
+ TRACE 
+ 
+	 plot table names do not match template 
+		Column names missing: plt_subBlock 

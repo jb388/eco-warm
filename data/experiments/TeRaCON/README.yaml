@@ -6,15 +6,18 @@ Files:
   - "Biocon_hourly_warmingseason_2012-2018vprimary1.csv"
   - "Biocon_hourly_2012-2018vprimary1.csv"
   - "E141 data for Jeff Beem-Miller_241011.xls"
-Source: Kally Worm <wormx004@umn.edu>
+  - "W2CON 2012-2023 SCF for Jeff_250828.csv"
+Source: Kally Worm <wormx004@umn.edu>; Tiana Lenzmier
 Curator: J. Beem-Miller
-Date: 14-Oct-2024
+Date: 10-Sep-2025
 Contents:
-  - soil temperature moisture data from TeRaCON site
+  - soil temperature, moisture, CO2 flux, soils data from TeRaCON site
 Notes:
   - initial data files, soil temp & moisture, sent to J. Beem-Miller by email on 28-Mar-2024
   - second set of data, local climate, soil physical properties (file 'E141 data for Jeff Beem-Miller_241011.xls') sent on 11-Oct-2024
   - soil moisture data collected with TDR probes from 2012 to 2018, then with Sentek sensors for 2019-2023
+  - soil CO2 flux data (W2CON 2012-2023 SCF for Jeff_250828.csv) sent on Aug. 28th 2025 from Tiana Lenzmier (see email copied below)
+    - Hi Jeff, I have attached the flux data below. We are still working on finalizing and cleaning up our 2024 data so this is data from 2012-2023 from the teracon plots. Please let me know if you have any questions about these data, Tiana
   - Plot table.xlsx:
     - contains metadata describing contents of other files in dir
     - note that updated file received on 2 Apr 2024 with treatment information
@@ -59,6 +62,6 @@ Notes:
       - Can you confirm what the flag columns signify here?
       - Can you provide the units for the measurement columns?
   - Biocon_hourly_2012-2018vprimary1.csv:
-    - temperature data for date range 2012-2018
+    - temperature & soil moisture data (+ more?) for date range 2012-2018
     - large data object [1104880, 61] ~ 512.3 Mb
 References:

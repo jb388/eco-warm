@@ -1,0 +1,56 @@
+"email","name","dataContactName","dataContactEmail","fileName","sit_name","varName","description","UTC_offset","fileVersionNumber","startDate","endDate","missingValCodes","notes"
+"jbeemmiller@lbl.gov","Jeffrey Beem-Miller","Andreas Schindlbacher","andreas.schindlbacher@bfw.gv.at","air_temp...C..csv","montane forest","air temperature","site level air temperature","1","1","2005-01-01","2022-12-31",NA,NA
+"jbeemmiller@lbl.gov","Jeffrey Beem-Miller","Andreas Schindlbacher","andreas.schindlbacher@bfw.gv.at","CO2.flux.µmol.m2.sec.csv","montane forest","soil CO2 flux","soil CO2 flux measured by chamber","1","1","2005-01-01","2022-12-31",NA,NA
+"jbeemmiller@lbl.gov","Jeffrey Beem-Miller","Andreas Schindlbacher","andreas.schindlbacher@bfw.gv.at","heating.on.off.csv","montane forest","heating status","flag for whether heating is on or off","1","1","2005-01-01","2022-12-31",NA,NA
+"jbeemmiller@lbl.gov","Jeffrey Beem-Miller","Andreas Schindlbacher","andreas.schindlbacher@bfw.gv.at","precipitation..mm..csv","montane forest","precipitation","site level precipitation","1","1","2005-01-01","2022-12-31",NA,NA
+"jbeemmiller@lbl.gov","Jeffrey Beem-Miller","Andreas Schindlbacher","andreas.schindlbacher@bfw.gv.at","rel_humidity.....csv","montane forest","bulk density","relative air humidity measured for site","1","1","2005-01-01","2022-12-31",NA,NA
+"jbeemmiller@lbl.gov","Jeffrey Beem-Miller","Andreas Schindlbacher","andreas.schindlbacher@bfw.gv.at","soil_moist_manual..Vol...csv","montane forest","soil moisture","manual volumetric soil moisture measurements made with TDR sensor between 0 and 7.5 cm in depth","1","1","2005-01-01","2022-12-31",NA,NA
+"jbeemmiller@lbl.gov","Jeffrey Beem-Miller","Andreas Schindlbacher","andreas.schindlbacher@bfw.gv.at","soil.temp.manual.5cm...C..csv","montane forest","soil temperature","soil temperature measured manually at 5 cm depth","1","1","2005-01-01","2022-12-31",NA,NA
+"jbeemmiller@lbl.gov","Jeffrey Beem-Miller","Andreas Schindlbacher","andreas.schindlbacher@bfw.gv.at","soilTemp.csv","montane forest","soil temperature","soil temperature measured via sensor at 5 and 15 cm depths","1","1","2005-01-01","2022-12-31",NA,NA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,11 @@
 Name,email,dataContactName,dataContactEmail,fileName,expName,dataType,description,UTC_offset,fileVersionNumber,startDate,endDate,missingValCodes,dataOrientation,notes
-Jeffrey Beem-Miller,jbeemmiller@lbl.gov,Zheng Shi,zheng.shi@ou.edu,temperature_200908_201802_daily_reshaped.csv,KAEFS,soil temperature,soil temperature data from cropland experiment at Oklahoma University,-6,NA,8/23/09,2/15/18,NA,Columns (vertical),NA
+Jeffrey Beem-Miller,jbeemmiller@lbl.gov,Zheng Shi,zheng.shi@ou.edu,temperature_200908_201802_daily_reshaped.csv,KAEFS,soil temperature,soil temperature data from cropland experiment at Oklahoma University,-6,NA,8/23/09,2/15/18,NA,vertical,NA
 Jeffrey Beem-Miller,jbeemmiller@lbl.gov,Zheng Shi,zheng.shi@ou.edu,ANPP_2009_2023_reshapedLong.csv,KAEFS,aboveground net primary productivity,"aboveground productivity data for 2009-2023, with separate values for C3 and C4 plants",-6,NA,2009,2022,NA,vertical,NA
 Jeffrey Beem-Miller,jbeemmiller@lbl.gov,Zheng Shi,zheng.shi@ou.edu,local_climate_data.csv,KAEFS,local climate,"air temperature, precip, windspeed, relative humidity, solar radiation",-6,NA,12/31/99 23:00,12/31/22 23:00,-999,vertical,NA
 Jeffrey Beem-Miller,jbeemmiller@lbl.gov,Zheng Shi,zheng.shi@ou.edu,BNPP10-13_reshapedLong.csv,KAEFS,belowground productivity,root biomass data,-6,NA,2010,2013,NA,horizontal,NA
-Jeffrey Beem-Miller,jbeemmiller@lbl.gov,Zheng Shi,zheng.shi@ou.edu,SoilMoisture2018-2023_reshapeLong.csv,KAEFS,soil moisture,daily depth resolved volumetric water content,-6,,1/1/18,6/30/23,,horizontal,
+Jeffrey Beem-Miller,jbeemmiller@lbl.gov,Zheng Shi,zheng.shi@ou.edu,SoilMoisture2018-2023_reshapeLong.csv,KAEFS,soil moisture,daily depth resolved volumetric water content,-6,NA,2001-01-18,6/30/23,NA,horizontal,NA
+Jeffrey Beem-Miller,jbeemmiller@lbl.gov,Zheng Shi,zheng.shi@ou.edu,SoilTemperature2Depth_2018-2023_reshape_long.csv,KAEFS,soil temperature,soil temperature data from cropland experiment at Oklahoma University,-6,NA,2018-01-01,2023-06-30,NA,vertical,NA
+
+
+
+

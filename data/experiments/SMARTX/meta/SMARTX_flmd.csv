@@ -1,0 +1,12 @@
+"email","name","dataContactName","dataContactEmail","fileName","sit_name","varName","description","UTC_offset","fileVersionNumber","startDate","endDate","missingValCodes","notes"
+"jbeemmiller@lbl.gov","Jeffrey Beem-Miller","Elizabeth Westbrook","WestbrookE@si.edu","airT.csv","SMARTX","air temperature","air temperature measured directly above plot","-5",NA,"2016-06-17 13:00:00","2023-12-31 23:00:00",NA,NA
+"jbeemmiller@lbl.gov","Jeffrey Beem-Miller","Elizabeth Westbrook","WestbrookE@si.edu","climDat.csv","SMARTX","air humidity","relative humidity as well as wind speed and direction","-5",NA,"2016-06-17 13:00:00","2023-12-31 23:00:00",NA,NA
+"jbeemmiller@lbl.gov","Jeffrey Beem-Miller","Elizabeth Westbrook","WestbrookE@si.edu","H2O_level.csv","SMARTX","water level","water level","-5",NA,"2016-06-17 13:00:00","2023-12-31 23:00:00",NA,NA
+"jbeemmiller@lbl.gov","Jeffrey Beem-Miller","Elizabeth Westbrook","WestbrookE@si.edu","soilT.csv","SMARTX","soil temperature","soil temperature","-5",NA,"2016-06-17 13:00:00","2023-12-31 23:00:00",NA,NA
+
+
+
+
+
+
+

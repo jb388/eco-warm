@@ -1,0 +1,12 @@
+colName,description,units,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef,notes
+date,date,ymd,date,NA,NA,NA,NA,NA,NA,NA,NA,NA
+depth,depth,cm,numeric,NA,NA,NA,NA,NA,NA,depth,NA,NA
+plt_name,plot ID,NA,string,NA,NA,NA,NA,NA,NA,NA,NA,NA
+treatment,treatment imposed,NA,string,NA,NA,NA,NA,NA,NA,NA,NA,NA
+mean_value,volumetric soil moisture,percent volumetric soil water content,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA
+
+
+
+
+
+

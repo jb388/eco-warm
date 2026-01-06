@@ -1,8 +1,52 @@
 ﻿colName,description,unit,dataType,varName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
 Year,year sampled,,date,,,,,,,,,
-Plots,plot ID,,string,,,,,,,,,
-Field,site name,,string,,,,,,,,,
+plt_name,plot ID,,string,,,,,,,,,
 depth_upper,upper depth,cm,numeric,depth_upper,,,,,,,depth,mineral soil interface
 depth_lower,lower depth,cm,numeric,depth_lower,,,,,,,depth,mineral soil interface
-Treatment,treatment,,Heated;Control,,,,,,,,,
 Bulk_density(g/cm3),bulk density,g/cm3,numeric,bulk density,,,,,,,,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

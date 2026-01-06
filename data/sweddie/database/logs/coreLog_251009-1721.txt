@@ -1,0 +1,85 @@
+SWEDDIE Compilation Log 
+ 
+ 2025-10-09 17:21:36.785823 
+ - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling data files in siteData 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+Compiling and checking core data...
+
+ 
+
+ 185ExperimentStation 
+ 
+
+ ACBB 
+ 
+
+ Achenkirch 
+ 
+
+ B4WarmED 
+ 
+
+ Blodgett 
+ 
+
+ CiPEHR 
+ 
+
+ DWFP 
+ 
+
+ ForHot 
+ 
+
+ FutureClim 
+ 
+
+ GENX 
+ 
+
+ HarvardForest 
+ 
+
+ KAEFS 
+ 
+
+ LyonHI 
+ 
+
+ MERIT 
+ 
+
+ PtReyes 
+ 
+
+ Sanming 
+ 
+
+ SMARTX 
+ 
+
+ SPRUCE 
+ 
+
+ Stillberg 
+ 
+
+ SWAMP 
+ 
+
+ SWELTR 
+ 
+
+ TEAM 
+ 
+
+ TeRaCON 
+ 
+
+ TRACE 
+ 

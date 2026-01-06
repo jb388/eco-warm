@@ -1,0 +1,17 @@
+Files:
+  - raw
+Source: Andreas Schindlbacher <>
+Curator: J. Beem-Miller
+Date: 10-Sep-2025
+Contents:
+  - soil temperature
+  - soil moisture
+  - soil CO2 flux
+  - heating schedule
+  - precipitation record
+  - relative humidity
+  - air temperature
+Notes:
+  - soil temperature and moisture data processed, note that it is not regular, although covers a long period (12 + years)
+  - soil data sent to JBM by email 01-Dec-2024 by AS
+References:

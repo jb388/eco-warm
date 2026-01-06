@@ -1,24 +1,34 @@
 Files:
-  - "soilT_moist_AN_6-7-2024/SWELTR_to2020_T_H2O_withinfo.csv"
-  - "soilT_moist_AN_6-7-2024/SWELTR_to2020_T_H2O.csv"
-  - "SWELTR_to2020_T_H2O_flmd.csv"
-  - "SWELTR_to2020_T_H2O_dd.csv"
+  - raw:
+    - soilT_moist_AN_6-7-2024:
+      - "SWELTR_to2020_T_H2O_withInfo.csv"
+      - "SWELTR2020_T_H2O.csv"
+    - redeepsoil2100co2fluxdatarequest:
+      - "datTemplate_CO2_SWELTR_2years.csv"
+      - "SWELTR_to2020_CO2_post_surface efflux.csv"
 Source: Andrew Nottingham <A.Nottingham@leeds.ac.uk>
 Curator: J. Beem-Miller
-Date: 02-Aug-2024
+Date: 10-Sep-2025
 Contents:
   - soil temperature and moisture data from SWELTR site (up to 2018)
+  - soil CO2 flux data
 Notes:
-  - sent to J. Beem-Miller by email on 07-Jun-2024
-  - J. Beem-Miller added FLMD and DD files on 02-Aug-2024 using information provided in file "SWELTR_to2020_T_H2O_withinfo.csv"
+  - soil temp and moisture sent to JBM by email on 07-Jun-2024
+  - JBM added FLMD and DD files on 02-Aug-2024 using information provided in file "SWELTR_to2020_T_H2O_withinfo.csv"
+  - AN sent additional soil CO2 flux data to JBM by email on 21-Jul-2024
+  - CO2 files in raw/redeepsoil2100co2fluxdatarequest
+  - notes on CO2 flux data:
+      "There are the first 2 years of data, which should be a good start for this first exercise. We have more data beyond this (from 2022-2025), but it’s still being processed
+      if more data becomes available I’ll follow up with further data to include.
+      The warming was switched on 1 November 2016, so the data here begin shortly following.
+      Note that we don’t have time stamps for these data - we only recorded the date of measurement, because all data were collected during a short-window around midday when we have field site access (9pm-3pm) and there is little-to-no diurnal variation in soil temperature (certainly no effect of time of day during this time period). Therefore if time stamp necessary you could include a midday time-stamp for all (12noon +-3 hours).
+      We are exploring measuring diurnal CO2 emissions using automatic chambers - but this is work in progress. If you want to explore diurnal patterns in CO2 emissions, I can follow up with those data as become available.
+      Note that here there is data ’type’ =COLLAR. Which means a regular soil collar (surface soil CO2 efflux).
+      In the master file I also have partitioned fluxes (using root exclusion cores) with headings SOIL/ROOTS. We calculated the root component by using the ratio of these to calculate the % from roots vs soil (which we assume removed any bias from the core treatment affecting the flux rate), then applying that % to the regular (collar) flux rate.  The data were quite noisy  from these partitioning cores - we’ve since set up a new/less invasive method to measure this which reduces measurement noise. To keep things simple for now I just include the surface CO2 fluxes - but if you want other data I can send through too."
   - SWELTR_to2020_T_H2O_withinfo.csv:
     - user-supplied data dictionary file for "SWELTR_to2020_T_H2O.csv"
     - also includes sensor info, units, and measurement protocols
   - SWELTR_to2020_T_H2O.csv:
     - large table w/ cols TIME, DEPTH, T, H2O, PLOT, TREAT
     - first two years of heating (2018-2020)
-  - SWELTR_to2020_T_H2O_flmd.csv:
-    - SWEDDIE flmd
-  - SWELTR_to2020_T_H2O_dd.csv:
-    - SWEDDIE data dictionary file
 References:

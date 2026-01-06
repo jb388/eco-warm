@@ -1,0 +1,144 @@
+SWEDDIE Metadata Log 
+ 
+ 2025-12-05 13:37:46.456392 
+ - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/185ExperimentStation 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+	The following input data files are missing flmd and will not be ingested:
+ datafile_CO2_flux.csv 
+ 
+Data dictionary file ' datafile_CO2_flux_dd.csv ' missing column/s:  plt_name Date CO2.flux 
+ 
+
+
+Compiling metadata files in ../data/experiments/ACBB 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/Achenkirch 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/B4WarmED 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/Blodgett 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+	The following input data files are missing data dictionaries and will not be ingested:
+ soilCO2_monthly_2014_2018.csv 
+ 
+
+
+Compiling metadata files in ../data/experiments/CiPEHR 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/DWFP 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/ForHot 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/FutureClim 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/GENX 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/HarvardForest 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/KAEFS 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+	The following input data files are missing data dictionaries and will not be ingested:
+ soilCO2_flx.csv 
+ 
+
+
+Compiling metadata files in ../data/experiments/LyonHI 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/MERIT 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/PtReyes 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+ PtReyes 
+
+ No files found in  ../data/experiments/PtReyes 
+
+
+Compiling metadata files in ../data/experiments/Sanming 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/SMARTX 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+	The following input data files are missing data dictionaries and will not be ingested:
+ soilCH4_flux.csv soilCO2_flux.csv 
+ 
+
+
+Compiling metadata files in ../data/experiments/SPRUCE 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/SWAMP 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/SWELTR 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+
+
+Compiling metadata files in ../data/experiments/TEAM 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+	The following input data files are missing data dictionaries and will not be ingested:
+ soilCO2_flux_auto.csv soilCO2_flux_hetero.csv soilCO2_flux_total.csv 
+ 
+
+
+Compiling metadata files in ../data/experiments/TeRaCON 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+	The following input data files are missing data dictionaries and will not be ingested:
+ soilCO2_flux.csv 
+ 
+
+
+Compiling metadata files in ../data/experiments/TRACE 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 

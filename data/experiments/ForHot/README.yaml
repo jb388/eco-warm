@@ -1,0 +1,15 @@
+Files:
+  - raw
+    - redeepsoil2100datarequest
+      - FORHOT_SoilResp_Data.csv
+      - FORHOT_SoilResp_dd.csv
+Source: Fabrizzio Protti Sanchez <Fabrizzio.Protti-Sanchez@uibk.ac.at>
+Curator: J. Beem-Miller
+Date: 10-Sep-2025
+Contents:
+  - soil CO2 flux data from FORHOT
+Notes:
+  - Fabrizzio sent data to J. Beem-Miller on Aug. 5th
+  - JBM followed up on Sep. 9th to request missing soil temperature and moisture data
+    - JBM sent multiple emails to PI Bjarni Sigurdsson, some copying collaborator Andreas Richter, requesting the soil temperature and moisture data but to no avail
+References:

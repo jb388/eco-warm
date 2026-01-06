@@ -1,2 +1,0 @@
-emailAddress,Name,Data contact name,Data contact email,fileName,siteName,dataType,description,UTC_offset,fileVersionNumber,startDate,endDate,missingValCodes,dataOrientation,notes
-jbeemmiler@lbl.gov,Jeff,Elaine Pegoraro,ElainePegoraro@lbl.gov,20240125_processed Blodgett soil temperature.csv,Blodgett,soil temperature;soil moisture,soil temperature and moisture sensor data from Blodgett Forest,-8,,12/31/13 16:00,1/18/24 8:00,NA,Rows (horizontal),

@@ -1,0 +1,103 @@
+SWEDDIE Metadata Log 
+ 
+ 2025-09-09 14:54:24.424623 
+ - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/185ExperimentStation 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/ACBB 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Data dictionary file ' SOC_2022_dd.csv ' missing column/s:  Year 
+
+
+Compiling metadata files in ../data/experiments/Achenkirch 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/B4WarmED 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/Blodgett 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/CiPEHR 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/DWFP 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/ForHot 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ ForHot 
+
+ No files found in  ../data/experiments/ForHot
+
+Compiling metadata files in ../data/experiments/FutureClim 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/GENX 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/HarvardForest 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/KAEFS 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/LyonHI 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/MERIT 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/PtReyes 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ PtReyes 
+
+ No files found in  ../data/experiments/PtReyes
+
+Compiling metadata files in ../data/experiments/Sanming 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/SMARTX 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/SPRUCE 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/SWAMP 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/SWELTR 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/TEAM 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/TeRaCON 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+Compiling metadata files in ../data/experiments/TRACE 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

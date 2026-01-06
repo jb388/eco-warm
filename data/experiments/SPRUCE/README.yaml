@@ -3,7 +3,9 @@ Source:
 Curator: J. Beem-Miller
 Date: 20-Nov-2024
 Contents:
-  - temperature and moisture data from SPRUCE
+  - soil temperature and moisture data
+  - soil CO2 flux data
 Notes:
   - additional data here https://mnspruce.ornl.gov/datasets/spruce-diurnal-and-seasonal-patterns-of-water-potential-in-s1-bog-and-spruce-experimental
+  - Need to verify source for CO2 flux
 References:

@@ -1,0 +1,11 @@
+"colName","description","units","dataType","sensorMakeModel","methodName","methodNotes","methodDOI","depthTopM","depthBottomM","depthHeight","zeroRef","notes"
+"timestamp","time that the measurement was taken (EST)",NA,"date",NA,NA,NA,NA,NA,NA,NA,NA,""
+"plt_name","the location of the plot. The letter indicates the transect number and the number indicates the heating zone",NA,"character",NA,NA,NA,NA,NA,NA,NA,NA,""
+"soil_temp_avg","The average measured temperature of the soil from all pin sensors in the plot","degrees_C","numeric","Type T Thermocouple",NA,NA,NA,0.15,NA,"depth","atmosphere-soil",""
+
+
+
+
+
+
+

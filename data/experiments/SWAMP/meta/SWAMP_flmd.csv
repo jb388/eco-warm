@@ -1,0 +1,12 @@
+email,name,dataContactName,dataContactEmail,fileName,sit_name,varName,description,UTC_offset,fileVersionNumber,startDate,endDate,missingValCodes,notes
+jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Roy,baiyuxuan@ibcas.ac.cn,airT.csv,Altun-Qilian,air temperature,air temperature in deg C measured at site level,8,1,2020-01-01,2022-12-31 23:30,NA,measured at eddy flux tower
+jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Roy,baiyuxuan@ibcas.ac.cn,prcp.csv,Altun-Qilian,precipitation,precipitation at site in m measured at site level,8,1,2020-01-01,2022-12-31 23:30,NA,measured at eddy flux tower
+jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Roy,baiyuxuan@ibcas.ac.cn,soilMoist.csv,Altun-Qilian,soil moisture,volumetric soil moisture measured by sensor in percent,8,1,2022-01-01,2022-12-31,NA,NA
+jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Roy,baiyuxuan@ibcas.ac.cn,soilT.csv,Altun-Qilian,soil temperature,soil temperature measured by sensor,8,1,2022-01-01,2022-12-31,NA,NA
+jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Roy,baiyuxuan@ibcas.ac.cn,airT_plt.csv,Altun-Qilian,air temperature,air temperature measured by plot,8,1,2022-01-01,2022-12-31,NA,measured by plot
+jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Roy,baiyuxuan@ibcas.ac.cn,soilC.csv,Altun-Qilian,soil organic carbon concentration,concentration of organic C,8,1,2021-10-01,2021-10-01,NA,NA
+jbeemmiller@lbl.gov,Jeffrey Beem-Miller,Roy,baiyuxuan@ibcas.ac.cn,soilN.csv,Altun-Qilian,soil total nitrogen concentration,concentration of total N,8,1,2021-10-01,2021-10-01,NA,NA
+
+
+
+

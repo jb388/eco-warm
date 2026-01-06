@@ -1,0 +1,9 @@
+colName,description,units,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef,notes
+plt_name,plt_name,NA,string,NA,NA,NA,NA,NA,NA,NA,NA,NA
+depth_upper,upper depth,cm,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA
+depth_lower,lower depth,cm,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA
+soil total nitrogen,soil total nitrogen,g kg-1,numeric,NA,NA,NA,NA,NA,NA,NA,NA,sampled in Oct. 2021
+
+
+
+

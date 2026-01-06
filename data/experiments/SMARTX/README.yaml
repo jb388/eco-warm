@@ -1,0 +1,14 @@
+Files:
+  - raw:
+    - rewed_aug_20th1700cestdeepsoil2100sweddiemeeti:
+      - "dat_SMARTX_C_flux_2016-2025.csv"
+      - "dat_SMARTX_C_flux_2016-2025_dd.csv"
+Source: Genevieve Noyce <>
+Curator: J. Beem-Miller
+Date: 10-Sep-2025
+Contents:
+  - temperature and moisture data
+  - soil CO2 flux data
+Notes:
+  - G. Noyce sent soil CO2 flux data to JBM by email on 20-Aug-2025; still needs to be processed as of 10-Sep-2025
+References:

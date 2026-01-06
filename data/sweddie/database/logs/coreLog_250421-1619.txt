@@ -1,0 +1,162 @@
+SWEDDIE Compilation Log 
+ 
+ 2025-04-21 16:19:21.844338 
+ - - - - - - - - - - - - - - - 
+
+
+Compiling data files in siteData 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Compiling and checking core data...
+
+
+ 185ExperimentStation 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock plt_notes 
+	 site 
+
+ ACBB 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ Achenkirch 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ B4WarmED 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ Blodgett 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ CiPEHR 
+	 experiment 
+	 plot 
+	 site 
+
+ DWFP 
+	 experiment 
+	 plot 
+		 Required column plt_treat_heat is missing in plot table
+		 Non-required columns missing from data: plt_subBlock plt_notes 
+	 site 
+		 Required column biome is missing in site table
+		 Extra columns: landCover (12) 
+
+ ForHot 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ FutureClim 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock plt_notes 
+	 site 
+
+ GENX 
+	 experiment 
+		 Non-required columns missing from data: treatment_add_units heat_AG_date_f 
+		 Extra columns: heat_BG_date_f.1 (14) 
+	 plot 
+	 site 
+		 Non-required columns missing from data: country MAT_refPeriod MAP_refPeriod aspect soil_texture_class site_notes permafrost soil_depth 
+
+ HarvardForest 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ KAEFS 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ LyonHI 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ MERIT 
+	 experiment 
+		 Non-required columns missing from data: treatment_add_units heat_AG_date_f 
+		 Extra columns: heat_BG_date_f.1 (14) 
+	 plot 
+	 site 
+		 Non-required columns missing from data: country MAT_refPeriod MAP_refPeriod aspect soil_texture_class site_notes permafrost soil_depth 
+
+ PtReyes 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ Sanming 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ SMARTX 
+	 experiment 
+		 Non-required columns missing from data: treatment_add_units heat_AG_date_f 
+		 Extra columns: heat_BG_date_f.1 (14) 
+	 plot 
+	 site 
+		 Non-required columns missing from data: country MAT_refPeriod MAP_refPeriod aspect soil_texture_class site_notes permafrost soil_depth 
+
+ SPRUCE 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ Stillberg 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ SWAMP 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ SWELTR 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ TEAM 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ TeRaCON 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 
+
+ TRACE 
+	 experiment 
+	 plot 
+		 Non-required columns missing from data: plt_subBlock 
+	 site 

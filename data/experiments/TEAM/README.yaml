@@ -1,12 +1,20 @@
 Files:
-  - "soil mositure-TEAM 2018-2023.xlsx"
-  - "soil temperature-TEAM 2018-2023.xlsx"
+  - raw:
+    - "soil mositure-TEAM 2018-2023.xlsx"
+    - "soil temperature-TEAM 2018-2023.xlsx"
+    - redeepsoil2100co2fluxdatarequest:
+      - "Chen et al - 2024 - NC.pdf"
+      - "CO2 2018-2021 Haibei.csv"
 Source: Xudong Wang (王旭东) <w-xd@stu.pku.edu.cn>
 Curator: J. Beem-Miller
-Date: 22-Jul-2024
+Date: 10-Sep-2025
 Contents:
   - soil temperature and moisture data from TEAM site
+  - soil CO2 flux data
 Notes:
+  - soil CO2 flux data sent to JBM by email from XW on 02-Jul-2025; still need to be entered as of 10-Sep-2025
+  - soil CO2 flux data "CO2 2018-2021 Haibei.csv" accompanied by pdf of paper "Chen et al - 2024 - NC.pdf" describing collection/analysis
+    - includes autotrophic, heterotrophic, total resp
   - soil temp & moisture sent to J. Beem-Miller by email on 16-July-2024
   - note that "treatment" info coded by color in the raw .xlsx file (blue = control [odd plot num.], red = heated [even plot num.])
   - additional data (ANPP, BNPP, SOC, climate) sent on 20-Oct-2024

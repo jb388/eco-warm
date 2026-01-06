@@ -1,0 +1,9 @@
+colName,description,units,dataType,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef,notes
+date,date,ymd,date,NA,NA,NA,NA,NA,NA,NA,NA,NA
+plt_name,plot name,,string,NA,NA,NA,NA,NA,NA,NA,NA,NA
+depth,depth,cm,numeric,NA,NA,NA,NA,NA,NA,depthHeight,mineral soil,
+soilT,soil temperature,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA
+
+
+
+

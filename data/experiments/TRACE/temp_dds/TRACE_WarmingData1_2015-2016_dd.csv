@@ -1,0 +1,93 @@
+colName,description,unit,dataType,siteName,plotName,sensorMakeModel,methodName,methodNotes,methodDOI,depthTopM,depthBottomM,depthHeight,zeroRef
+TIMESTAMP,Date-Time,Month/Date/Year Time,date,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+RECORD,Record Number,NA,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+DateTime.1.,Year,Year,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+DateTime.9.,Julian Day-of-Year,Day,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+DateTime.4.,Hour,Hour,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+DateTime.5.,Minute,Minute,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Target,Desired Degrees C of warming of Heated plots above Reference plots,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+BattVolt_Avg,Voltage of the battery as seen by the logger,V,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Pnl_Tmp_Avg,"""Panel"" temperature inside the datalogger",deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Wind_Avg,Average Wind speed (m/s at 3-m height),m/s,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Wind_Max,Maximum Wind speed( m/s at 3-m height),m/s,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+WindDir_Hst.1.,Wind direction (fraction 0-45 degrees from north),degrees,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+WindDir_Hst.2.,Wind direction (45-90),degrees,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+WindDir_Hst.3.,Wind direction (90-135),degrees,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+WindDir_Hst.4.,Wind direction (135-180),degrees,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+WindDir_Hst.5.,Wind direction (180-225),degrees,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+WindDir_Hst.6.,Wind direction (225-270),degrees,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+WindDir_Hst.7.,Wind direction (270-315),degrees,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+WindDir_Hst.8.,Wind direction (315-360),degrees,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Solar_Avg.1.,Solar radiation (W/m2),W/m2,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Solar_Avg.2.,Photosynthetic Photon Flux Density (PAR; µmol m-2Ês-1), µmol m-2Ês-1,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+AirTempRH_Avg.1.,Air temperature at 3 m height (C),deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+AirTempRH_Avg.2.,Air relative humidity at 3 m height (%),percent,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+VP_kPa_Avg,Vapor pressure at 3 m height (kPa),kPa,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+mV_tpileR_Avg.1.,"Milli-volts of thermopile in infrared thermometers in the Control or Reference plots. It typically varies between about -2.5 and +2.5 volts and it is proportional to the temperature difference between the target surface viewed by the IRT and the body temperature of the IRT. If it stays close to zero even when something hot or cold is held in front of the IRT, the IRT is bad.",mV,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+mV_tpileR_Avg.2.,"Milli-volts of thermopile in infrared thermometers in the Control or Reference plots. It typically varies between about -2.5 and +2.5 volts and it is proportional to the temperature difference between the target surface viewed by the IRT and the body temperature of the IRT. If it stays close to zero even when something hot or cold is held in front of the IRT, the IRT is bad.",mV,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+mV_tpileR_Avg.3.,"Milli-volts of thermopile in infrared thermometers in the Control or Reference plots. It typically varies between about -2.5 and +2.5 volts and it is proportional to the temperature difference between the target surface viewed by the IRT and the body temperature of the IRT. If it stays close to zero even when something hot or cold is held in front of the IRT, the IRT is bad.",mV,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+mV_tpileH_Avg.1.,Milli-volts of thermopile in infrared thermometers in the Heated plots.,mV,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+mV_tpileH_Avg.2.,Milli-volts of thermopile in infrared thermometers in the Heated plots.,mV,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+mV_tpileH_Avg.3.,Milli-volts of thermopile in infrared thermometers in the Heated plots.,mV,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TbodyRC_Avg.1.,Temperatures of the bodies of the IRTs in degrees C in the Control or Reference plots. They are typically near air temperature.,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TbodyRC_Avg.2.,,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TbodyRC_Avg.3.,,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TbodyHC_Avg.1.,Temperatures of the bodies of the IRTs in degrees C in the Heated plots. They are typically near air temperature.,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TbodyHC_Avg.2.,,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TbodyHC_Avg.3.,,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TtarRC_Avg.1.,Temperatures of the target vegetation surfaces in the Reference plots in Degrees C.,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TtarRC_Avg.2.,,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TtarRC_Avg.3.,,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TtarHC_Avg.1.,Temperatures of the target vegetation surfaces in the Heated plots in Degrees C.,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TtarHC_Avg.2.,,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TtarHC_Avg.3.,,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TadjH_Avg.1.,Temperatures of the target vegetation surfaces in the Heated plots in Degrees C that have been adjusted for radiation from the heaters that has been reflected off the vegetation into the IRTs,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TadjH_Avg.2.,,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TadjH_Avg.3.,,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TtarRCavg_Avg,Average of vegetation temperature in the 3 plots with no heating (C).,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TadjHavg_Avg,Average of vegetation temperature in the 3 plots with heating (C).,deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+T_Diffrns_Avg,Difference between average Heated plot temperature (adjusted) and average Reference (or Control) plot temperatures (C),deg C,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+PID_out_Avg,Proportional-Integrative-Derivative control variable for the heated plots,NA,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+PID_lmt_Avg,"PID variable scaled and limited to be within 0 to 10 volts. If you multiply this value by 10, you will have the percentage of full capacity the heaters are on.",NA,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+ScldOut_Avg,"Scada variable scaled to what is needed by SDM-CV04 to produce 0-10V output. For a CR1000 logger, this is simply multiplying PID_lmt by 1000, but some other loggers have an offset.",NA,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+TheaterTC_Avg,Surface Temperature of Heater in H4 (C),NA,numeric,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
